@@ -15,6 +15,7 @@ import LandingPage  from './_Page-Landing';
 import AdminOrdersPage from './_Page-_Admin-Orders';
 import CheckoutSuccessPage from './_Page-Checkout-Success';
 import AuthLoginPage from './_Page-_Auth-Login';
+import ForumPage from './_Page-Forum';
 
 // context providers:
 import CartContextProvider from './context/cart-context';
@@ -182,9 +183,9 @@ const Pages = () => {
         <Route path="/about"            element={<AboutPage           />} />
         <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
         <Route path="/store"            element={<StorePage           />} />
-        {/* <Route path="/"                 element={<LandingPage         init_map={false} />} /> */}
         <Route path="/map"              element={<LandingPage         init_map={true} />} />
-        <Route path="/*"                element={<LandingPage         init_map={false}  />} />
+        {/* <Route path="/*"                element={<LandingPage         init_map={false}  />} /> */}
+        <Route path="/*"                element={<ForumPage         init_map={false}  />} />
         {/* <Route path="/*"                element={<ErrorPage />} /> */}
       </Routes>
     </AnimatePresence>
