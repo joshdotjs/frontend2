@@ -180,12 +180,12 @@ const Pages = () => {
       <Routes location={location} key={location.key}>
         { admin_routes }
         { user_routes } 
+        <Route path="/forum/:thread_id" element={<ForumPage           />} />
         <Route path="/about"            element={<AboutPage           />} />
         <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
         <Route path="/store"            element={<StorePage           />} />
-        <Route path="/map"              element={<LandingPage         init_map={true} />} />
-        {/* <Route path="/*"                element={<LandingPage         init_map={false}  />} /> */}
-        <Route path="/*"                element={<ForumPage         init_map={false}  />} />
+        <Route path="/map"              element={<LandingPage         init_map={true}   />} />
+        <Route path="/*"                element={<ForumPage           init_map={false}  />} />
         {/* <Route path="/*"                element={<ErrorPage />} /> */}
       </Routes>
     </AnimatePresence>

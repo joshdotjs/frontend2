@@ -1,5 +1,6 @@
 // libs:
 import { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 
 // comps:
 import Layout from './_layout';
@@ -18,12 +19,14 @@ export default function ForumPage () {
 
   // ============================================
 
+  const { thread_id } = useParams(); // 'id' matches the name specified in the route
   const [posts, setPosts] = useState([]);
 
   // ============================================
 
   const getPosts = async () => {
-    const promise = http({ url: apiUrl('posts/thread/1') });
+    const url = apiUrl(`posts/thread/${thread_id}`);
+    const promise = http({ url });
     const [data, error] = await asynch( promise );
     if (error) {
       console.error(error);
