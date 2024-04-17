@@ -182,7 +182,7 @@ const Pages = () => {
         { admin_routes }
         { user_routes } 
         <Route path="/forum/thread/:thread_id"   element={<ForumThreadPage       />} />
-        {/* <Route path="/forum/section/:section_id" element={<ForumSectionPage      />} /> */}
+        <Route path="/forum/section/:section_id" element={<ForumSectionPage      />} />
         <Route path="/about"                     element={<AboutPage             />} />
         <Route path="/checkout-success"          element={<CheckoutSuccessPage   />} />
         <Route path="/store"                     element={<StorePage             />} />

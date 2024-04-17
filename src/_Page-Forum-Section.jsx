@@ -20,7 +20,7 @@ export default function ForumSectionPage () {
   // ============================================
 
   const { section_id } = useParams(); // 'id' matches the name specified in the route
-  const [threads, setThreadss] = useState([]);
+  const [threads, setThreads] = useState([]);
 
   // ============================================
 
