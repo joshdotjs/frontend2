@@ -62,7 +62,10 @@ export default function ForumPage () {
                 borderBottom: 'solid 1px #ccc',
               }}
             >
-              <h5>{section.title}</h5>
+              <a
+                href={`/forum/section/${section.id}`}
+                >{section.title}
+              </a>
             </li>
           );
         })}
