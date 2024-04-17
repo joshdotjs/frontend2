@@ -77,7 +77,10 @@ export default function ForumSectionPage () {
   return (
     <Layout navbar={false} footer={false}>
 
-      <h2>Threads for Section TODO</h2>
+      <a href="/forum">Forum Home</a>
+
+      <h2>Threads for Section {section_id}</h2>
+      {/* <h2>Threads for Section {threads?.[0]?.section_title}</h2> */}
 
       <ul
         style={{
@@ -93,7 +96,7 @@ export default function ForumSectionPage () {
                 borderBottom: 'solid 1px #ccc',
               }}
             >
-              <h5>{thread.title}</h5>
+              <a href={`/forum/thread/${thread.id}`}>{thread.title}</a>
             </li>
           );
         })}
