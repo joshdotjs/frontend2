@@ -21,6 +21,7 @@ export default function ForumPage () {
 
   const { thread_id } = useParams(); // 'id' matches the name specified in the route
   const [posts, setPosts] = useState([]);
+  const [reply, setReply] = useState(''); // [reply, setReply
 
   // ============================================
 
@@ -49,7 +50,7 @@ export default function ForumPage () {
     const post = { 
       user_id: 1, // TODO: get user_id from auth
       thread_id: Number(thread_id),
-      content: 'NEW CONTENT BITCH',
+      content: reply,
     };
     console.log('post: ', post);
 
@@ -67,6 +68,9 @@ export default function ForumPage () {
       console.log(error);
       return;
     }
+
+    setReply('');
+    getPosts();
   };
 
   // ============================================
@@ -96,6 +100,13 @@ export default function ForumPage () {
         })}
       </ul>
 
+      <textarea
+        type="text"
+        value={reply}
+        onChange={(e) => setReply(e.target.value)}
+      >
+
+      </textarea>
       <button onClick={() => createPost()}>Reply</button>
     </Layout>
   );
