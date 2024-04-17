@@ -15,7 +15,8 @@ import LandingPage  from './_Page-Landing';
 import AdminOrdersPage from './_Page-_Admin-Orders';
 import CheckoutSuccessPage from './_Page-Checkout-Success';
 import AuthLoginPage from './_Page-_Auth-Login';
-import ForumPage from './_Page-Forum';
+import ForumThreadPage from './_Page-Forum-Thread';
+import ForumSectionPage from './_Page-Forum-Section';
 
 // context providers:
 import CartContextProvider from './context/cart-context';
@@ -180,12 +181,13 @@ const Pages = () => {
       <Routes location={location} key={location.key}>
         { admin_routes }
         { user_routes } 
-        <Route path="/forum/:thread_id" element={<ForumPage           />} />
-        <Route path="/about"            element={<AboutPage           />} />
-        <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
-        <Route path="/store"            element={<StorePage           />} />
-        <Route path="/map"              element={<LandingPage         init_map={true}   />} />
-        <Route path="/*"                element={<ForumPage           init_map={false}  />} />
+        <Route path="/forum/thread/:thread_id"   element={<ForumThreadPage       />} />
+        {/* <Route path="/forum/section/:section_id" element={<ForumSectionPage      />} /> */}
+        <Route path="/about"                     element={<AboutPage             />} />
+        <Route path="/checkout-success"          element={<CheckoutSuccessPage   />} />
+        <Route path="/store"                     element={<StorePage             />} />
+        <Route path="/map"                       element={<LandingPage         init_map={true}   />} />
+        <Route path="/*"                         element={<LandingPage         init_map={false}  />} />
         {/* <Route path="/*"                element={<ErrorPage />} /> */}
       </Routes>
     </AnimatePresence>

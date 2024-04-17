@@ -15,11 +15,12 @@ import { asynch } from './util/async';
 // ==============================================
 // ==============================================
 
-export default function ForumPage () {
+export default function ForumThreadPage () {
 
   // ============================================
 
   const { thread_id } = useParams(); // 'id' matches the name specified in the route
+  console.log('thread_id: ', thread_id);
   const [posts, setPosts] = useState([]);
   const [reply, setReply] = useState(''); // [reply, setReply
 
