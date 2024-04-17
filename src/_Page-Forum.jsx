@@ -48,22 +48,22 @@ export default function ForumPage () {
   const createPost = async () => {
     const post = { 
       user_id: 1, // TODO: get user_id from auth
+      thread_id: Number(thread_id),
       content: 'NEW CONTENT BITCH',
-      
     };
-    console.log('order: ', order);
+    console.log('post: ', post);
 
-    const URL = apiUrl('orders');
+    const URL = apiUrl('posts');
     const promise = http({ 
       url: URL, 
       method: 'POST', 
-      body: order 
+      body: post
     });
 
     const [data, error] = await asynch( promise );
     if (error) {
-      notify({message: 'Error creating order...', variant: 'error', duration: 4000})();
-      console.log('if(error) in checkout()');
+      // notify({message: 'Error creating post...', variant: 'error', duration: 4000})();
+      console.log('if(error) in createPost()');
       console.log(error);
       return;
     }
@@ -96,7 +96,7 @@ export default function ForumPage () {
         })}
       </ul>
 
-      <button>Reply</button>
+      <button onClick={() => createPost()}>Reply</button>
     </Layout>
   );
 };
