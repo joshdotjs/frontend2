@@ -15,8 +15,9 @@ import LandingPage  from './_Page-Landing';
 import AdminOrdersPage from './_Page-_Admin-Orders';
 import CheckoutSuccessPage from './_Page-Checkout-Success';
 import AuthLoginPage from './_Page-_Auth-Login';
-import ForumThreadPage from './_Page-Forum-Thread';
+import ForumPage from './_Page-Forum';
 import ForumSectionPage from './_Page-Forum-Section';
+import ForumThreadPage from './_Page-Forum-Thread';
 
 // context providers:
 import CartContextProvider from './context/cart-context';
@@ -181,8 +182,9 @@ const Pages = () => {
       <Routes location={location} key={location.key}>
         { admin_routes }
         { user_routes } 
-        <Route path="/forum/thread/:thread_id"   element={<ForumThreadPage       />} />
+        <Route path="/forum"                     element={<ForumPage             />} />
         <Route path="/forum/section/:section_id" element={<ForumSectionPage      />} />
+        <Route path="/forum/thread/:thread_id"   element={<ForumThreadPage       />} />
         <Route path="/about"                     element={<AboutPage             />} />
         <Route path="/checkout-success"          element={<CheckoutSuccessPage   />} />
         <Route path="/store"                     element={<StorePage             />} />
