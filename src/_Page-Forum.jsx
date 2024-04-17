@@ -41,9 +41,38 @@ export default function ForumPage () {
   }, []);
 
   // ============================================
+
+  const createPost = async () => {
+    const post = { 
+      user_id: 1, // TODO: get user_id from auth
+      content: 'NEW CONTENT BITCH',
+      
+    };
+    console.log('order: ', order);
+
+    const URL = apiUrl('orders');
+    const promise = http({ 
+      url: URL, 
+      method: 'POST', 
+      body: order 
+    });
+
+    const [data, error] = await asynch( promise );
+    if (error) {
+      notify({message: 'Error creating order...', variant: 'error', duration: 4000})();
+      console.log('if(error) in checkout()');
+      console.log(error);
+      return;
+    }
+  };
+
+  // ============================================
   
   return (
     <Layout navbar={false} footer={false}>
+
+      <h2>{posts?.[0]?.title}</h2>
+
       <ul
         style={{
           listStyle: 'none',
@@ -53,16 +82,18 @@ export default function ForumPage () {
         {posts.map((post) => {
           return (
             <li 
+              key={`post-${post.id}`}
               style={{
                 borderBottom: 'solid 1px #ccc',
               }}
             >
-              {post.reply_num === 0 && <h2>{post.title}</h2>}
               <h5>{post.content}</h5>
             </li>
           );
         })}
       </ul>
+
+      <button>Reply</button>
     </Layout>
   );
 };
