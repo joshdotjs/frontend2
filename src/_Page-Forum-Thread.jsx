@@ -49,7 +49,7 @@ export default function ForumThreadPage () {
 
   const createPost = async () => {
     const post = { 
-      user_id: 1, // TODO: get user_id from auth
+      // user_id: 1, // TODO: get user_id from auth
       thread_id: Number(thread_id),
       content: reply,
     };
@@ -104,7 +104,13 @@ export default function ForumThreadPage () {
               }}
             >
               <h5>{post.content}</h5>
-              <h6>by {post.first_name} ({post.is_admin ? 'Admin' : 'User'})</h6>
+              <h6>by 
+                {
+                  <span>
+                    {post.first_name} ({post.is_admin ? 'Admin' : 'User'} | {post.user_id})
+                  </span>
+                }
+              </h6>
             </li>
           );
         })}
