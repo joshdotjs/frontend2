@@ -104,7 +104,7 @@ export default function ForumThreadPage () {
               }}
             >
               <h5>{post.content}</h5>
-              
+              <h6>by {post.first_name} ({post.is_admin ? 'Admin' : 'User'})</h6>
             </li>
           );
         })}
