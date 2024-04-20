@@ -132,7 +132,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Register
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -178,17 +178,17 @@ export default function SignInSide() {
                 }}
                 data-cy="auth-login-button"
               >
-                Sign In
+                Register
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  {/* <Link href="#" variant="body2">
                     Forgot password?
-                  </Link>
+                  </Link> */}
                 </Grid>
                 <Grid item>
-                  <Link href="/auth/register" variant="body2">
-                    {"Sign Up"}
+                  <Link href="/auth/login" variant="body2">
+                    {"Log In"}
                   </Link>
                 </Grid>
               </Grid>

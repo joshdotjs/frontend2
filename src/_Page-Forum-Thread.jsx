@@ -1,9 +1,15 @@
 // libs:
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 // comps:
 import Layout from './_layout';
+
+// context:
+import { AuthContext } from './context/auth-context';
+
+// hooks:
+import { useNavigate } from 'react-router-dom';
 
 // utils:
 import { http } from './util/http';
@@ -18,6 +24,12 @@ import { asynch } from './util/async';
 export default function ForumThreadPage () {
 
   // ============================================
+
+  const { user } = useContext(AuthContext);
+  console.log('user: ', user);
+  console.log('user.logged_in: ', user.logged_in);  
+
+  const navigate = useNavigate();
 
   const { thread_id } = useParams(); // 'id' matches the name specified in the route
   console.log('thread_id: ', thread_id);
@@ -123,7 +135,12 @@ export default function ForumThreadPage () {
       >
 
       </textarea>
-      <button onClick={() => createPost()}>Reply</button>
+      <button onClick={() => {
+        if (!user.logged_in)
+          navigate('/auth/login');
+        
+        createPost();
+      }}>Reply</button>
     </Layout>
   );
 };

@@ -15,6 +15,7 @@ import LandingPage  from './_Page-Landing';
 import AdminOrdersPage from './_Page-_Admin-Orders';
 import CheckoutSuccessPage from './_Page-Checkout-Success';
 import AuthLoginPage from './_Page-_Auth-Login';
+import AuthRegisterPage from './_Page-_Auth-Register';
 import ForumPage from './_Page-Forum';
 import ForumSectionPage from './_Page-Forum-Section';
 import ForumThreadPage from './_Page-Forum-Thread';
@@ -160,7 +161,8 @@ const Pages = () => {
   
   if ( !user?.logged_in ) {
     user_routes = <>
-      <Route path="/auth/login"       element={<AuthLoginPage  />} />
+      <Route path="/auth/login"       element={<AuthLoginPage     />} />
+      <Route path="/auth/register"    element={<AuthRegisterPage  />} />
     </>;
   } else {
     user_routes = <>
