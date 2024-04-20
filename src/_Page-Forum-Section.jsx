@@ -1,9 +1,16 @@
 // libs:
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 // comps:
 import Layout from './_layout';
+
+// context:
+import { AuthContext } from './context/auth-context';
+
+// hooks:
+import { useNotification } from './hooks/use-notification';
+import { useNavigate } from 'react-router-dom';
 
 // utils:
 import { http } from './util/http';
@@ -22,6 +29,11 @@ export default function ForumSectionPage () {
   const { section_id } = useParams(); // 'id' matches the name specified in the route
   const [threads, setThreads] = useState([]);
   const [section, setSection] = useState({});
+
+  const { user } = useContext(AuthContext);
+
+  const [ notify ] = useNotification();
+  const navigate = useNavigate();
 
   // ============================================
 
@@ -47,32 +59,32 @@ export default function ForumSectionPage () {
 
   // ============================================
 
-  // const createThread = async () => {
-  //   const post = { 
-  //     user_id: 1, // TODO: get user_id from auth
-  //     thread_id: Number(thread_id),
-  //     content: reply,
-  //   };
-  //   console.log('post: ', post);
+  const createThread = async () => {
+    const post = { 
+      user_id: user.id, // TODO: get user_id from auth
+      thread_id: Number(thread_id),
+      content: reply,
+    };
+    console.log('post: ', post);
 
-  //   const URL = apiUrl('posts');
-  //   const promise = http({ 
-  //     url: URL, 
-  //     method: 'POST', 
-  //     body: post
-  //   });
+    const URL = apiUrl('posts');
+    const promise = http({ 
+      url: URL, 
+      method: 'POST', 
+      body: post
+    });
 
-  //   const [data, error] = await asynch( promise );
-  //   if (error) {
-  //     // notify({message: 'Error creating post...', variant: 'error', duration: 4000})();
-  //     console.log('if(error) in createPost()');
-  //     console.log(error);
-  //     return;
-  //   }
+    const [data, error] = await asynch( promise );
+    if (error) {
+      // notify({message: 'Error creating post...', variant: 'error', duration: 4000})();
+      console.log('if(error) in createPost()');
+      console.log(error);
+      return;
+    }
 
-  //   setReply('');
-  //   getPosts();
-  // };
+    setReply('');
+    getPosts();
+  };
 
   // ============================================
   
@@ -108,6 +120,21 @@ export default function ForumSectionPage () {
           );
         })}
       </ul>
+
+
+      <button
+        onClick={() => {
+          if (!user?.logged_in) {
+            notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
+            return navigate('/auth/login');
+          }
+            
+
+          createThread();
+        }}
+      >
+        Create Thread
+      </button>
       
     </Layout>
   );
