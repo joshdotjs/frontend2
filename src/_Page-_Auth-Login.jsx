@@ -56,45 +56,40 @@ export default function SignInSide() {
       console.log('if(error) in loginFn()');
       console.log(error);
       return;
-    } else {
-      notify({ message: 'successfully logged user in! 🙂', variant: 'success', duration: 2000 })();
-      console.log('data: ', data);
+    } // if (error)
+    
+    notify({ message: 'successfully logged user in! 🙂', variant: 'success', duration: 2000 })();
+    console.log('data: ', data);
 
-      const { user, token } = data;
-      console.log('user: ', user);
+    const { 
+      user: { id, email, first_name, last_name, is_admin }, 
+      token,
+    } = data;
 
-      const { id, email, first_name, last_name, is_admin } = user;
+    console.log('id: ', id);
+    console.log('email: ', email);
+    console.log('first_name: ', first_name);
+    console.log('last_name: ', last_name);
+    console.log('is_admin: ', is_admin);
+    console.log('token: ', token);
 
-      const USER = {
-        id,
-        email,
-        first_name,
-        last_name,
-        password,
-        token,
-        is_admin,
-      };
+    const USER = {
+      id,
+      email,
+      first_name,
+      last_name,
+      password,
+      token,
+      is_admin,
+    };
 
-      logIn(USER);
-    }
-
+    logIn(USER);
   };
 
   // ============================================
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-
-  // ============================================
-
-  const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  };
 
   // ============================================
 
@@ -134,7 +129,17 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box 
+              component="form" 
+              noValidate 
+              onSubmit={(e) => {
+                e.preventDefault();
+                loginFn({ email, password });
+                setEmail('');
+                setPassword('');
+              }} 
+              sx={{ mt: 1 }}
+            >
               <TextField
                 margin="normal"
                 required
@@ -170,12 +175,6 @@ export default function SignInSide() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  loginFn({ email, password });
-                  setEmail('');
-                  setPassword('');
-                }}
                 data-cy="auth-login-button"
               >
                 Sign In

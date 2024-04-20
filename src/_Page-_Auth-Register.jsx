@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -36,29 +37,37 @@ export default function SignInSide() {
 
   // ============================================
 
-  const [ notify ] = useNotification();
-  const { logIn }  = React.useContext(AuthContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
 
   // ============================================
 
-  const loginFn = async (user) => {
-    notify({ message: 'logging user in...', variant: 'info', duration: 1000 })();
-    const URL = apiUrl('auth/login');
+  const [ notify ] = useNotification();
+  const { logIn }  = useContext(AuthContext);
 
+  // ============================================
+
+  const registerFn = async (user) => {
+    notify({ message: 'logging user in...', variant: 'info', duration: 1000 })();
+    const URL = apiUrl('auth/register');
     const promise = http({ url: URL, method: 'POST', body: { 
       email: user.email,
       password: user.password,
+      first_name: user.first_name,
+      last_name: user.last_name,
     } });
 
     const [data, error] = await asynch( promise );
     if (error) {
-      notify({ message: 'error logging user in...', variant: 'error', duration: 3000 })();
-      console.log('if(error) in loginFn()');
+      notify({ message: 'error registering...', variant: 'error', duration: 3000 })();
+      console.log('if(error) in registerFn()');
       console.log(error);
       return;
     } // if (error)
     
-    notify({ message: 'successfully logged user in! 🙂', variant: 'success', duration: 2000 })();
+    notify({ message: 'successfully registered! 🙂', variant: 'success', duration: 2000 })();
     console.log('data: ', data);
 
     const { 
@@ -84,24 +93,6 @@ export default function SignInSide() {
     };
 
     logIn(USER);
-    
-
-  };
-
-  // ============================================
-
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  // ============================================
-
-  const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
   };
 
   // ============================================
@@ -142,7 +133,17 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Register
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box 
+              component="form" 
+              noValidate 
+              sx={{ mt: 1 }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                registerFn({ email, password,  first_name, last_name});
+                setEmail('');
+                setPassword('');
+              }}
+            >
               <TextField
                 margin="normal"
                 required
@@ -169,6 +170,32 @@ export default function SignInSide() {
                 value={password}
                 data-cy="auth-password-text-field"
               />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="first_name"
+                label="First Name"
+                // type=""
+                id="first_name"
+                // autoComplete="current-password"
+                onChange={e => setFirstName(e.target.value)}
+                value={first_name}
+                data-cy="auth-password-text-field"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="last_name"
+                label="Last Name"
+                // type=""
+                id="last_name"
+                // autoComplete="current-password"
+                onChange={e => setLastName(e.target.value)}
+                value={last_name}
+                data-cy="auth-password-text-field"
+              />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
@@ -178,12 +205,6 @@ export default function SignInSide() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  loginFn({ email, password });
-                  setEmail('');
-                  setPassword('');
-                }}
                 data-cy="auth-login-button"
               >
                 Register
