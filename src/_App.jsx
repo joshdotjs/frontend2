@@ -18,6 +18,7 @@ import AuthLoginPage from './_Page-_Auth-Login';
 import ForumPage from './_Page-Forum';
 import ForumSectionPage from './_Page-Forum-Section';
 import ForumThreadPage from './_Page-Forum-Thread';
+import UserProfilePage from './_Page-User-Profile';
 
 // context providers:
 import CartContextProvider from './context/cart-context';
@@ -188,6 +189,7 @@ const Pages = () => {
         <Route path="/about"                     element={<AboutPage             />} />
         <Route path="/checkout-success"          element={<CheckoutSuccessPage   />} />
         <Route path="/store"                     element={<StorePage             />} />
+        <Route path="/user-profile"              element={<UserProfilePage       />} />
         <Route path="/map"                       element={<LandingPage         init_map={true}   />} />
         <Route path="/*"                         element={<LandingPage         init_map={false}  />} />
         {/* <Route path="/*"                element={<ErrorPage />} /> */}
