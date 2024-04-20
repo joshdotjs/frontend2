@@ -13,8 +13,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary">
       {'Copyright © '}
-      <Link color="inherit" href="https://www.node-web-app.com">
-        node-web-app.com
+      <Link color="inherit" href="https://www.tulsaForums.com">
+        TulsaForums.com
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -51,7 +51,7 @@ export default function Footer({ initial, animate, exit}) {
       >
         <Container maxWidth="sm">
           <Typography variant="body1">
-            eCommerce Demo by Josh Holloway
+            Tulsa Forums
           </Typography>
           <Copyright />
         </Container>
