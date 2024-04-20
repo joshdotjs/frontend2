@@ -56,27 +56,35 @@ export default function SignInSide() {
       console.log('if(error) in loginFn()');
       console.log(error);
       return;
-    } else {
-      notify({ message: 'successfully logged user in! 🙂', variant: 'success', duration: 2000 })();
-      console.log('data: ', data);
+    } // if (error)
+    
+    notify({ message: 'successfully logged user in! 🙂', variant: 'success', duration: 2000 })();
+    console.log('data: ', data);
 
-      const { user, token } = data;
-      console.log('user: ', user);
+    const { 
+      user: { id, email, first_name, last_name, is_admin }, 
+      token,
+    } = data;
 
-      const { id, email, first_name, last_name, is_admin } = user;
+    console.log('id: ', id);
+    console.log('email: ', email);
+    console.log('first_name: ', first_name);
+    console.log('last_name: ', last_name);
+    console.log('is_admin: ', is_admin);
+    console.log('token: ', token);
 
-      const USER = {
-        id,
-        email,
-        first_name,
-        last_name,
-        password,
-        token,
-        is_admin,
-      };
+    const USER = {
+      id,
+      email,
+      first_name,
+      last_name,
+      password,
+      token,
+      is_admin,
+    };
 
-      logIn(USER);
-    }
+    logIn(USER);
+    
 
   };
 
