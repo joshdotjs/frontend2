@@ -47,7 +47,7 @@ export default function UserProfilePage () {
   // ============================================
   
   return (
-    <Layout navbar={false} footer={false}>
+    <Layout navbar={true} footer={true}>
 
       <div>
         <a href="/forum">Forum Home</a>

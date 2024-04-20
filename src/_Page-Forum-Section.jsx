@@ -75,7 +75,7 @@ export default function ForumSectionPage () {
   // ============================================
   
   return (
-    <Layout navbar={false} footer={false}>
+    <Layout navbar={true} footer={true}>
 
       <a href="/forum">Forum Home</a>
 

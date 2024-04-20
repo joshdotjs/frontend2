@@ -44,7 +44,7 @@ export default function ForumPage () {
   // ============================================
   
   return (
-    <Layout navbar={false} footer={false}>
+    <Layout navbar={true} footer={true}>
 
       <h2>Forum Sections</h2>
 
