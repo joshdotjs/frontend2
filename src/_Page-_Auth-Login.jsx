@@ -42,7 +42,7 @@ export default function SignInSide() {
   // ============================================
 
   const loginFn = async (user) => {
-    notify({ message: 'logging user in...', variant: 'info', duration: 1000 })();
+    notify({ message: 'logging user in...', variant: 'info', duration: 2000 })();
     const URL = apiUrl('auth/login');
 
     const promise = http({ url: URL, method: 'POST', body: { 
@@ -52,13 +52,13 @@ export default function SignInSide() {
 
     const [data, error] = await asynch( promise );
     if (error) {
-      notify({ message: 'error logging user in...', variant: 'error', duration: 3000 })();
+      notify({ message: 'error logging user in...', variant: 'error', duration: 5000 })();
       console.log('if(error) in loginFn()');
       console.log(error);
       return;
     } // if (error)
     
-    notify({ message: 'successfully logged user in! 🙂', variant: 'success', duration: 2000 })();
+    notify({ message: 'successfully logged user in! 🙂', variant: 'success', duration: 3000 })();
     console.log('data: ', data);
 
     const { 

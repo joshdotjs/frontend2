@@ -49,25 +49,24 @@ export default function SignInSide() {
 
   // ============================================
 
-  const registerFn = async (user) => {
-    notify({ message: 'logging user in...', variant: 'info', duration: 1000 })();
-    const URL = apiUrl('auth/register');
+  const loginFn = async (user) => {
+    notify({ message: 'logging user in...', variant: 'info', duration: 2000 })();
+    const URL = apiUrl('auth/login');
+
     const promise = http({ url: URL, method: 'POST', body: { 
       email: user.email,
       password: user.password,
-      first_name: user.first_name,
-      last_name: user.last_name,
     } });
 
     const [data, error] = await asynch( promise );
     if (error) {
-      notify({ message: 'error registering...', variant: 'error', duration: 3000 })();
-      console.log('if(error) in registerFn()');
+      notify({ message: 'error logging user in...', variant: 'error', duration: 5000 })();
+      console.log('if(error) in loginFn()');
       console.log(error);
       return;
     } // if (error)
     
-    notify({ message: 'successfully registered! 🙂', variant: 'success', duration: 2000 })();
+    notify({ message: 'successfully logged user in! 🙂', variant: 'success', duration: 3000 })();
     console.log('data: ', data);
 
     const { 
@@ -93,6 +92,32 @@ export default function SignInSide() {
     };
 
     logIn(USER);
+  };
+
+  // ============================================
+
+  const registerFn = async (user) => {
+    notify({ message: 'logging user in...', variant: 'info', duration: 2000 })();
+    const URL = apiUrl('auth/register');
+    const promise = http({ url: URL, method: 'POST', body: { 
+      email: user.email,
+      password: user.password,
+      first_name: user.first_name,
+      last_name: user.last_name,
+    } });
+
+    const [data, error] = await asynch( promise );
+    if (error) {
+      notify({ message: 'error registering...', variant: 'error', duration: 5000 })();
+      console.log('if(error) in registerFn()');
+      console.log(error);
+      return;
+    } // if (error)
+    
+    notify({ message: 'successfully registered! 🙂', variant: 'success', duration: 3000 })();
+    console.log('data: ', data);
+
+    loginFn(user);
   };
 
   // ============================================
