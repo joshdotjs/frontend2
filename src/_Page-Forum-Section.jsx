@@ -21,6 +21,7 @@ export default function ForumSectionPage () {
 
   const { section_id } = useParams(); // 'id' matches the name specified in the route
   const [threads, setThreads] = useState([]);
+  const [section, setSection] = useState({});
 
   // ============================================
 
@@ -34,7 +35,8 @@ export default function ForumSectionPage () {
       return;
     }
     console.log('data: ', data);
-    setThreads(data);
+    setThreads(data.threads);
+    setSection(data.section);
   };
 
   // ============================================
@@ -79,7 +81,12 @@ export default function ForumSectionPage () {
 
       <a href="/forum">Forum Home</a>
 
-      <h2>Threads for Section {section_id}</h2>
+      <h2>
+        <span style={{ fontWeight: '100'}}>
+          Threads for Section: 
+        </span> 
+         {' '}{section.title}
+        </h2>
       {/* <h2>Threads for Section {threads?.[0]?.section_title}</h2> */}
 
       <ul
