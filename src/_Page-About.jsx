@@ -3,11 +3,6 @@ import { Container, Typography, Paper, Box, Button  } from '@mui/material';
 import Layout from './_layout';
 import level_up from './assets/level-up.gif';
 
-// import Album from './temp/album/Album';
-// import SignInSide from './temp/sign-in-side/SignInSide';
-import Dashboard from './temp/dashboard/Dashboard';
-import CheckoutSuccess from './_Page-Checkout-Success';
-
 // ==============================================
 // ==============================================
 // ==============================================
@@ -30,12 +25,6 @@ export default function AboutPage () {
         </Box>
 
       </Container>
-
-
-      {/* <Album /> */}
-      {/* <SignInSide /> */}
-      {/* <Dashboard /> */}
-      <CheckoutSuccess />
     </Layout>
   );
 };
