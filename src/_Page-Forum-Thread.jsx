@@ -10,6 +10,7 @@ import { AuthContext } from './context/auth-context';
 
 // hooks:
 import { useNavigate } from 'react-router-dom';
+import { useNotification } from './hooks/use-notification';
 
 // utils:
 import { http } from './util/http';
@@ -25,16 +26,14 @@ export default function ForumThreadPage () {
 
   // ============================================
 
-  const { user } = useContext(AuthContext);
-  console.log('user: ', user);
-  console.log('user.logged_in: ', user.logged_in);  
-
-  const navigate = useNavigate();
-
-  const { thread_id } = useParams(); // 'id' matches the name specified in the route
-  console.log('thread_id: ', thread_id);
   const [posts, setPosts] = useState([]);
-  const [reply, setReply] = useState(''); // [reply, setReply
+  const [reply, setReply] = useState('');
+
+  const { thread_id } = useParams();
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [ notify ] = useNotification();
+
 
   // ============================================
 
@@ -136,8 +135,10 @@ export default function ForumThreadPage () {
 
       </textarea>
       <button onClick={() => {
-        if (!user.logged_in)
-          navigate('/auth/login');
+        if (!user.logged_in) {
+          notify({message: 'Please log in to post a reply...', variant: 'warning', duration: 3000})();
+          return navigate('/auth/login');
+        }
         
         createPost();
       }}>Reply</button>

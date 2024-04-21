@@ -9,8 +9,8 @@ import Layout from './_layout';
 import { AuthContext } from './context/auth-context';
 
 // hooks:
-import { useNotification } from './hooks/use-notification';
 import { useNavigate } from 'react-router-dom';
+import { useNotification } from './hooks/use-notification';
 
 // utils:
 import { http } from './util/http';
@@ -26,14 +26,13 @@ export default function ForumSectionPage () {
 
   // ============================================
 
-  const { section_id } = useParams(); // 'id' matches the name specified in the route
   const [threads, setThreads] = useState([]);
   const [section, setSection] = useState({});
 
+  const { section_id } = useParams();
   const { user } = useContext(AuthContext);
-
-  const [ notify ] = useNotification();
   const navigate = useNavigate();
+  const [ notify ] = useNotification();
 
   // ============================================
 
