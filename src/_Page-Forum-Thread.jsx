@@ -1,6 +1,7 @@
 // libs:
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // comps:
 import Layout from './_layout';
@@ -115,11 +116,11 @@ export default function ForumThreadPage () {
               }}
             >
               <h5>{post.content}</h5>
-              <h6>by 
+              <h6>by{' '}
                 {
-                  <span>
+                  <Link to={`/user-profile/${post.user_id}`}>
                     {post.first_name} ({post.is_admin ? 'Admin' : 'User'} | {post.user_id})
-                  </span>
+                  </Link>
                 }
               </h6>
             </li>
