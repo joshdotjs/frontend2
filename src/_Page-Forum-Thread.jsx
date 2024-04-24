@@ -39,8 +39,8 @@ export default function ForumThreadPage () {
   // ============================================
 
   const getPosts = async () => {
-    const url = apiUrl(`posts/thread/${thread_id}`);
-    const promise = http({ url });
+    const route = `posts/thread/${thread_id}`;
+    const promise = http({ url: apiUrl(route) });
     const [data, error] = await asynch( promise );
     if (error) {
       console.error(error);

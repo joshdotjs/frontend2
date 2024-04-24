@@ -34,6 +34,9 @@ export default function ForumSectionPage () {
   const navigate = useNavigate();
   const [ notify ] = useNotification();
 
+  const [title, setTitle] = useState('New Thread');
+  const [content, setContent] = useState('New Content');
+
   // ============================================
 
   const getThreads = async () => {
@@ -60,16 +63,16 @@ export default function ForumSectionPage () {
 
   const createThread = async () => {
     const post = { 
-      user_id: user.id, // TODO: get user_id from auth
-      thread_id: Number(thread_id),
-      content: reply,
+      section_id: Number(section_id),
+      title,
+      content,
     };
     console.log('post: ', post);
 
-    const URL = apiUrl('posts');
+    const URL = apiUrl('threads');
     const promise = http({ 
       url: URL, 
-      method: 'POST', 
+      method: 'POST',
       body: post
     });
 
@@ -81,8 +84,9 @@ export default function ForumSectionPage () {
       return;
     }
 
-    setReply('');
-    getPosts();
+    setTitle('');
+    setContent('');
+    getThreads();
   };
 
   // ============================================
@@ -121,19 +125,32 @@ export default function ForumSectionPage () {
       </ul>
 
 
-      <button
-        onClick={() => {
-          if (!user?.logged_in) {
-            notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
-            return navigate('/auth/login');
-          }
-            
+      <div>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        >
+        </input>
+        <textarea
+          type="text"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
 
-          createThread();
-        }}
-      >
-        Create Thread
-      </button>
+        <button
+          onClick={() => {
+            if (!user?.logged_in) {
+              notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
+              return navigate('/auth/login');
+            }
+              
+            createThread();
+          }}
+        >
+          Create Thread
+        </button>
+      </div>
       
     </Layout>
   );
