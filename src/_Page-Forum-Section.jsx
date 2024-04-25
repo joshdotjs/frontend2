@@ -145,7 +145,6 @@ export default function ForumSectionPage () {
         })}
       </ul>
 
-
       {/* Create New Thread */}
       {/* Create New Thread */}
       {/* Create New Thread */}
@@ -153,7 +152,18 @@ export default function ForumSectionPage () {
       <div>
 
         <div>
-          <Button onClick={handleOpen}>Create Thread</Button>
+          <Button 
+            onClick={() => {
+              if (!user?.logged_in) {
+                notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
+                return navigate('/auth/login');
+              }
+
+              handleOpen();
+            }}
+          >
+            Create Thread
+          </Button>
           <Modal
             open={open}
             onClose={handleClose}
@@ -175,12 +185,7 @@ export default function ForumSectionPage () {
               />
 
               <button
-                onClick={() => {
-                  if (!user?.logged_in) {
-                    notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
-                    return navigate('/auth/login');
-                  }
-                    
+                onClick={() => {                   
                   setOpen(false);
                   createThread();
                 }}

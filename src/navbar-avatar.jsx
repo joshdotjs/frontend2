@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -15,6 +16,9 @@ import Logout from '@mui/icons-material/Logout';
 import { AuthContext } from './context/auth-context';
 import { useNotification } from './hooks/use-notification';
 
+// hooks:
+import { useNavigate } from 'react-router-dom';
+
 // ==============================================
 // ==============================================
 // ==============================================
@@ -24,19 +28,18 @@ export default function UserAvatar() {
 
   // ============================================
 
-  const { logOut } = React.useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [ notify ] = useNotification();
+  const navigate = useNavigate();
 
   // ============================================
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    notify({ message: 'successfully logged user out! 🙂', variant: 'success', duration: 2000 })();
-    logOut();
     setAnchorEl(null);
   };
   return (
@@ -63,8 +66,8 @@ export default function UserAvatar() {
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
-        onClose={handleClose}
-        onClick={handleClose}
+        // onClose={handleClose}
+        // onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -97,7 +100,10 @@ export default function UserAvatar() {
         {/* <MenuItem onClick={handleClose}>
           <Avatar /> Profile
         </MenuItem> */}
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => {
+          const path = `/user-profile/${user.id}`;
+          return navigate(path);
+        }}>
           <Avatar />Account
         </MenuItem>
         <Divider />
@@ -107,14 +113,19 @@ export default function UserAvatar() {
           </ListItemIcon>
           Add another account
         </MenuItem> */}
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => {
+          alert('coming soon!')
+        }}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
         </MenuItem>
         <MenuItem 
-          onClick={handleClose}
+          onClick={() => {
+            logOut();
+            notify({ message: 'successfully logged user out! 🙂', variant: 'success', duration: 3000 })();
+          }}
           data-cy="navbar-logout-button"
         >
           <ListItemIcon>
