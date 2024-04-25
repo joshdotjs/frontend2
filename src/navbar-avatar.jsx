@@ -55,7 +55,7 @@ export default function UserAvatar() {
             aria-expanded={open ? 'true' : undefined}
             data-cy="navbar-avatar-button"
           >
-            <Avatar sx={{ width: 32, height: 32 }}>J</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>{ user?.first_name?.at(0).toUpperCase() }</Avatar>
           </IconButton>
         </Tooltip>          
       </Box>
