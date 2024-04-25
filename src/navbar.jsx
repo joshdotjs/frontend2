@@ -34,7 +34,7 @@ const pages = [
   { title: 'About',    route: '/about',          logged_in: false, admin: false },
   { title: 'Users',    route: '/admin/users',    logged_in: false, admin: true },
   { title: 'Login',    route: '/auth/login',     logged_in: true, admin: false },
-  { title: 'Forum',    route: '/forum',          logged_in: false, admin: false }, 
+  { title: 'Forum',    route: '/',               logged_in: false, admin: false }, 
 ];
 
 // ==============================================

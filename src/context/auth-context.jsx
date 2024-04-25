@@ -72,7 +72,7 @@ function AuthContextProvider ({ children }) {
     setLS('user', USER); // mysql 1 => true
     
     if (user?.is_admin) {
-      navigate('/admin/orders')
+      navigate('/admin/users');
     }
     // else
     //   router.push('/user');

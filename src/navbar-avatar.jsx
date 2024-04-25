@@ -125,6 +125,7 @@ export default function UserAvatar() {
           onClick={() => {
             logOut();
             notify({ message: 'successfully logged user out! 🙂', variant: 'success', duration: 3000 })();
+            return navigate('/');
           }}
           data-cy="navbar-logout-button"
         >
