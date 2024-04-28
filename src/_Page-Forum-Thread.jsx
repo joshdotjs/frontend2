@@ -63,7 +63,7 @@ export default function ForumThreadPage () {
     const post = { 
       // user_id: 1, // TODO: get user_id from auth
       thread_id: Number(thread_id),
-      content: reply,
+      content: reply?.replace(/\n/g, '<br>'),
     };
     console.log('post: ', post);
 
@@ -115,7 +115,8 @@ export default function ForumThreadPage () {
                 borderBottom: 'solid 1px #ccc',
               }}
             >
-              <h5>{post.content}</h5>
+              {/* <p>{post.content}</p> */}
+              <p dangerouslySetInnerHTML={{ __html: post.content}}></p>
               <h6>by{' '}
                 {
                   <Link to={`/user-profile/${post.user_id}`}>
