@@ -45,11 +45,11 @@ export default function ForumThreadPage () {
 
   // ============================================
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [open_edit_modal, setOpenEditModal] = useState(false);
+  const handleOpenEditModal = () => setOpenEditModal(true);
+  const handleCloseEditModal = () => setOpenEditModal(false);
 
-  const style = {
+  const style_edit_modal = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -152,14 +152,14 @@ export default function ForumThreadPage () {
 
               { user.id === post.user_id &&
                 <>
-                  <Button onClick={handleOpen}>Edit</Button>
+                  <Button onClick={handleOpenEditModal}>Edit</Button>
                   <Modal
-                    open={open}
-                    onClose={handleClose}
+                    open={open_edit_modal}
+                    onClose={handleCloseEditModal}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                   >
-                    <Box sx={style}>
+                    <Box sx={style_edit_modal}>
                       <Typography id="modal-modal-title" variant="h6" component="h2">
                         Text in a modal
                       </Typography>
