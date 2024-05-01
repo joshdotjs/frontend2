@@ -5,11 +5,15 @@ import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import LinkIcon from '@mui/icons-material/Link';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+
+import ToggleButtonGroupCustom from './mui-toggle-button-group-custom';
+import ToggleButtonGroup from './mui-toggle-button-group';
 
 // ==============================================
 // ==============================================
@@ -110,7 +114,7 @@ export default function VerticalDividerMiddle({ setReply }) {
         variant="outlined"
         sx={{
           display: 'flex',
-          color: 'text.secondary',
+          // color: 'text.secondary',
           '& svg': {
             m: 1,
           },
@@ -124,8 +128,13 @@ export default function VerticalDividerMiddle({ setReply }) {
         <FormatAlignRightIcon />
         <Divider orientation="vertical" variant="middle" flexItem />
         <FormatBoldIcon />
-        <Button onClick={() => setOpenModal(true)}>Open modal</Button>
+        {/* <Button onClick={() => setOpenModal(true)}> */}
+          <LinkIcon onClick={() => setOpenModal(true)} />
+        {/* </Button> */}
       </Card>
+
+      <ToggleButtonGroupCustom />
+      <ToggleButtonGroup />
 
       <BasicModal open={open_modal} setOpen={setOpenModal} {...{ setReply }} />
     </>
