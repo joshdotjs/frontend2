@@ -3,8 +3,12 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+
 // comps:
 import Layout from './_layout';
+import IconGrouping from './mui-icon-grouping'
+import SnackbarElevateAppBar from './mui-snackbar-elevate-app-bar';
+import TextInputMultiLine from './mui-text-field-multiline';
 
 // context:
 import { AuthContext } from './context/auth-context';
@@ -29,8 +33,6 @@ export default function ForumThreadPage () {
 
   const [posts, setPosts] = useState([]);
   const [reply, setReply] = useState('');
-  const [link_label, setLinkLabel] = useState('');
-  const [link_url, setLinkUrl] = useState('');
 
   const { thread_id } = useParams();
   const { user } = useContext(AuthContext);
@@ -152,31 +154,10 @@ export default function ForumThreadPage () {
         </div>
       </div>
 
-      <div>
-        <div>
-          <label>
-            Label:{' '}
-            <input value={link_label} onChange={(e) => setLinkLabel(e.target.value)}></input>
-          </label>
-        </div>
-        <div>
-          <label>
-            URL:{' '}
-            <input value={link_url} onChange={(e) => setLinkUrl(e.target.value)}></input>
-          </label>
-        </div>
-        <button
-          onClick={() => {
-            setReply((prev) => {
-              // const str = `${prev}<a href="${link_label}">${link_url}</a>`;
-              const str = `${prev} [${link_label}](${link_url})`;
-              return str;
-            })
-          }}
-        >
-          Add Link
-        </button>
-      </div>
+
+      <IconGrouping {...{ setReply }} />
+      <TextInputMultiLine />
+      <SnackbarElevateAppBar />
     </Layout>
   );
 };
