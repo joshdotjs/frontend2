@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
 
 // comps:
 import Layout from './_layout';
@@ -37,6 +38,7 @@ export default function ForumThreadPage () {
 
   const [posts, setPosts] = useState([]);
   const [reply, setReply] = useState('');
+  const [updated_post, setUpdatedPost] = useState('');
 
   const { thread_id } = useParams();
   const { user } = useContext(AuthContext);
@@ -112,6 +114,35 @@ export default function ForumThreadPage () {
   };
 
   // ============================================
+
+  const updatePost = async (id) =>  {
+    const post = { 
+      // id: Number(id),
+      content: updated_post?.replace(/\n/g, '<br>'),
+    };
+    console.log('post: ', post);
+
+    const path = `posts/${id}`;
+    const url = apiUrl(path);
+    const promise = http({ 
+      url, 
+      method: 'PUT', 
+      body: post
+    });
+
+    const [data, error] = await asynch( promise );
+    if (error) {
+      // notify({message: 'Error updating post...', variant: 'error', duration: 4000})();
+      console.log('if(error) in updatePost()');
+      console.log(error);
+      return;
+    }
+
+    setUpdatedPost('');
+    getPosts();
+  };
+
+  // ============================================
   
   return (
     <Layout navbar={true} footer={true}>
@@ -152,7 +183,12 @@ export default function ForumThreadPage () {
 
               { user.id === post.user_id &&
                 <>
-                  <Button onClick={handleOpenEditModal}>Edit</Button>
+                  <Button onClick={() => {
+                    setUpdatedPost(post.content);
+                    handleOpenEditModal();
+                  }}>
+                    Edit
+                  </Button>
                   <Modal
                     open={open_edit_modal}
                     onClose={handleCloseEditModal}
@@ -166,6 +202,35 @@ export default function ForumThreadPage () {
                       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
                       </Typography>
+
+                      
+                      <Box
+                        component="form"
+                        sx={{
+                          '& .MuiTextField-root': { m: 1, width: '100%' },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                      >
+                        <TextField
+                          id="filled-multiline-static"
+                          label="Reply"
+                          multiline
+                          rows={4}
+                          // defaultValue="Default Value"
+                          variant="filled"
+                          value={updated_post}
+                          onChange={(e) => setUpdatedPost(e.target.value)}
+                        />
+                      </Box>
+
+                      <Button 
+                        onClick={() => {
+                          updatePost(post.id);
+                          handleCloseEditModal();
+                        }}
+                      >
+                        Update</Button>
                     </Box>
                   </Modal>
                 </>
