@@ -133,13 +133,17 @@ export default function ForumThreadPage () {
         })}
       </ul>
 
+
+
+
+      {/* <SnackbarElevateAppBar /> */}
       <div style={{ marginBottom: '1rem' }}>
-        <textarea
-          type="text"
-          value={reply}
-          onChange={(e) => setReply(e.target.value)}
-        >
-        </textarea>
+        { user.logged_in &&
+          <>
+            <IconGrouping {...{ setReply }} />
+            <TextInputMultiLine {...{ reply, setReply }} />
+          </>
+        }
         <div>
           <button onClick={() => {
             if (!user.logged_in) {
@@ -153,11 +157,6 @@ export default function ForumThreadPage () {
           </button>
         </div>
       </div>
-
-
-      <IconGrouping {...{ setReply }} />
-      <TextInputMultiLine />
-      <SnackbarElevateAppBar />
     </Layout>
   );
 };

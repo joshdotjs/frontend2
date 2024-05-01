@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
 
-export default function MultilineTextFields() {
+export default function MultilineTextFields({ reply, setReply }) {
   return (
     <Box
       component="form"
@@ -20,6 +20,8 @@ export default function MultilineTextFields() {
         rows={4}
         // defaultValue="Default Value"
         variant="filled"
+        value={reply}
+        onChange={(e) => setReply(e.target.value)}
       />
     </Box>
   );
