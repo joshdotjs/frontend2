@@ -1,9 +1,12 @@
 // libs:
 import { useState, useEffect, useRef } from 'react';
-import { Container } from '@mui/material';
+import { 
+  Container, 
+  Box
+} from '@mui/material';
 
-// comps:
-import Layout from './_layout';
+// hooks:
+import { useTheme } from '@mui/material/styles';
 
 // utils:
 import { http } from './util/http';
@@ -21,6 +24,7 @@ export default function ForumPage () {
   // ============================================
 
   const [sections, setSections] = useState([]);
+  const { j } = useTheme();
 
   // ============================================
 
@@ -46,35 +50,46 @@ export default function ForumPage () {
   // ============================================
   
   return (
-    <Layout navbar={true} footer={true}>
+    <Container>
+      <Typography 
+        variant="h2"
+        sx={{
+          mb: 2,
+        }}
+      >
+        Forum Sections
+      </Typography>
 
-      <Container>
-        <Typography variant="h2">Forum Sections</Typography>
-
-        <ul
-          style={{
-            listStyle: 'none',
-            padding: 0,
-          }}
-        >
-          {sections.map((section) => {
-            return (
-              <li 
-                key={`post-${section.id}`}
-                style={{
-                  borderBottom: 'solid 1px #ccc',
-                }}
-              >
-                <a
-                  href={`/forum/section/${section.id}`}
-                  >{section.title}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      
-      </Container>
-    </Layout>
+      <Box
+        sx={{
+          p: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+        }}
+      >
+        {sections.map((section) => {
+          return (
+            <Box
+              key={`post-${section.id}`}
+              sx={{
+                bgcolor: j.bg.secondary,
+                borderRadius: 2,
+                p: 2,
+                '&:hover': {
+                  background: '#f0f0f0',
+                }
+              }}
+            >
+              
+              <a
+                href={`/forum/section/${section.id}`}
+                >{section.title}
+              </a>
+            </Box>
+          );
+        })}
+      </Box>
+    </Container>
   );
 };

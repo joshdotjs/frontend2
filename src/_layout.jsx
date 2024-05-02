@@ -57,7 +57,12 @@ const theme = createTheme({
       primary: "white",
     },
   },
-
+  typography: {
+    h2: {
+      fontSize: '2rem',
+      fontWeight: 300,
+    }
+  }
 });
 
 // ==============================================

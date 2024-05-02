@@ -1,9 +1,9 @@
 // libs:
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-
-// comps:
-import Layout from './_layout';
+import {
+  Box, Container, Modal, Button, Typography
+} from '@mui/material';
 
 // context:
 import { AuthContext } from './context/auth-context';
@@ -11,28 +11,29 @@ import { AuthContext } from './context/auth-context';
 // hooks:
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from './hooks/use-notification';
+import { useTheme } from '@mui/material/styles';
 
 // utils:
 import { http } from './util/http';
 import { apiUrl } from './util/url';
 import { asynch } from './util/async';
 
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+// import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
+// import Modal from '@mui/material/Modal';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+// const style = {
+//   position: 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   width: 400,
+//   bgcolor: 'background.paper',
+//   border: '2px solid #000',
+//   boxShadow: 24,
+//   p: 4,
+// };
 
 // ==============================================
 // ==============================================
@@ -42,6 +43,8 @@ const style = {
 export default function ForumSectionPage () {
 
   // ============================================
+
+  const { j } = useTheme();
 
   const [threads, setThreads] = useState([]);
   const [section, setSection] = useState({});
@@ -113,93 +116,97 @@ export default function ForumSectionPage () {
   // ============================================
   
   return (
-    <Layout navbar={true} footer={true}>
+      <Container>
+        <Typography 
+          variant="h2"
+          sx={{
+            mb: 2,
+          }}
+        >
+          <span style={{ fontWeight: '100'}}>
+            Threads for Section: 
+          </span> 
+          {' '}{section.title}
+        </Typography>
 
-      <a href="/forum">Forum Home</a>
-
-      <h2>
-        <span style={{ fontWeight: '100'}}>
-          Threads for Section: 
-        </span> 
-         {' '}{section.title}
-        </h2>
-      {/* <h2>Threads for Section {threads?.[0]?.section_title}</h2> */}
-
-      <ul
-        style={{
-          listStyle: 'none',
-          padding: 0,
-        }}
-      >
-        {threads.map((thread) => {
-          return (
-            <li 
-              key={`post-${thread.id}`}
-              style={{
-                borderBottom: 'solid 1px #ccc',
-              }}
-            >
-              <a href={`/forum/thread/${thread.id}`}>{thread.title}</a>
-            </li>
-          );
-        })}
-      </ul>
-
-      {/* Create New Thread */}
-      {/* Create New Thread */}
-      {/* Create New Thread */}
-      {/* Create New Thread */}
-      <div>
-
-        <div>
-          <Button 
-            onClick={() => {
-              if (!user?.logged_in) {
-                notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
-                return navigate('/auth/login');
-              }
-
-              handleOpen();
-            }}
-          >
-            Create Thread
-          </Button>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              >
-              </input>
-              <textarea
-                type="text"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              />
-
-              <button
-                onClick={() => {                   
-                  setOpen(false);
-                  createThread();
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 1,
+            mb: 2
+          }}
+        >
+          {threads.map((thread) => {
+            return (
+              <Box
+                key={`post-${thread.id}`}
+                sx={{
+                  bgcolor: j.bg.secondary,
+                  borderRadius: 2,
+                  p: 2,
+                  '&:hover': {
+                    background: '#f0f0f0',
+                  }
                 }}
               >
-                Create Thread
-              </button>
+                <a href={`/forum/thread/${thread.id}`}>{thread.title}</a>
+              </Box>
+            );
+          })}
+        </Box>
 
-            </Box>
+        <div>
 
-          </Modal>
+          <div>
+            <button 
+              onClick={() => {
+                if (!user?.logged_in) {
+                  notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
+                  return navigate('/auth/login');
+                }
+
+                handleOpen();
+              }}
+            >
+              Create Thread
+            </button>
+            
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box>
+
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                >
+                </input>
+                <textarea
+                  type="text"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                />
+
+                <button
+                  onClick={() => {                   
+                    setOpen(false);
+                    createThread();
+                  }}
+                >
+                  Create Thread
+                </button>
+
+              </Box>
+
+            </Modal>
+          </div>
+
         </div>
-
-      </div>
-      
-    </Layout>
+      </Container>
   );
 };

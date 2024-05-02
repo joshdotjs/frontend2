@@ -7,6 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 // comps:
+import Layout from './_layout';
 import ErrorPage from './_Page-Error';
 import UsersPage  from './_Page-Users';
 import AboutPage  from './_Page-About';
@@ -100,7 +101,9 @@ export default function App() {
         <AuthContextProvider>
           <CartContextProvider>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Pages />
+              <Layout navbar={true} footer={true}>
+                <Pages />
+              </Layout>
             </LocalizationProvider>
           </CartContextProvider>
         </AuthContextProvider>
