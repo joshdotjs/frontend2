@@ -14,13 +14,12 @@ import { useTheme } from '@mui/material/styles';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary">
+    <Typography variant="body2" color="text.primary">
       {'Copyright © '}
       <Link color="inherit" href="https://www.tulsaForums.com">
         TulsaForums.com
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 }
@@ -49,14 +48,14 @@ export default function Footer({ initial, animate, exit}) {
         sx={{
           py: 3,
           px: 2,
-          // mt: 'auto',
           background: j.bg.secondary,
         }}
       >
-        <Container maxWidth="sm">
-          <Typography variant="body1">
+        <Container maxWidth="sm" >
+          <Typography variant="body1" color="text.primary">
             Tulsa Forums
           </Typography>
+          
           <Copyright />
         </Container>
       </Box>

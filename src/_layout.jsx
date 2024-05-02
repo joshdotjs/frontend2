@@ -39,14 +39,25 @@ const container_variants = {
 // ==============================================
 // ==============================================
 
+import { green, purple } from '@mui/material/colors';
+
 // const defaultTheme = createTheme();
 const theme = createTheme({
   j: {
     bg: {
       primary: '#151F28',
       secondary: '#202E3A'
+    },
+    space: {
+      pad: '1rem'
     }
   },
+  palette: {
+    text: {
+      primary: "white",
+    },
+  },
+
 });
 
 // ==============================================
@@ -86,17 +97,10 @@ const LayoutInnards = ({ children, navbar, footer }) => {
         exit="exit"
         style={{ 
           flexGrow: 1,
-          display: 'flex', // to allow child flex-grow: 1
+          padding: '1rem',
         }}
       >
-        <div
-          style={{
-            // border: 'solid red 10px',
-            flexGrow: 1,
-          }}
-        >
-          { children }
-        </div>
+        { children }
       </motion.main>
 
       {
