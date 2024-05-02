@@ -145,7 +145,7 @@ export default function ForumThreadPage () {
   // ============================================
   
   return (
-    <Layout navbar={true} footer={true}>
+    <>
 
       <div>
         <a href="/forum">Forum Home</a>
@@ -264,6 +264,6 @@ export default function ForumThreadPage () {
           </button>
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
