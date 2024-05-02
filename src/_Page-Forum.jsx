@@ -1,5 +1,6 @@
 // libs:
 import { useState, useEffect, useRef } from 'react';
+import { Container } from '@mui/material';
 
 // comps:
 import Layout from './_layout';
@@ -8,6 +9,7 @@ import Layout from './_layout';
 import { http } from './util/http';
 import { apiUrl } from './util/url';
 import { asynch } from './util/async';
+import { Typography } from '@mui/material';
 
 // ==============================================
 // ==============================================
@@ -46,31 +48,33 @@ export default function ForumPage () {
   return (
     <Layout navbar={true} footer={true}>
 
-      <h2>Forum Sections</h2>
+      <Container>
+        <Typography variant="h2">Forum Sections</Typography>
 
-      <ul
-        style={{
-          listStyle: 'none',
-          padding: 0,
-        }}
-      >
-        {sections.map((section) => {
-          return (
-            <li 
-              key={`post-${section.id}`}
-              style={{
-                borderBottom: 'solid 1px #ccc',
-              }}
-            >
-              <a
-                href={`/forum/section/${section.id}`}
-                >{section.title}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+        <ul
+          style={{
+            listStyle: 'none',
+            padding: 0,
+          }}
+        >
+          {sections.map((section) => {
+            return (
+              <li 
+                key={`post-${section.id}`}
+                style={{
+                  borderBottom: 'solid 1px #ccc',
+                }}
+              >
+                <a
+                  href={`/forum/section/${section.id}`}
+                  >{section.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       
+      </Container>
     </Layout>
   );
 };
