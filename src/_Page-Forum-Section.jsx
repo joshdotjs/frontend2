@@ -163,7 +163,7 @@ export default function ForumSectionPage () {
             onClick={() => {
               if (!user?.logged_in) {
                 notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
-                return navigate('/auth/login');
+                return navigate('/login');
               }
 
               handleOpen();

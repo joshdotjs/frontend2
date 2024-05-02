@@ -43,7 +43,7 @@ export default function SignInSide() {
 
   const loginFn = async (user) => {
     notify({ message: 'logging user in...', variant: 'info', duration: 2000 })();
-    const URL = apiUrl('auth/login');
+    const URL = apiUrl('login');
 
     const promise = http({ url: URL, method: 'POST', body: { 
       email: user.email,
@@ -186,7 +186,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/auth/register" variant="body2">
+                  <Link href="/register" variant="body2">
                     {"Sign Up"}
                   </Link>
                 </Grid>

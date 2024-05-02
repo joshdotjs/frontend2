@@ -260,7 +260,7 @@ export default function ForumThreadPage () {
           <button onClick={() => {
             if (!user.logged_in) {
               notify({message: 'Please log in to post a reply...', variant: 'warning', duration: 3000})();
-              return navigate('/auth/login');
+              return navigate('/login');
             }
             
             createPost();

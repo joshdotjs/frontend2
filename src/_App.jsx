@@ -59,12 +59,12 @@ const Pages = () => {
   
   if ( !user?.logged_in ) {
     user_routes = <>
-      <Route path="/auth/login"       element={<AuthLoginPage     />} />
-      <Route path="/auth/register"    element={<AuthRegisterPage  />} />
+      <Route path="/login"       element={<AuthLoginPage     />} />
+      <Route path="/register"    element={<AuthRegisterPage  />} />
     </>;
   } else {
     user_routes = <>
-      <Route path="/auth/login"       element={<Navigate to="/" />} />
+      <Route path="/login"       element={<Navigate to="/" />} />
     </>;
   }
   
