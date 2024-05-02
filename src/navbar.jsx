@@ -22,6 +22,9 @@ import CartDrawer from './drawer-cart';
 import { CartContext } from './context/cart-context';
 import { AuthContext } from './context/auth-context';
 
+// hooks:
+import { useTheme } from '@mui/material/styles';
+
 // img
 import favicon from '/favicon.svg';
 
@@ -105,7 +108,7 @@ const Navlinks = () => {
                 style={{ color: 'black' }}
                 data-cy={ `navlink-${page.title}-mobile` }
               >
-                  { page.title }
+                { page.title }
               </Link>
             </MenuItem>
           );
@@ -172,6 +175,8 @@ export default function ResponsiveAppBar({ initial, animate, exit}) {
 
   const { cart_open, openCart, closeCart } = React.useContext(CartContext);
   const { user } = React.useContext(AuthContext);
+  const theme = useTheme();
+  const { j } = theme;
 
   // ============================================
 
@@ -181,7 +186,12 @@ export default function ResponsiveAppBar({ initial, animate, exit}) {
       animate={ animate }
       exit={ exit }
     >
-      <AppBar position="static">
+      <AppBar 
+        position="static"
+        sx={{
+          background: j.bg.primary
+        }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
 

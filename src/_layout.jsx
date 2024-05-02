@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // comps:
 import Navbar from './navbar';
@@ -35,59 +36,76 @@ const container_variants = {
 // ==============================================
 // ==============================================
 
+// const defaultTheme = createTheme();
+const theme = createTheme({
+  j: {
+    bg: {
+      primary: 'red',
+    }
+  },
+});
+
+// ==============================================
+// ==============================================
+// ==============================================
+// ==============================================
+
 export default function Layout({ children, navbar, footer }) {
 
   const location = useLocation();
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100dvh',
-      }}
-    >
-      <CssBaseline/>
-
-      {
-        // location.pathname !== '/' && <Navbar
-        navbar && <Navbar
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        />
-      }
-
-      <motion.main
-        variants={ container_variants }
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        style={{ 
-          flexGrow: 1,
-          display: 'flex', // to allow child flex-grow: 1
+    <ThemeProvider theme={ theme }>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100dvh',
+          background: '#151F28',
+          color: 'white',
         }}
       >
-        <div
-          style={{
-            // border: 'solid red 10px',
+        <CssBaseline/>
+
+        {
+          // location.pathname !== '/' && <Navbar
+          navbar && <Navbar
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          />
+        }
+
+        <motion.main
+          variants={ container_variants }
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          style={{ 
             flexGrow: 1,
+            display: 'flex', // to allow child flex-grow: 1
           }}
         >
-          { children }
-        </div>
-      </motion.main>
+          <div
+            style={{
+              // border: 'solid red 10px',
+              flexGrow: 1,
+            }}
+          >
+            { children }
+          </div>
+        </motion.main>
 
-      {
-        // location.pathname !== '/' && <StickyFooter
-        footer && <StickyFooter
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        />
-      }
-
-      
-    </Box>
+        {
+          // location.pathname !== '/' && <StickyFooter
+          footer && <StickyFooter
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          />
+        }
+    
+      </Box>
+    </ThemeProvider>
   );
 };
