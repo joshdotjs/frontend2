@@ -44,6 +44,7 @@ const theme = createTheme({
   j: {
     bg: {
       primary: '#151F28',
+      secondary: '#202E3A'
     }
   },
 });

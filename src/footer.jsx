@@ -7,6 +7,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 
+// hooks:
+import { useTheme } from '@mui/material/styles';
+
 // ==============================================
 
 function Copyright() {
@@ -31,6 +34,10 @@ export default function Footer({ initial, animate, exit}) {
 
   // ============================================
 
+  const { j } = useTheme();
+
+  // ============================================
+
   return (
     <motion.div
       initial={ initial }
@@ -43,10 +50,7 @@ export default function Footer({ initial, animate, exit}) {
           py: 3,
           px: 2,
           // mt: 'auto',
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.grey[200]
-              : theme.palette.grey[800],
+          background: j.bg.secondary,
         }}
       >
         <Container maxWidth="sm">

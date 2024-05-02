@@ -175,7 +175,7 @@ export default function ResponsiveAppBar({ initial, animate, exit}) {
 
   const { cart_open, openCart, closeCart } = React.useContext(CartContext);
   const { user } = React.useContext(AuthContext);
-  const { j, josh } = useTheme();
+  const { j } = useTheme();
 
   // ============================================
 
@@ -188,7 +188,7 @@ export default function ResponsiveAppBar({ initial, animate, exit}) {
       <AppBar 
         position="static"
         sx={{
-          background: j.bg.primary
+          background: j.bg.secondary
         }}
       >
         <Container maxWidth="xl">
@@ -197,8 +197,6 @@ export default function ResponsiveAppBar({ initial, animate, exit}) {
             <Navlinks />
 
             { user?.logged_in && <NavbarAvatar /> }
-
-            { josh }
 
           </Toolbar>
         </Container>
