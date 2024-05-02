@@ -11,7 +11,7 @@ import level_up from './assets/level-up.gif';
 export default function AboutPage () {
 
   return (
-    <Layout navbar={true} footer={true}>
+    <>
       <Container sx={{ border: 'solid white 1px', borderTop: 'none' }}>
         
         <Typography variant="h1"
@@ -25,6 +25,6 @@ export default function AboutPage () {
         </Box>
 
       </Container>
-    </Layout>
+    </>
   );
 };

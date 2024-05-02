@@ -123,7 +123,7 @@ export default function SignInSide() {
   // ============================================
 
   return (
-    <Layout navbar={true} footer={true}>
+    <>
       <Grid 
         container
         sx={{ height: '100%' }}
@@ -250,6 +250,6 @@ export default function SignInSide() {
           </Box>
         </Grid>
       </Grid>
-    </Layout>
+    </>
   );
 }
