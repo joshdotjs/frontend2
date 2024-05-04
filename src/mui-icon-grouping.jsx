@@ -37,7 +37,7 @@ const style = {
 // ==============================================
 // ==============================================
 
-function BasicModal({ open, setOpen, setReply, link, setLink }) {
+function BasicModal({ open, setOpen, setReply, link, setLink, highlight }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -79,7 +79,15 @@ function BasicModal({ open, setOpen, setReply, link, setLink }) {
               onClick={() => {
                 setReply((prev) => {
                   // const str = `${prev}<a href="${link_label}">${link_url}</a>`;
-                  const str = `${prev}<a href="${link.url}">${link.label}</a>`;
+                  let str;
+                  if (!highlight.on) {
+                    str = `${prev}<a href="${link.url}">${link.label}</a>`;
+                  } else {
+                    const { start, end } = highlight;
+                    const before = prev.substring(0, start);
+                    const after = prev.substring(end);
+                    str = `${before}<a href="${link.url}">${link.label}</a>${after}`;  
+                  }
                   return str;
                 })
                 setOpen(false);
@@ -152,7 +160,7 @@ export default function IconGrouping({ setReply, highlight, setHighlight }) {
       <ToggleButtonGroupCustom />
       <ToggleButtonGroup />
 
-      <BasicModal open={open_modal} setOpen={setOpenModal} {...{ setReply, link, setLink }} />
+      <BasicModal open={open_modal} setOpen={setOpenModal} {...{ setReply, link, setLink, highlight }} />
     </>
   );
 }
