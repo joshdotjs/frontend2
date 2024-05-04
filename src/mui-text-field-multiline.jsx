@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
 
-export default function MultilineTextFields({ reply, setReply, highlight, setHighlight }) {
+export default function MultilineTextFields({ reply, setReply, highlight, setHighlight, underline, setUnderline }) {
 
   const inputRef = React.useRef(null);
   React.useRef(() => {

@@ -40,8 +40,17 @@ export default function ForumThreadPage () {
   const [posts, setPosts] = useState([]);
   const [reply, setReply] = useState('');
   const [updated_post, setUpdatedPost] = useState('');
+  
   const [highlight, setHighlight] = useState({ on: false, text: '', start: 0, end: 0 });
-  useEffect(() => console.log(highlight), [highlight]);
+  useEffect(() => console.log('highlight: ', highlight), [highlight]);
+
+  const [underline, setUnderline] = useState({ 
+    on: false, 
+    // text: '', 
+    start: 0, 
+    /* end: 0 */ 
+  });
+  useEffect(() => console.log('underline: ', underline), [underline]);
 
   const { thread_id } = useParams();
   const { user } = useContext(AuthContext);
@@ -260,8 +269,8 @@ export default function ForumThreadPage () {
       <div style={{ marginBottom: '1rem' }}>
         { user.logged_in &&
           <>
-            <IconGrouping {...{ setReply, highlight, setHighlight }} />
-            <TextInputMultiLine {...{ reply, setReply, highlight, setHighlight }} />
+            <IconGrouping {...{ setReply, highlight, setHighlight, underline, setUnderline }} />
+            <TextInputMultiLine {...{ reply, setReply, highlight, setHighlight, underline, setUnderline }} />
             <p dangerouslySetInnerHTML={{ __html: reply }}></p>
 
             <p>Selection Start: <span></span></p>

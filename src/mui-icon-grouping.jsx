@@ -37,7 +37,7 @@ const style = {
 // ==============================================
 // ==============================================
 
-function BasicModal({ open, setOpen, setReply, link, setLink, highlight }) {
+function LinkModal({ open, setOpen, setReply, link, setLink, highlight }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -113,7 +113,7 @@ function BasicModal({ open, setOpen, setReply, link, setLink, highlight }) {
 // ==============================================
 // ==============================================
 
-export default function IconGrouping({ setReply, highlight, setHighlight }) {
+export default function IconGrouping({ setReply, highlight, setHighlight, underline, setUnderline }) {
 
   const [open_modal, setOpenModal] = useState(false);
   const [link, setLink] = useState({ label: '', url: '' });
@@ -137,8 +137,46 @@ export default function IconGrouping({ setReply, highlight, setHighlight }) {
         <FormatAlignCenterIcon />
         <FormatAlignRightIcon />
         <Divider orientation="vertical" variant="middle" flexItem />
-        <FormatBoldIcon />
+
+        <FormatBoldIcon 
+          // disabled={highlight.on ? false : true}
+          disabled={true}
+          color="primary" 
+          sx={{ 
+            cursor: 'pointer',
+            opacity: highlight.on ? 1 : 0.5,
+            pointerEvents: highlight.on ? 'auto' : 'none',
+          }}
+          onClick={() => {
+            console.log('clicked bold')
+
+            // setReply((prev) => {
+            //   const { start, end } = highlight;
+            //   const before = prev.substring(0, start);
+            //   const after = prev.substring(end);
+            //   const str = `${before}<a href="${link.url}">${link.label}</a>${after}`;  
+            //   return str;
+            // });
+
+
+
+
+
+            
+
+
+
+
+            // TODO: If there is already a <strong> tag inside the selection, remove it
+
+            // TODO: Repeat the process if you just click the button without selecting anything
+            
+            // TODO: Repeat the process if you first highlight the text, then click the button
+          }} 
+        />
+
         {/* <Button onClick={() => setOpenModal(true)}> */}
+
         <LinkIcon onClick={() => {
             console.log('highlight:', highlight);
 
@@ -160,7 +198,7 @@ export default function IconGrouping({ setReply, highlight, setHighlight }) {
       <ToggleButtonGroupCustom />
       <ToggleButtonGroup />
 
-      <BasicModal open={open_modal} setOpen={setOpenModal} {...{ setReply, link, setLink, highlight }} />
+      <LinkModal open={open_modal} setOpen={setOpenModal} {...{ setReply, link, setLink, highlight }} />
     </>
   );
 }
