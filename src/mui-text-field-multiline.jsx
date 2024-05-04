@@ -4,6 +4,12 @@ import TextField from '@mui/material/TextField';
 
 
 export default function MultilineTextFields({ reply, setReply, highlight, setHighlight }) {
+
+  const inputRef = React.useRef(null);
+  React.useRef(() => {
+    console.log('inputRef.current:', inputRef.current);
+  }, [inputRef.current]);
+
   return (
     <Box
       component="form"
@@ -15,6 +21,7 @@ export default function MultilineTextFields({ reply, setReply, highlight, setHig
     >
       <TextField
         id="filled-multiline-static"
+        inputRef={inputRef}
         label="Reply"
         multiline
         rows={4}
@@ -34,16 +41,32 @@ export default function MultilineTextFields({ reply, setReply, highlight, setHig
             backgroundColor: '#e0e0e0', // background on hover
           },
         }}
-        onChange={(e) => setReply(e.target.value)}
+        onChange={(e) => setReply(e.target.value)} // onChange
         onSelect={(e) => {
           setHighlight((prev) => {
             return {
+              // ...prev,
               text: e.target.value.substring(e.target.selectionStart, e.target.selectionEnd),
               start: e.target.selectionStart,
               end: e.target.selectionEnd,
             };
           })
-        }}
+        }} // onSelect
+        onKeyDown={(event) => {
+          if (event.key === "End") { // end key has desktop behavior
+            event.preventDefault(); // Prevent the default "End" key action
+            // Set the cursor position to the end of the text
+            const endOfText = inputRef.current.value.length;
+            inputRef.current.selectionStart = endOfText;
+            inputRef.current.selectionEnd = endOfText;
+          }
+          if (event.key === "Home") { // home key has desktop behavior
+            event.preventDefault(); // Prevent the default "Home" key action
+            // Set the cursor position to the beginning of the text
+            inputRef.current.selectionStart = 0;
+            inputRef.current.selectionEnd = 0;
+          }
+        }} // onKeyDown
       />
     </Box>
   );
