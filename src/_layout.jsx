@@ -39,7 +39,8 @@ const container_variants = {
 // ==============================================
 // ==============================================
 
-import { green, purple } from '@mui/material/colors';
+const text_primary = '#FFFFFF';
+const text_secondary = '#000000';
 
 // const defaultTheme = createTheme();
 const theme = createTheme({
@@ -54,13 +55,28 @@ const theme = createTheme({
   },
   palette: {
     text: {
-      primary: "#FFFFFF",
+      primary: text_primary,
     },
   },
   typography: {
     h2: {
       fontSize: '2rem',
       fontWeight: 300,
+    }
+  },
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& label': { color: 'green' },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: 'green' },
+            '&:hover fieldset': { borderColor: 'red' },
+            '&.Mui-focused fieldset': { borderColor: 'purple' },
+          },
+          '& .MuiInputBase-input': { color: text_secondary },
+        }
+      }
     }
   }
 });
