@@ -79,7 +79,7 @@ function BasicModal({ open, setOpen, setReply}) {
               onClick={() => {
                 setReply((prev) => {
                   // const str = `${prev}<a href="${link_label}">${link_url}</a>`;
-                  const str = `${prev} [${link_label}](${link_url})`;
+                  const str = `${prev}<a href="${link_url}">${link_label}</a>`;
                   return str;
                 })
                 setOpen(false);
@@ -129,7 +129,7 @@ export default function VerticalDividerMiddle({ setReply }) {
         <Divider orientation="vertical" variant="middle" flexItem />
         <FormatBoldIcon />
         {/* <Button onClick={() => setOpenModal(true)}> */}
-          <LinkIcon onClick={() => setOpenModal(true)} />
+          <LinkIcon onClick={() => setOpenModal(true)} color="primary" sx={{ cursor: 'pointer' }} />
         {/* </Button> */}
       </Card>
 
