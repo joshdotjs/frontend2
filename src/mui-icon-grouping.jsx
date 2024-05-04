@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
@@ -37,12 +37,12 @@ const style = {
 // ==============================================
 // ==============================================
 
-function BasicModal({ open, setOpen, setReply}) {
+function BasicModal({ open, setOpen, setReply, link, setLink }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [link_label, setLinkLabel] = React.useState('');
-  const [link_url, setLinkUrl] = React.useState('');
+  // const [link_label, setLinkLabel] = useState('');
+  // const [link_url, setLinkUrl] = useState('');
 
   return (
     <div>
@@ -66,23 +66,24 @@ function BasicModal({ open, setOpen, setReply}) {
             <div>
               <label>
                 Label:{' '}
-                <input value={link_label} onChange={(e) => setLinkLabel(e.target.value)}></input>
+                <input value={link.label} onChange={(e) => setLink((prev) => ({ ...prev, label: e.target.value }))}></input>
               </label>
             </div>
             <div>
               <label>
                 URL:{' '}
-                <input value={link_url} onChange={(e) => setLinkUrl(e.target.value)}></input>
+                <input value={link.url} onChange={(e) => setLink((prev) => ({ ...prev, url: e.target.value }))}></input>
               </label>
             </div>
             <button
               onClick={() => {
                 setReply((prev) => {
                   // const str = `${prev}<a href="${link_label}">${link_url}</a>`;
-                  const str = `${prev}<a href="${link_url}">${link_label}</a>`;
+                  const str = `${prev}<a href="${link.url}">${link.label}</a>`;
                   return str;
                 })
                 setOpen(false);
+                setLink({ lable: '', url: '' });
               }}
             >
               Add Link
@@ -104,9 +105,10 @@ function BasicModal({ open, setOpen, setReply}) {
 // ==============================================
 // ==============================================
 
-export default function VerticalDividerMiddle({ setReply }) {
+export default function IconGrouping({ setReply, highlight, setHighlight }) {
 
-  const [open_modal, setOpenModal] = React.useState(false);
+  const [open_modal, setOpenModal] = useState(false);
+  const [link, setLink] = useState({ label: '', url: '' });
 
   return (
     <>
@@ -129,14 +131,28 @@ export default function VerticalDividerMiddle({ setReply }) {
         <Divider orientation="vertical" variant="middle" flexItem />
         <FormatBoldIcon />
         {/* <Button onClick={() => setOpenModal(true)}> */}
-          <LinkIcon onClick={() => setOpenModal(true)} color="primary" sx={{ cursor: 'pointer' }} />
+        <LinkIcon onClick={() => {
+            console.log('highlight:', highlight);
+
+            if (highlight.on) {
+              setLink({
+                label: highlight.text,
+                url: '',
+              });
+            }
+
+            setOpenModal(true);
+          }} 
+          color="primary" 
+          sx={{ cursor: 'pointer' }} 
+        />
         {/* </Button> */}
       </Card>
 
       <ToggleButtonGroupCustom />
       <ToggleButtonGroup />
 
-      <BasicModal open={open_modal} setOpen={setOpenModal} {...{ setReply }} />
+      <BasicModal open={open_modal} setOpen={setOpenModal} {...{ setReply, link, setLink }} />
     </>
   );
 }

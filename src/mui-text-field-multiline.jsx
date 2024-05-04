@@ -44,11 +44,23 @@ export default function MultilineTextFields({ reply, setReply, highlight, setHig
         onChange={(e) => setReply(e.target.value)} // onChange
         onSelect={(e) => {
           setHighlight((prev) => {
+
+            const { 
+              selectionStart: start, 
+              selectionEnd: end,
+              value,
+            } = e.target;
+
+            let on;
+            if (start === end)  on = false;
+            else                on = true;
+
             return {
               // ...prev,
-              text: e.target.value.substring(e.target.selectionStart, e.target.selectionEnd),
-              start: e.target.selectionStart,
-              end: e.target.selectionEnd,
+              on,
+              text: value.substring(start, end),
+              start,
+              end,
             };
           })
         }} // onSelect
