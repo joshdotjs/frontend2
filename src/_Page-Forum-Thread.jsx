@@ -40,6 +40,8 @@ export default function ForumThreadPage () {
   const [posts, setPosts] = useState([]);
   const [reply, setReply] = useState('');
   const [updated_post, setUpdatedPost] = useState('');
+  const [highlight, setHighlight] = useState({});
+  // useEffect(() => console.log(highlight), [highlight]);
 
   const { thread_id } = useParams();
   const { user } = useContext(AuthContext);
@@ -248,12 +250,21 @@ export default function ForumThreadPage () {
 
 
 
+
+
+
+
+
+
       {/* <SnackbarElevateAppBar /> */}
       <div style={{ marginBottom: '1rem' }}>
         { user.logged_in &&
           <>
             <IconGrouping {...{ setReply }} />
-            <TextInputMultiLine {...{ reply, setReply }} />
+            <TextInputMultiLine {...{ reply, setReply, highlight, setHighlight }} />
+            <p dangerouslySetInnerHTML={{ __html: reply }}></p>
+
+            <p>Selection Start: <span></span></p>
           </>
         }
         <div>

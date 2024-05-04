@@ -51,7 +51,7 @@ export default function SignInSide() {
 
   const loginFn = async (user) => {
     notify({ message: 'logging user in...', variant: 'info', duration: 2000 })();
-    const URL = apiUrl('login');
+    const URL = apiUrl('auth/login');
 
     const promise = http({ url: URL, method: 'POST', body: { 
       email: user.email,
@@ -98,7 +98,7 @@ export default function SignInSide() {
 
   const registerFn = async (user) => {
     notify({ message: 'logging user in...', variant: 'info', duration: 2000 })();
-    const URL = apiUrl('register');
+    const URL = apiUrl('auth/register');
     const promise = http({ url: URL, method: 'POST', body: { 
       email: user.email,
       password: user.password,
