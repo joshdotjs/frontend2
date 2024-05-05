@@ -4,6 +4,9 @@ import {
   Container, 
   Box
 } from '@mui/material';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import HeadsetIcon from '@mui/icons-material/Headset';
 
 // hooks:
 import { useTheme } from '@mui/material/styles';
@@ -48,6 +51,27 @@ export default function ForumPage () {
   }, []);
 
   // ============================================
+
+  const Icons = [
+    {
+      comp: <SettingsSuggestIcon />,
+      color: j.accent.green,
+    },
+    {
+      comp: <LocalFireDepartmentIcon />,
+      color: j.accent.purple,
+    },
+    {
+      comp: <HeadsetIcon />,
+      color: j.accent.orange,
+    },
+    {
+      comp: <SettingsSuggestIcon />,
+      color: j.accent.blue,
+    },
+  ];
+  
+  // ============================================
   
   return (
     <Container>
@@ -68,11 +92,14 @@ export default function ForumPage () {
           gap: 2,
         }}
       >
-        {sections.map((section) => {
+        {sections.map((section, idx) => {
           return (
             <Box
               key={`post-${section.id}`}
               sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
                 bgcolor: j.bg.secondary,
                 borderRadius: 2,
                 p: 2,
@@ -81,7 +108,20 @@ export default function ForumPage () {
                 }
               }}
             >
-              
+              <Box
+                sx={{ 
+                  background: Icons[idx].color,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 'fit-content',
+                  padding: '0.5rem',
+                  borderRadius: '7px',
+                }}
+              >
+                { Icons[idx].comp }
+              </Box>
+
               <a
                 href={`/forum/section/${section.id}`}
                 >{section.title}

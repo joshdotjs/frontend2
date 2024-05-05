@@ -150,28 +150,16 @@ export default function IconGrouping({ setReply, highlight, setHighlight, underl
           onClick={() => {
             console.log('clicked bold')
 
-            // setReply((prev) => {
-            //   const { start, end } = highlight;
-            //   const before = prev.substring(0, start);
-            //   const after = prev.substring(end);
-            //   const str = `${before}<a href="${link.url}">${link.label}</a>${after}`;  
-            //   return str;
-            // });
-
-
-
-
-
+            setReply((prev) => {
+              const { start, end, text } = highlight;
+              const before = prev.substring(0, start);
+              const after = prev.substring(end);
+              const str = `${before}<strong>${text}</strong>${after}`;  
+              return str;
+            });
             
-
-
-
-
-            // TODO: If there is already a <strong> tag inside the selection, remove it
-
             // TODO: Repeat the process if you just click the button without selecting anything
-            
-            // TODO: Repeat the process if you first highlight the text, then click the button
+            // TODO: If there is already a <strong> tag inside the selection, remove it
           }} 
         />
 

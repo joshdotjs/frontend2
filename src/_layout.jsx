@@ -49,9 +49,15 @@ const theme = createTheme({
       primary: '#151F28',
       secondary: '#202E3A'
     },
+    accent: {
+      green: '#71B121',
+      purple: '#7A5DEB',
+      orange: '#EF752D',
+      blue: '#1285FF',
+    },
     space: {
       pad: '1rem'
-    }
+    },
   },
   palette: {
     text: {

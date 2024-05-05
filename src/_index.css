@@ -46,3 +46,18 @@ a:hover {
   place-items: center;
   padding: 3rem;
 }
+
+.cursor {
+  background: lightgreen;
+  animation: blink-cursor 0.75s steps(2, start) infinite;
+}
+
+
+@keyframes blink-cursor {
+  from, to {
+    background: lightgreen;
+  }
+  50% {
+    background: red;
+  }
+}

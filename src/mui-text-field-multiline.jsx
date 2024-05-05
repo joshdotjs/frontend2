@@ -41,7 +41,13 @@ export default function MultilineTextFields({ reply, setReply, highlight, setHig
             backgroundColor: '#e0e0e0', // background on hover
           },
         }}
-        onChange={(e) => setReply(e.target.value)} // onChange
+        onChange={(e) => {
+
+          const text = e.target.value;
+          const text_w_line_breaks = text.replace(/\n/g, '<br>');
+          setReply(text_w_line_breaks);
+
+        }} // onChange
         onSelect={(e) => {
           setHighlight((prev) => {
 

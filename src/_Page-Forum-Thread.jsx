@@ -39,6 +39,32 @@ export default function ForumThreadPage () {
 
   const [posts, setPosts] = useState([]);
   const [reply, setReply] = useState('');
+  const [reply_plain, setReplyPlain] = useState('');
+  const [reply_plain_in_spans, setReplyPlainInSpans] = useState('');
+  useEffect(() => {
+    // console.log('reply: ', reply);
+    const plainText = reply.replace(/<[^>]*>/g, '');
+    // console.log('plainText: ', plainText);
+    setReplyPlain(plainText);
+
+    function wrapCharactersInSpans(text) {
+      const split = text.split('');
+      const mapped = split.map((char, idx) => {
+        let str;
+        if (idx === 1) str = `<span class="cursor">${char}</span>`;
+        else           str = `<span>${char}</span>`;
+        return str;
+      });
+      const joined = mapped.join('');
+      return joined;
+    }
+    const in_spans = wrapCharactersInSpans(plainText);
+    // console.log('in_spans: ', in_spans);
+    setReplyPlainInSpans(in_spans);
+  }, [reply]);
+
+  
+
   const [updated_post, setUpdatedPost] = useState('');
   
   const [highlight, setHighlight] = useState({ on: false, text: '', start: 0, end: 0 });
@@ -273,7 +299,16 @@ export default function ForumThreadPage () {
             <TextInputMultiLine {...{ reply, setReply, highlight, setHighlight, underline, setUnderline }} />
             <p dangerouslySetInnerHTML={{ __html: reply }}></p>
 
-            <p>Selection Start: <span></span></p>
+            <div>
+              <h5>HTML Removed:</h5>
+              <p>{ reply_plain }</p>
+            </div>
+
+            <div>
+              <h5>HTML Removed in Spans:</h5>
+              <p dangerouslySetInnerHTML={{ __html: reply_plain_in_spans }}></p>
+            </div>
+
           </>
         }
         <div>
