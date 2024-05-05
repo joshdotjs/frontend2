@@ -96,7 +96,7 @@ export default function ForumPage () {
           gap: 2,
         }}
       >
-        {sections.map((section, idx) => {
+        {sections.map(({ section, num_threads, num_posts }, idx) => {
           return (
             <Link key={`post-${section.id}`} to={`/forum/section/${section.id}`}>
               <Box
@@ -147,19 +147,19 @@ export default function ForumPage () {
                   }}
                 >
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography variant='h5' color="text.primary">5.1k</Typography>
+                    <Typography variant='h5' color="text.primary">{ num_threads }</Typography>
                     <Typography variant='h6' color="text.tertiary">Threads</Typography>
                   </Box>
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography variant='h5' color="text.primary">16.7k</Typography>
+                    <Typography variant='h5' color="text.primary">{ num_posts }</Typography>
                     <Typography variant='h6' color="text.tertiary">Replies</Typography>
                   </Box>
-                  <Hidden smDown>
+                  {/* <Hidden smDown>
                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                       <Typography variant='h5' color="text.primary">302.5k</Typography>
                       <Typography variant='h6' color="text.tertiary">Views</Typography>
                     </Box>
-                  </Hidden>
+                  </Hidden> */}
                 </Box>
               </Box>
               
