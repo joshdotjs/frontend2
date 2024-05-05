@@ -17,11 +17,17 @@
 }
 
 
+html {
+  /* height: 100%; */
+  background-color: #4CAF50; /* Replace with your desired color */
+}         
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100dvh;
   color: black;
+  overscroll-behavior: none; /* This can prevent the scroll chaining and overscroll effects */
+  background-color: inherit; /* Inherits the color from html element */
 }
 #root {
   min-height: 100dvh;
