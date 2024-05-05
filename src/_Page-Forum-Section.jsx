@@ -193,7 +193,7 @@ export default function ForumSectionPage () {
                     gap: 2,
                   }}
                 >
-                  <Box
+                  {/* <Box
                     sx={{ 
                       background: Icons[idx].color,
                       display: 'flex',
@@ -205,7 +205,7 @@ export default function ForumSectionPage () {
                     }}
                   >
                     { Icons[idx].comp }
-                  </Box>
+                  </Box> */}
 
                   <Typography variant='h4' color="text.primary">{thread.title}</Typography>
                 </Box>
