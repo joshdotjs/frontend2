@@ -89,6 +89,15 @@ const theme = createTheme({
       fontWeight: 300,
     },
   },
+  // breakpoints: {
+  //   values: {
+  //     xs: 0,    // xs starts from 0
+  //     sm: 600,  // Change this value to adjust 'sm'
+  //     md: 960,  // Change this value to adjust 'md'
+  //     lg: 1280, // Change this value to adjust 'lg'
+  //     xl: 1920  // Change this value to adjust 'xl'
+  //   },
+  // },
   components: {
     MuiTextField: {
       styleOverrides: {

@@ -10,6 +10,7 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import HeadsetIcon from '@mui/icons-material/Headset';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import CableIcon from '@mui/icons-material/Cable';
+import Hidden from '@mui/material/Hidden';
 
 // hooks:
 import { useTheme } from '@mui/material/styles';
@@ -153,10 +154,12 @@ export default function ForumPage () {
                     <Typography variant='h5' color="text.primary">16.7k</Typography>
                     <Typography variant='h6' color="text.tertiary">Replies</Typography>
                   </Box>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography variant='h5' color="text.primary">302.5k</Typography>
-                    <Typography variant='h6' color="text.tertiary">Views</Typography>
-                  </Box>
+                  <Hidden smDown>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <Typography variant='h5' color="text.primary">302.5k</Typography>
+                      <Typography variant='h6' color="text.tertiary">Views</Typography>
+                    </Box>
+                  </Hidden>
                 </Box>
               </Box>
               
