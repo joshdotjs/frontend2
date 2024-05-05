@@ -39,46 +39,10 @@ export default function ForumThreadPage () {
   // ============================================
 
   const [posts, setPosts] = useState([]);
-  const [reply, setReply] = useState('');
-  const [reply_plain, setReplyPlain] = useState('');
-  const [reply_plain_in_spans, setReplyPlainInSpans] = useState('');
-  useEffect(() => {
-    // console.log('reply: ', reply);
-    const plainText = reply.replace(/<[^>]*>/g, '');
-    // console.log('plainText: ', plainText);
-    setReplyPlain(plainText);
-
-    function wrapCharactersInSpans(text) {
-      const split = text.split('');
-      const mapped = split.map((char, idx) => {
-        let str;
-        if (idx === 1) str = `<span class="cursor">${char}</span>`;
-        else           str = `<span>${char}</span>`;
-        return str;
-      });
-      const joined = mapped.join('');
-      return joined;
-    }
-    const in_spans = wrapCharactersInSpans(plainText);
-    // console.log('in_spans: ', in_spans);
-    setReplyPlainInSpans(in_spans);
-  }, [reply]);
-
-  
-
   const [updated_post, setUpdatedPost] = useState('');
+
+  const [quill, setQuill] = useState(null);
   
-  const [highlight, setHighlight] = useState({ on: false, text: '', start: 0, end: 0 });
-  useEffect(() => console.log('highlight: ', highlight), [highlight]);
-
-  const [underline, setUnderline] = useState({ 
-    on: false, 
-    // text: '', 
-    start: 0, 
-    /* end: 0 */ 
-  });
-  useEffect(() => console.log('underline: ', underline), [underline]);
-
   const { thread_id } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -127,9 +91,8 @@ export default function ForumThreadPage () {
 
   const createPost = async () => {
     const post = { 
-      // user_id: 1, // TODO: get user_id from auth
       thread_id: Number(thread_id),
-      content: reply?.replace(/\n/g, '<br>'),
+      content:   quill.getSemanticHTML()
     };
     console.log('post: ', post);
 
@@ -148,7 +111,6 @@ export default function ForumThreadPage () {
       return;
     }
 
-    setReply('');
     getPosts();
   };
 
@@ -294,26 +256,7 @@ export default function ForumThreadPage () {
 
       {/* <SnackbarElevateAppBar /> */}
       <div style={{ marginBottom: '1rem' }}>
-        { user.logged_in &&
-          <>
-            {/* <IconGrouping {...{ setReply, highlight, setHighlight, underline, setUnderline }} /> */}
-            {/* <TextInputMultiLine {...{ reply, setReply, highlight, setHighlight, underline, setUnderline }} /> */}
-            <p dangerouslySetInnerHTML={{ __html: reply }}></p>
-
-            {/* <div>
-              <h5>HTML Removed:</h5>
-              <p>{ reply_plain }</p>
-            </div> */}
-
-            {/* <div>
-              <h5>HTML Removed in Spans:</h5>
-              <p dangerouslySetInnerHTML={{ __html: reply_plain_in_spans }}></p>
-            </div> */}
-
-
-            <RichText {...{ reply, setReply }} />
-          </>
-        }
+        { user.logged_in && <RichText {...{ quill, setQuill }} /> }
         <div>
           <button onClick={() => {
             if (!user.logged_in) {
