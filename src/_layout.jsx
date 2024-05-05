@@ -41,6 +41,7 @@ const container_variants = {
 
 const text_primary = '#FFFFFF';
 const text_secondary = '#000000';
+const text_tertiary = '#81909A';
 
 // const defaultTheme = createTheme();
 const theme = createTheme({
@@ -62,13 +63,31 @@ const theme = createTheme({
   palette: {
     text: {
       primary: text_primary,
+      secondary: text_secondary,
+      tertiary: text_tertiary,
     },
   },
   typography: {
     h2: {
-      fontSize: '2rem',
+      fontSize: '1.8rem',
       fontWeight: 300,
-    }
+    },
+    h3: {
+      fontSize: '1.4rem',
+      fontWeight: 300,
+    },
+    h4: {
+      fontSize: '1.25rem',
+      fontWeight: 300,
+    },
+    h5: {
+      fontSize: '0.95rem',
+      fontWeight: 300,
+    },
+    h6: {
+      fontSize: '0.75rem',
+      fontWeight: 300,
+    },
   },
   components: {
     MuiTextField: {

@@ -135,7 +135,7 @@ export default function ForumPage () {
                     { Icons[idx].comp }
                   </Box>
 
-                  <Typography variant='h4'>{section.title}</Typography>
+                  <Typography variant='h4' color="text.primary">{section.title}</Typography>
                 </Box>
 
                 <Box
@@ -145,17 +145,17 @@ export default function ForumPage () {
                     gap: 2,
                   }}
                 >
-                  <Box>
-                    <Typography variant='h5'>5.1k</Typography>
-                    <Typography variant='h6' color="text.secondary">Threads</Typography>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Typography variant='h5' color="text.primary">5.1k</Typography>
+                    <Typography variant='h6' color="text.tertiary">Threads</Typography>
                   </Box>
-                  <Box>
-                    <Typography variant='h5'>16.7k</Typography>
-                    <Typography variant='h6' color="text.secondary">Replies</Typography>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Typography variant='h5' color="text.primary">16.7k</Typography>
+                    <Typography variant='h6' color="text.tertiary">Replies</Typography>
                   </Box>
-                  <Box>
-                    <Typography variant='h5'>302.5k</Typography>
-                    <Typography variant='h6' color="text.secondary">Views</Typography>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Typography variant='h5' color="text.primary">302.5k</Typography>
+                    <Typography variant='h6' color="text.tertiary">Views</Typography>
                   </Box>
                 </Box>
               </Box>
