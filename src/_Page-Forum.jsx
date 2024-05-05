@@ -101,8 +101,8 @@ export default function ForumPage () {
               <Box
                 sx={{
                   display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
+                  justifyContent: 'space-between',
+                  // gap: '1rem',
                   bgcolor: theme.j.bg.secondary,
                   color: theme.palette.text.primary,
                   borderRadius: 2,
@@ -115,21 +115,51 @@ export default function ForumPage () {
                 }}
               >
                 <Box
-                  sx={{ 
-                    background: Icons[idx].color,
+                  sx={{
                     display: 'flex',
-                    justifyContent: 'center',
                     alignItems: 'center',
-                    width: 'fit-content',
-                    padding: '0.5rem',
-                    borderRadius: '7px',
+                    gap: 2,
                   }}
                 >
-                  { Icons[idx].comp }
+                  <Box
+                    sx={{ 
+                      background: Icons[idx].color,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: 'fit-content',
+                      padding: '0.5rem',
+                      borderRadius: 2,
+                    }}
+                  >
+                    { Icons[idx].comp }
+                  </Box>
+
+                  <Typography variant='h4'>{section.title}</Typography>
                 </Box>
 
-                {section.title}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 2,
+                  }}
+                >
+                  <Box>
+                    <Typography variant='h5'>5.1k</Typography>
+                    <Typography variant='h6' color="text.secondary">Threads</Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant='h5'>16.7k</Typography>
+                    <Typography variant='h6' color="text.secondary">Replies</Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant='h5'>302.5k</Typography>
+                    <Typography variant='h6' color="text.secondary">Views</Typography>
+                  </Box>
+                </Box>
               </Box>
+              
             </Link>
           );
         })}
