@@ -30,13 +30,11 @@ const TOOLBAR_OPTIONS = [
 // ==============================================
 // ==============================================
 
-export default () => {
+export default ({ quill, setQuill }) => {
 
   // ============================================
 
   const wrapper_ref = useRef(null);
-  const [mounted, setMounted] = useState(false);
-  const [quill, setQuill] = useState(null);
 
   // ============================================
 
@@ -61,23 +59,7 @@ export default () => {
   // ============================================
 
   return (
-    <>
-      <div 
-        id="container"
-        ref={wrapper_ref}
-      >
-      </div>
-      <button
-        onClick={() => {
-          // const contents = quill.getContents();
-          // console.log("quill contents", contents);
-
-          const html = quill.getSemanticHTML();
-          console.log("quill html", html);
-        }}
-      >
-        Save Contents
-      </button>
-    </>
+    <div ref={wrapper_ref}>
+    </div>
   );
 };
