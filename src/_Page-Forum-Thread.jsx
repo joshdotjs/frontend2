@@ -15,6 +15,7 @@ import Layout from './_layout';
 import IconGrouping from './mui-icon-grouping'
 import SnackbarElevateAppBar from './mui-snackbar-elevate-app-bar';
 import TextInputMultiLine from './mui-text-field-multiline';
+import RichText from './rich-text';
 
 // context:
 import { AuthContext } from './context/auth-context';
@@ -295,20 +296,22 @@ export default function ForumThreadPage () {
       <div style={{ marginBottom: '1rem' }}>
         { user.logged_in &&
           <>
-            <IconGrouping {...{ setReply, highlight, setHighlight, underline, setUnderline }} />
-            <TextInputMultiLine {...{ reply, setReply, highlight, setHighlight, underline, setUnderline }} />
+            {/* <IconGrouping {...{ setReply, highlight, setHighlight, underline, setUnderline }} /> */}
+            {/* <TextInputMultiLine {...{ reply, setReply, highlight, setHighlight, underline, setUnderline }} /> */}
             <p dangerouslySetInnerHTML={{ __html: reply }}></p>
 
-            <div>
+            {/* <div>
               <h5>HTML Removed:</h5>
               <p>{ reply_plain }</p>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <h5>HTML Removed in Spans:</h5>
               <p dangerouslySetInnerHTML={{ __html: reply_plain_in_spans }}></p>
-            </div>
+            </div> */}
 
+
+            <RichText {...{ reply, setReply }} />
           </>
         }
         <div>
