@@ -1,5 +1,6 @@
 // libs:
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Container, 
   Box
@@ -7,6 +8,8 @@ import {
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import HeadsetIcon from '@mui/icons-material/Headset';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import CableIcon from '@mui/icons-material/Cable';
 
 // hooks:
 import { useTheme } from '@mui/material/styles';
@@ -27,7 +30,7 @@ export default function ForumPage () {
   // ============================================
 
   const [sections, setSections] = useState([]);
-  const { j } = useTheme();
+  const theme = useTheme();
 
   // ============================================
 
@@ -54,20 +57,20 @@ export default function ForumPage () {
 
   const Icons = [
     {
-      comp: <SettingsSuggestIcon />,
-      color: j.accent.green,
+      comp: <NewspaperIcon />,
+      color: theme.j.accent.green,
     },
     {
       comp: <LocalFireDepartmentIcon />,
-      color: j.accent.purple,
+      color: theme.j.accent.orange,
+    },
+    {
+      comp: <CableIcon />,
+      color: theme.j.accent.purple,
     },
     {
       comp: <HeadsetIcon />,
-      color: j.accent.orange,
-    },
-    {
-      comp: <SettingsSuggestIcon />,
-      color: j.accent.blue,
+      color: theme.j.accent.blue,
     },
   ];
   
@@ -94,39 +97,40 @@ export default function ForumPage () {
       >
         {sections.map((section, idx) => {
           return (
-            <Box
-              key={`post-${section.id}`}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1rem',
-                bgcolor: j.bg.secondary,
-                borderRadius: 2,
-                p: 2,
-                '&:hover': {
-                  background: '#f0f0f0',
-                }
-              }}
-            >
+            <Link key={`post-${section.id}`} to={`/forum/section/${section.id}`}>
               <Box
-                sx={{ 
-                  background: Icons[idx].color,
+                sx={{
                   display: 'flex',
-                  justifyContent: 'center',
                   alignItems: 'center',
-                  width: 'fit-content',
-                  padding: '0.5rem',
-                  borderRadius: '7px',
+                  gap: '1rem',
+                  bgcolor: theme.j.bg.secondary,
+                  color: theme.palette.text.primary,
+                  borderRadius: 2,
+                  p: 2,
+                  '&:hover': {
+                    // background: '#f0f0f0',
+                    opacity: 0.8,
+                  },
+                  transition: 'all 0.15s',
                 }}
               >
-                { Icons[idx].comp }
-              </Box>
+                <Box
+                  sx={{ 
+                    background: Icons[idx].color,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 'fit-content',
+                    padding: '0.5rem',
+                    borderRadius: '7px',
+                  }}
+                >
+                  { Icons[idx].comp }
+                </Box>
 
-              <a
-                href={`/forum/section/${section.id}`}
-                >{section.title}
-              </a>
-            </Box>
+                {section.title}
+              </Box>
+            </Link>
           );
         })}
       </Box>
