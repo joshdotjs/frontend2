@@ -1,9 +1,15 @@
 // libs:
 import { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   Box, Container, Modal, Button, Typography
 } from '@mui/material';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import HeadsetIcon from '@mui/icons-material/Headset';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import CableIcon from '@mui/icons-material/Cable';
+import Hidden from '@mui/material/Hidden';
 
 // context:
 import { AuthContext } from './context/auth-context';
@@ -44,7 +50,7 @@ export default function ForumSectionPage () {
 
   // ============================================
 
-  const { j } = useTheme();
+  const theme = useTheme();
 
   const [threads, setThreads] = useState([]);
   const [section, setSection] = useState({});
@@ -114,6 +120,27 @@ export default function ForumSectionPage () {
   };
 
   // ============================================
+
+  const Icons = [
+    {
+      comp: <NewspaperIcon />,
+      color: theme.j.accent.green,
+    },
+    {
+      comp: <LocalFireDepartmentIcon />,
+      color: theme.j.accent.orange,
+    },
+    {
+      comp: <CableIcon />,
+      color: theme.j.accent.purple,
+    },
+    {
+      comp: <HeadsetIcon />,
+      color: theme.j.accent.blue,
+    },
+  ];
+  
+  // ============================================
   
   return (
     <Container>
@@ -131,27 +158,86 @@ export default function ForumSectionPage () {
 
       <Box
         sx={{
+          p: 0,
           display: 'flex',
           flexDirection: 'column',
-          gap: 1,
-          mb: 2
+          gap: 2,
         }}
       >
-        {threads.map((thread) => {
+        {threads.map(({ thread, num_replies}, idx) => {
           return (
-            <Box
-              key={`post-${thread.id}`}
-              sx={{
-                bgcolor: j.bg.secondary,
-                borderRadius: 2,
-                p: 2,
-                '&:hover': {
-                  background: '#f0f0f0',
-                }
-              }}
-            >
-              <a href={`/forum/thread/${thread.id}`}>{thread.title}</a>
-            </Box>
+            <Link key={`post-${thread.id}`} to={`/forum/thread/${thread.id}`}>
+
+
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  // gap: '1rem',
+                  bgcolor: theme.j.bg.secondary,
+                  color: theme.palette.text.primary,
+                  borderRadius: 2,
+                  p: 2,
+                  '&:hover': {
+                    // background: '#f0f0f0',
+                    opacity: 0.8,
+                  },
+                  transition: 'all 0.15s',
+                }}
+              >
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 2,
+                  }}
+                >
+                  <Box
+                    sx={{ 
+                      background: Icons[idx].color,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: 'fit-content',
+                      padding: '0.5rem',
+                      borderRadius: 2,
+                    }}
+                  >
+                    { Icons[idx].comp }
+                  </Box>
+
+                  <Typography variant='h4' color="text.primary">{thread.title}</Typography>
+                </Box>
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    // gap: 2,
+                  }}
+                >
+                  {/* <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Typography variant='h5' color="text.primary">
+                      { num_threads }
+                    </Typography>
+                    <Typography variant='h6' color="text.tertiary">Threads</Typography>
+                  </Box> */}
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Typography variant='h5' color="text.primary">
+                      { num_replies }
+                    </Typography>
+                    <Typography variant='h6' color="text.tertiary">Replies</Typography>
+                  </Box>
+                  {/* <Hidden smDown>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <Typography variant='h5' color="text.primary">302.5k</Typography>
+                      <Typography variant='h6' color="text.tertiary">Views</Typography>
+                    </Box>
+                  </Hidden> */}
+                </Box>
+              </Box>
+            </Link>
           );
         })}
       </Box>
