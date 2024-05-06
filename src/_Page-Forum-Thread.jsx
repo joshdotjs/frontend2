@@ -14,6 +14,7 @@ import SnackbarElevateAppBar from './mui-snackbar-elevate-app-bar';
 import TextInputMultiLine from './mui-text-field-multiline';
 import RichText from './rich-text';
 import MUIResponsive from './mui-responsive';
+import ThreadGrid from './forum-thread-grid';
 
 // context:
 import { AuthContext } from './context/auth-context';
@@ -160,10 +161,8 @@ export default function ForumThreadPage () {
 
       <h2>{posts?.[0]?.title}</h2>
 
-
-      <MUIResponsive />
-
-
+      {/* <MUIResponsive /> */}
+      <ThreadGrid />
 
       <ul
         style={{
@@ -247,15 +246,6 @@ export default function ForumThreadPage () {
           );
         })}
       </ul>
-
-
-
-
-
-
-
-
-
 
       {/* <SnackbarElevateAppBar /> */}
       <Box
