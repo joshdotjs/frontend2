@@ -24,29 +24,45 @@ import { http } from './util/http';
 import { apiUrl } from './util/url';
 import { asynch } from './util/async';
 
-// import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
-// import Modal from '@mui/material/Modal';
-
-// const style = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: 400,
-//   bgcolor: 'background.paper',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4,
-// };
-
 // ==============================================
 // ==============================================
 // ==============================================
 // ==============================================
 
-export default function ForumSectionPage () {
+function Ellipsis({ children, variant, color, widths }) {
+  return (
+    <Box sx={{
+      width: {
+        xs: widths.xs,
+        sm: widths.sm,
+        md: widths.md,
+        lg: widths.lg,
+        xl: widths.xl,
+      },
+     }}>
+      <Typography
+        variant={variant}
+        color={color}
+        sx={{
+          width: '100%',      // Adjust the width as needed
+          overflow: 'hidden',  // Hide overflow
+          whiteSpace: 'nowrap', // Keep text on a single line
+          textOverflow: 'ellipsis', // Add ellipsis at the end
+          // outline: 'dashed rgba(255, 0, 0, 0.35) 1px',
+        }}
+      >
+        { children }
+      </Typography>
+    </Box>
+  );
+}
+
+// ==============================================
+// ==============================================
+// ==============================================
+// ==============================================
+
+export default () => {
 
   // ============================================
 
@@ -201,7 +217,14 @@ export default function ForumSectionPage () {
                     { Icons[idx].comp }
                   </Box> */}
 
-                  <Typography variant='h4' color="text.primary">{thread.title}</Typography>
+                  <Ellipsis 
+                    variant='h4' 
+                    color="text.primary" 
+                    widths={{ xs: '175px', sm: '425px', md: '725px', lg: '1025px', xl: '1025px' }}
+                  >
+                    {thread.title}
+                  </Ellipsis>
+                  {/* <Typography variant='h4' color="text.primary" width="100px">{thread.title}</Typography> */}
                 </Box>
 
                 <Box
