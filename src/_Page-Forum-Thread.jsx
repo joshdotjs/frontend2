@@ -16,6 +16,7 @@ import IconGrouping from './mui-icon-grouping'
 import SnackbarElevateAppBar from './mui-snackbar-elevate-app-bar';
 import TextInputMultiLine from './mui-text-field-multiline';
 import RichText from './rich-text';
+import MUIGrid from './mui-grid';
 
 // context:
 import { AuthContext } from './context/auth-context';
@@ -162,6 +163,11 @@ export default function ForumThreadPage () {
 
       <h2>{posts?.[0]?.title}</h2>
 
+
+      <MUIGrid />
+
+
+
       <ul
         style={{
           listStyle: 'none',
@@ -255,21 +261,26 @@ export default function ForumThreadPage () {
 
 
       {/* <SnackbarElevateAppBar /> */}
-      <div style={{ marginBottom: '1rem' }}>
+      <Box
+        sx={{ mb: 2 }}
+      >
         { user.logged_in && <RichText {...{ quill, setQuill }} /> }
-        <div>
-          <button onClick={() => {
-            if (!user.logged_in) {
-              notify({message: 'Please log in to post a reply...', variant: 'warning', duration: 3000})();
-              return navigate('/login');
-            }
-            
-            createPost();
-          }}>
-            Reply
-          </button>
-        </div>
-      </div>
+      </Box>
+        
+      <Button 
+        variant='contained'
+        // disabled
+        onClick={() => {
+          if (!user.logged_in) {
+            notify({message: 'Please log in to post a reply...', variant: 'warning', duration: 3000})();
+            return navigate('/login');
+          }
+          
+          createPost();
+        }}
+      >
+        Reply
+      </Button>        
     </>
   );
 };
