@@ -2,7 +2,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
-  Box, Container, Modal, Button, Typography
+  Box, Container, Modal, Button, Typography, TextField
 } from '@mui/material';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
@@ -60,8 +60,8 @@ export default function ForumSectionPage () {
   const navigate = useNavigate();
   const [ notify ] = useNotification();
 
-  const [title, setTitle] = useState('New Thread');
-  const [content, setContent] = useState('New Content');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -164,8 +164,6 @@ export default function ForumSectionPage () {
           return (
             <Link key={`post-${thread.id}`} to={`/forum/thread/${thread.id}`}>
 
-
-
               <Box
                 sx={{
                   display: 'flex',
@@ -259,39 +257,61 @@ export default function ForumSectionPage () {
           aria-labelledby="modal-title"
           aria-describedby="modal-description"
         >
-          <Box sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 400,
-            bgcolor: 'background.paper',
-            border: '2px solid #000',
-            boxShadow: 24,
-            p: 4,
-          }}>
+          <Box 
+            component="form"
+            noValidate
+            autoComplete="off"
+            // sx={{
+            //   '& .MuiTextField-root': { m: 1, width: '25ch' },
+            // }}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 350,
+              bgcolor: 'background.paper',
+              border: '2px solid #000',
+              borderRadius: 2,
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
 
-            <input
-              type="text"
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Title"
+              multiline
+              maxRows={4}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-            >
-            </input>
-            <textarea
-              type="text"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
             />
 
-            <button
-              onClick={() => {                   
+
+            <TextField
+              id="outlined-multiline-static"
+              label="Content"
+              // defaultValue="Default Value"
+              placeholder="Enter thread content here..."
+              multiline
+              rows={4}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />           
+
+            <Button
+              variant="contained"
+              onClick={(e) => {
+                e.preventDefault();
                 setOpen(false);
                 createThread();
               }}
             >
               Create Thread
-            </button>
-
+            </Button>
           </Box>
 
         </Modal>
