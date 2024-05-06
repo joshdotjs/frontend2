@@ -146,22 +146,18 @@ export default function ForumSectionPage () {
     <Container>
       <Typography 
         variant="h2"
-        sx={{
-          mb: 2,
-        }}
+        sx={{ mb: 2 }}
       >
-        <span style={{ fontWeight: '100'}}>
-          Threads for Section: 
-        </span> 
-        {' '}{section.title}
+        {section.title} Threads
       </Typography>
 
       <Box
         sx={{
-          p: 0,
           display: 'flex',
           flexDirection: 'column',
           gap: 2,
+          p: 0,
+          mb: 2,
         }}
       >
         {threads.map(({ thread, num_replies}, idx) => {
@@ -242,57 +238,65 @@ export default function ForumSectionPage () {
         })}
       </Box>
 
-      <div>
+      <>
+        <Button 
+          variant="contained"
+          onClick={() => {
+            if (!user?.logged_in) {
+              notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
+              return navigate('/login');
+            }
 
-        <div>
-          <button 
-            onClick={() => {
-              if (!user?.logged_in) {
-                notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
-                return navigate('/login');
-              }
+            handleOpen();
+          }}
+        >
+          Create Thread
+        </Button>
+        
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+        >
+          <Box sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: 24,
+            p: 4,
+          }}>
 
-              handleOpen();
-            }}
-          >
-            Create Thread
-          </button>
-          
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            >
+            </input>
+            <textarea
+              type="text"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
 
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              >
-              </input>
-              <textarea
-                type="text"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              />
+            <button
+              onClick={() => {                   
+                setOpen(false);
+                createThread();
+              }}
+            >
+              Create Thread
+            </button>
 
-              <button
-                onClick={() => {                   
-                  setOpen(false);
-                  createThread();
-                }}
-              >
-                Create Thread
-              </button>
+          </Box>
 
-            </Box>
+        </Modal>
+      </>
 
-          </Modal>
-        </div>
-
-      </div>
     </Container>
   );
 };
