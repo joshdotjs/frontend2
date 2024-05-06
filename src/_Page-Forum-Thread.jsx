@@ -13,7 +13,7 @@ import IconGrouping from './mui-icon-grouping'
 import SnackbarElevateAppBar from './mui-snackbar-elevate-app-bar';
 import TextInputMultiLine from './mui-text-field-multiline';
 import RichText from './rich-text';
-import MUIGrid from './mui-grid';
+import MUIResponsive from './mui-responsive';
 
 // context:
 import { AuthContext } from './context/auth-context';
@@ -161,7 +161,7 @@ export default function ForumThreadPage () {
       <h2>{posts?.[0]?.title}</h2>
 
 
-      <MUIGrid />
+      <MUIResponsive />
 
 
 
