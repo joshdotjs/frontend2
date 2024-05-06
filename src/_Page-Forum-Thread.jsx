@@ -2,13 +2,10 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import TextField from '@mui/material/TextField';
-import { Breadcrumbs } from '@mui/material';
+import { 
+  Box, Button, Breadcrumbs, Container, 
+  Typography, Modal, TextField 
+} from '@mui/material';
 
 // comps:
 import Layout from './_layout';
@@ -147,7 +144,7 @@ export default function ForumThreadPage () {
   // ============================================
   
   return (
-    <>
+    <Container>
       <div role="presentation" >
         <Breadcrumbs aria-label="breadcrumb" color="text.primary">
           <Link to="/forum">
@@ -281,6 +278,6 @@ export default function ForumThreadPage () {
       >
         Reply
       </Button>        
-    </>
+    </Container>
   );
 };
