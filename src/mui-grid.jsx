@@ -37,12 +37,20 @@ export default () => {
 
   const theme = useTheme();
 
-  const sm_text = `(min-width:${theme.breakpoints.values.sm}px)`;
+  const sizes = {
+    xs:  `(min-width:${theme.breakpoints.values.xs}px)`,
+    sm:  `(min-width:${theme.breakpoints.values.sm}px)`,
+    md:  `(min-width:${theme.breakpoints.values.md}px)`,
+    lg:  `(min-width:${theme.breakpoints.values.lg}px)`,
+    xl:  `(min-width:${theme.breakpoints.values.xl}px)`,
+    xxl: `(min-width:${theme.breakpoints.values.xxl}px)`,
+  };
 
-  // const xs = useMediaQuery('(min-width:600px)');
-  const sm = useMediaQuery(sm_text);
-  // const md = useMediaQuery('(min-width:600px)');
-  // const md = useMediaQuery('(min-width:600px)');
+  const xs = useMediaQuery(sizes.xs);
+  const sm = useMediaQuery(sizes.sm);
+  const md = useMediaQuery(sizes.md);
+  const lg = useMediaQuery(sizes.lg);
+  const xl = useMediaQuery(sizes.xl);
 
   return (
     <>
@@ -77,8 +85,52 @@ export default () => {
         <Box sx={{ ...box_css, gridRow: '2 / 3', gridColumn: '2 / 3',  background: 'darkorchid'  }}>C</Box>
       </Box>
 
-      <p>SM Text: { sm_text }</p>
-      <p>SM: { JSON.stringify(sm) }</p>
+      <Box
+        sx={{
+          display: 'flex',
+        }}
+      >
+        <Box sx={{
+          border: 'solid white 2px',
+          p: 1,
+        }}>
+          <p>xs Text: { sizes.xs }</p>
+          <p>xs: { JSON.stringify(xs) }</p>
+        </Box>
+
+        <Box sx={{
+          border: 'solid white 2px',
+          p: 1,
+        }}>
+          <p>sm Text: { sizes.sm }</p>
+          <p>sm: { JSON.stringify(sm) }</p>
+        </Box>
+
+        <Box sx={{
+          border: 'solid white 2px',
+          p: 1,
+        }}>
+          <p>md Text: { sizes.md }</p>
+          <p>md: { JSON.stringify(md) }</p>
+        </Box>
+
+        <Box sx={{
+          border: 'solid white 2px',
+          p: 1,
+        }}>
+          <p>lg Text: { sizes.lg }</p>
+          <p>lg: { JSON.stringify(lg) }</p>
+        </Box>
+
+        <Box sx={{
+          border: 'solid white 2px',
+          p: 1,
+        }}>
+          <p>xl Text: { sizes.xl }</p>
+          <p>xl: { JSON.stringify(xl) }</p>
+        </Box>
+      </Box>
+
     </>
   );
 }
