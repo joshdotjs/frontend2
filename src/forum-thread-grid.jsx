@@ -84,7 +84,7 @@ export default () => {
   };
   if (!md) {
     box_css = {
-      A: { ...box_css.A, gridRow: '1 / 2',  gridColumn: '1 / -1',  },
+      A: { ...box_css.A, gridRow: '1 / 2',  gridColumn: '1 / -1', display: 'flex', gap: 2 },
       B: { ...box_css.B, gridRow: '2 / 3',  gridColumn: '1 / -1',  },
       C: { ...box_css.C, gridRow: '3 / 4',  gridColumn: '1 / -1',  },
       D: { ...box_css.D, gridRow: '4 / 5',  gridColumn: '1 / -1',  },
@@ -116,8 +116,10 @@ export default () => {
       <Box sx={ container_css }>
         <Item sx={ box_css.A }>
           <img src={avatar} alt="placeholder" style={{ borderRadius: '50%' }} />
-          <Typography>Admin</Typography>
-          <Typography>Site Admin</Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
+            <Typography>Admin</Typography>
+            <Typography>Site Admin</Typography>
+          </Box>
         </Item>
         <Item sx={ box_css.B }>B</Item>
         <Item sx={ box_css.C }>C</Item>
