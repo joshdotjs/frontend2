@@ -116,6 +116,10 @@ export default () => {
       <Box sx={ container_css }>
         <Item sx={ box_css.A }>
           <img src={avatar} alt="placeholder" style={{ borderRadius: '50%' }} />
+
+          {/* NOTE: I'm getting into territory where I am essecially creating CSS name hairarchies to achieve these responsive styles */}
+          {/* RECALL: The goal is to not have any class names. */}
+          {/* CONSIDER: Do the responsive styles inline via SX prop */}
           <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
             <Typography>Admin</Typography>
             <Typography>Site Admin</Typography>
