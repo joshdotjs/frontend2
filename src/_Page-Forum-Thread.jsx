@@ -163,7 +163,7 @@ export default function ForumThreadPage () {
       <h2>{posts?.[0]?.title}</h2>
 
       {/* <MUIResponsiveUseTheme /> */}
-      <MUIResponsiveSX />
+      {/* <MUIResponsiveSX /> */}
       <ThreadGrid />
 
       <ul

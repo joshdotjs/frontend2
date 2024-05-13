@@ -33,6 +33,7 @@ export default () => {
 
   return (
     <>
+      {/* <Box sx={ container_css }> */}
       <Box sx={{
         background: theme.j.bg.secondary,
         display: 'grid',
@@ -42,13 +43,17 @@ export default () => {
           md: '200px 1fr',
         },
         gridTemplateRows: {
-          xs: 'repeat(1, 1fr)',
-          md: 'repeat(1, 1fr)',
+          xs: 'repeat(4, auto)',
+          md: 'repeat(3, 1fr)',
+        },
+        border: {
+          xs: 'solid white 20px',
+          md: 'solid red 20px',
         },
       }}>
         {/* <Item sx={ box_css.A }> */}
         <Item sx={{
-          background: 'deepskyblue',
+          // background: 'deepskyblue',
           gridRow: { xs: '1 / 2', md: '1 / -1',}, 
           gridColumn: { xs: '1 / -1', md: '1 / 2' }, 
           display: { xs: 'flex', md: 'block' },
@@ -61,29 +66,22 @@ export default () => {
             <Typography>Site Admin</Typography>
           </Box>
         </Item>
-        
-        <Box sx={{
-          // gridRow: { xs: '1 / 2', md: '1 / -1',}, 
-          gridColumn: { xs: '1 / -1', md: '2 / 3' }, 
-          border: 'solid white 2px',
-        }}>
-          <Item sx={{
-            // background: 'tomato',
-            background: theme.j.bg.secondary,
-            gridRow: { xs: '2 / 3', md: '1 / 2',},
-            gridColumn: { xs: '1 / -1', md: '2 / 3'}, 
-          }}>B</Item>
-          <Item sx={{
-            background: 'darkorange',
-            gridRow: { xs: '3 / 4', md: '2 / 3',},
-            gridColumn: { xs: '1 / -1', md: '2 / 3'},
-          }}>C</Item>
-          <Item sx={{
-            background: 'darkorchid',
-            gridRow: { xs: '4 / 5', md: '3 / 4',},
-            gridColumn: { xs: '1 / -1', md: '2 / 3'},        
-          }}>D</Item>
-        </Box>
+        <Item sx={{
+          // background: 'tomato',
+          background: theme.j.bg.secondary,
+          gridRow: { xs: '2 / 3', md: '1 / 2',},
+          gridColumn: { xs: '1 / -1', md: '2 / 3'}, 
+        }}>B</Item>
+        <Item sx={{
+          background: 'darkorange',
+          gridRow: { xs: '3 / 4', md: '2 / 3',},
+          gridColumn: { xs: '1 / -1', md: '2 / 3'},
+        }}>C</Item>
+        <Item sx={{
+          background: 'darkorchid',
+          gridRow: { xs: '4 / 5', md: '3 / 4',},
+          gridColumn: { xs: '1 / -1', md: '2 / 3'},        
+        }}>D</Item>
       </Box>
     </>
   );
