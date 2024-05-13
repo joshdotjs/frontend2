@@ -31,6 +31,12 @@ export default () => {
 
   const theme = useTheme();
 
+  const sizes = {
+    // xs:  `(min-width:${theme.breakpoints.values.xs}px)`,
+    md:  `(min-width:${theme.breakpoints.values.md}px)`,
+  };
+  const md = useMediaQuery(sizes.md);
+
   return (
     <>
       <Box sx={{
@@ -53,7 +59,7 @@ export default () => {
       }}>
         {/* <Item sx={ box_css.A }> */}
         <Item sx={{
-          background: 'deepskyblue',
+          // background: 'deepskyblue',
           gridRow: { xs: '1 / 2', md: '1 / -1',}, 
           gridColumn: { xs: '1 / -1', md: '1 / 2' }, 
           display: { xs: 'flex', md: 'block' },
@@ -62,9 +68,14 @@ export default () => {
           <img src={avatar} alt="placeholder" style={{ borderRadius: '50%', width: '50px' }} />
 
           <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: { xs: 'flex-start', md: 'center' } }}>
-            <Typography>Admin</Typography>
-            <Typography>Site Admin</Typography>
+            {!md && <Typography variant="h5">Welcome to phpBB31</Typography>}
+            {md && <Typography variant="h5">joshDotJS</Typography>}
+
+
+            {!md && <Typography variant="h6">By joshDotJS</Typography>}
+            {md && <Typography variant="h6">Site Admin</Typography>}
           </Box>
+          {!md && <Typography variant="h5" sx={{ marginLeft: 'auto' }}>#1</Typography>}
         </Item>
         
         <Box sx={{
@@ -79,17 +90,17 @@ export default () => {
             gridRow: { xs: '2 / 3', md: '1 / 2',},
             gridColumn: { xs: '1 / -1', md: '2 / 3'}, 
             paddingTop: { xs: 0, md: theme.spacing(2) },
+            paddingBottom: 0,
           }}>
             <Box sx={{
               display: 'flex',
               justifyContent: 'space-between',
               borderBottom: `solid 1px ${theme.palette.text.tertiary}`,
-              // padding: theme.spacing(2),
-              paddingBottom: theme.spacing(2),
-              // background: 'red'
+              paddingBottom: { xs: 0, md: theme.spacing(2) },
+              // background: 'darkred'
             }}>
-              <Typography variant="h5">Welcome to phpBB31</Typography>
-              <Typography variant="h5">#1</Typography>
+              {md && <Typography variant="h5">Welcome to phpBB31</Typography>}
+              {md && <Typography variant="h5">#1</Typography>}
             </Box>
           </Item>
           <Item sx={{
