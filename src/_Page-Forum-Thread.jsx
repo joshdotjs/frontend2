@@ -1,5 +1,5 @@
 // libs:
-import { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { 
@@ -164,7 +164,7 @@ export default function ForumThreadPage () {
 
       {/* <MUIResponsiveUseTheme /> */}
       {/* <MUIResponsiveSX /> */}
-      <ThreadGrid />
+      {/* <ThreadGrid /> */}
 
       <ul
         style={{
@@ -174,80 +174,76 @@ export default function ForumThreadPage () {
       >
         {posts.map((post) => {
           return (
-            <li 
-              key={`post-${post.id}`}
-              style={{
-                borderBottom: 'solid 1px #ccc',
-              }}
-            >
-              {/* <p>{post.content}</p> */}
-              <p dangerouslySetInnerHTML={{ __html: post.content}}></p>
-              <h6>by{' '}
-                {
-                  <Link to={`/user-profile/${post.user_id}`}>
-                    {post.first_name} ({post.is_admin ? 'Admin' : 'User'} | {post.user_id})
-                  </Link>
-                }
-              </h6>
-
-              { user.id === post.user_id &&
-                <>
-                  <Button onClick={() => {
-                    setUpdatedPost(post.content);
-                    handleOpenEditModal();
-                  }}>
-                    Edit
-                  </Button>
-                  <Modal
-                    open={open_edit_modal}
-                    onClose={handleCloseEditModal}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style_edit_modal}>
-                      <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                      </Typography>
-                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                      </Typography>
-
-                      
-                      <Box
-                        component="form"
-                        sx={{
-                          '& .MuiTextField-root': { m: 1, width: '100%' },
-                        }}
-                        noValidate
-                        autoComplete="off"
-                      >
-                        <TextField
-                          id="filled-multiline-static"
-                          label="Reply"
-                          multiline
-                          rows={4}
-                          // defaultValue="Default Value"
-                          variant="filled"
-                          value={updated_post}
-                          onChange={(e) => setUpdatedPost(e.target.value)}
-                        />
-                      </Box>
-
-                      <Button 
-                        onClick={() => {
-                          updatePost(post.id);
-                          handleCloseEditModal();
-                        }}
-                      >
-                        Update</Button>
-                    </Box>
-                  </Modal>
-                </>
-              }
-            </li>
+            <React.Fragment key={`post-${post.id}`}>
+              <ThreadGrid {...{ post }} />
+            </React.Fragment>
           );
         })}
       </ul>
+
+
+
+
+
+
+
+
+
+            {/* { user.id === post.user_id &&
+              <>
+                <Button onClick={() => {
+                  setUpdatedPost(post.content);
+                  handleOpenEditModal();
+                }}>
+                  Edit
+                </Button>
+                <Modal
+                  open={open_edit_modal}
+                  onClose={handleCloseEditModal}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style_edit_modal}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                      Text in a modal
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                      Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    </Typography>
+
+                    
+                    <Box
+                      component="form"
+                      sx={{
+                        '& .MuiTextField-root': { m: 1, width: '100%' },
+                      }}
+                      noValidate
+                      autoComplete="off"
+                    >
+                      <TextField
+                        id="filled-multiline-static"
+                        label="Reply"
+                        multiline
+                        rows={4}
+                        // defaultValue="Default Value"
+                        variant="filled"
+                        value={updated_post}
+                        onChange={(e) => setUpdatedPost(e.target.value)}
+                      />
+                    </Box>
+
+                    <Button 
+                      onClick={() => {
+                        updatePost(post.id);
+                        handleCloseEditModal();
+                      }}
+                    >
+                      Update</Button>
+                  </Box>
+                </Modal>
+              </>
+            } */}
+
 
       {/* <SnackbarElevateAppBar /> */}
       <Box
