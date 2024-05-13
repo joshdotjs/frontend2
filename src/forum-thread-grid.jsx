@@ -1,8 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import { Box } from '@mui/material';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 // hooks:
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -107,12 +106,28 @@ export default () => {
             // background: 'darkorange',
             gridRow: { xs: '3 / 4', md: '2 / 3',},
             gridColumn: { xs: '1 / -1', md: '2 / 3'},
-          }}>C</Item>
+            textAlign: 'left',
+          }}>
+            <Typography variant="body2">
+              This is an example post in your phpBB3 installation. Everything seems to be working. You may delete this post if you like and continue to set up your board. During the installation process your first category and your first forum are assigned an appropriate set of permissions for the predefined usergroups administrators, bots, global moderators, guests, registered users and registered COPPA users. If you also choose to delete your first category and your first forum, do not forget to assign permissions for all these usergroups for all new categories and forums you create. It is recommended to rename your first category and your first forum and copy permissions from these while creating new categories and forums. Have fun!
+            </Typography>
+          </Item>
           <Item sx={{
             // background: 'darkorchid',
+            background: theme.j.bg.primary,
             gridRow: { xs: '4 / 5', md: '3 / 4',},
-            gridColumn: { xs: '1 / -1', md: '2 / 3'},        
-          }}>D</Item>
+            gridColumn: { xs: '1 / -1', md: '2 / 3'},
+            display: 'flex',
+            justifyContent: 'space-between',
+            borderTop: `solid 1px ${theme.palette.text.tertiary}`,
+          }}>
+            <Typography variant="h6">Quote</Typography>
+
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: theme.spacing(1), }}>
+              <AccessTimeIcon sx={{ fontSize: theme.typography.h6.fontSize }} />
+              <Typography variant="h6">24 February 2024, 3:16pm</Typography>
+            </Box>
+          </Item>
         </Box>
       </Box>
     </>
