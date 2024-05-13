@@ -17,7 +17,7 @@ import avatar from './avatar.png';
 const Item = styled(Box)(({ theme }) => ({
   // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   // ...theme.typography.body2,
-  padding: theme.spacing(1),
+  padding: theme.spacing(2),
   textAlign: 'center',
   color: theme.palette.text.primary,
 }));
@@ -34,9 +34,12 @@ export default () => {
   return (
     <>
       <Box sx={{
-        background: theme.j.bg.secondary,
+        background: {
+          xs: theme.j.bg.secondary,
+          md: theme.j.bg.primary,
+        },
         display: 'grid',
-        gap: 2,
+        gap: { md: 2, },
         gridTemplateColumns: {
           xs: '1fr',
           md: '200px 1fr',
@@ -45,6 +48,8 @@ export default () => {
           xs: 'repeat(1, 1fr)',
           md: 'repeat(1, 1fr)',
         },
+        border: { xs: `solid 1px ${theme.palette.text.tertiary}`, md: 'none' },
+        borderRadius: '3px',
       }}>
         {/* <Item sx={ box_css.A }> */}
         <Item sx={{
@@ -63,23 +68,37 @@ export default () => {
         </Item>
         
         <Box sx={{
+          background: theme.j.bg.secondary,
           // gridRow: { xs: '1 / 2', md: '1 / -1',}, 
           gridColumn: { xs: '1 / -1', md: '2 / 3' }, 
-          border: 'solid white 2px',
+          border: { md: `solid 1px ${theme.palette.text.tertiary}` },
+          borderRadius: '3px',
         }}>
           <Item sx={{
             // background: 'tomato',
-            background: theme.j.bg.secondary,
             gridRow: { xs: '2 / 3', md: '1 / 2',},
             gridColumn: { xs: '1 / -1', md: '2 / 3'}, 
-          }}>B</Item>
+            paddingTop: { xs: 0, md: theme.spacing(2) },
+          }}>
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              borderBottom: `solid 1px ${theme.palette.text.tertiary}`,
+              // padding: theme.spacing(2),
+              paddingBottom: theme.spacing(2),
+              // background: 'red'
+            }}>
+              <Typography variant="h5">Welcome to phpBB31</Typography>
+              <Typography variant="h5">#1</Typography>
+            </Box>
+          </Item>
           <Item sx={{
-            background: 'darkorange',
+            // background: 'darkorange',
             gridRow: { xs: '3 / 4', md: '2 / 3',},
             gridColumn: { xs: '1 / -1', md: '2 / 3'},
           }}>C</Item>
           <Item sx={{
-            background: 'darkorchid',
+            // background: 'darkorchid',
             gridRow: { xs: '4 / 5', md: '3 / 4',},
             gridColumn: { xs: '1 / -1', md: '2 / 3'},        
           }}>D</Item>
