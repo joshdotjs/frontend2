@@ -14,16 +14,6 @@ import avatar from './avatar.png';
 
 // ==============================================
 
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
-
-// ==============================================
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -64,9 +54,7 @@ export default () => {
 
   let box_css = {
     A: { 
-      // display: 'flex',
-      // flexDirection: 'column',
-      background: 'deepskyblue',
+      // background: 'deepskyblue',
     },
     B: { 
       background: 'tomato',
@@ -78,10 +66,7 @@ export default () => {
       background: 'darkorchid',
     },
   };
-  let container_css = {
-    display: 'grid',
-    gap: 2,
-  };
+
   if (!md) {
     box_css = {
       A: { ...box_css.A, gridRow: '1 / 2',  gridColumn: '1 / -1', display: 'flex', gap: 2 },
@@ -89,12 +74,6 @@ export default () => {
       C: { ...box_css.C, gridRow: '3 / 4',  gridColumn: '1 / -1',  },
       D: { ...box_css.D, gridRow: '4 / 5',  gridColumn: '1 / -1',  },
     }; // box_css
-    container_css = {
-      ...container_css,
-      gridTemplateColumns: '1fr',
-      gridTemplateRows: 'repeat(4, auto)',
-      border: 'solid white 20px', 
-    }; // container_css
   } // if (md)
   else {
     box_css = {
@@ -103,23 +82,38 @@ export default () => {
       C: { ...box_css.C, gridRow: '2 / 3',  gridColumn: '2 / 3',   },
       D: { ...box_css.D, gridRow: '3 / 4',  gridColumn: '2 / 3',   },
     }; // box_css
-    container_css = {
-      ...container_css,
-      gridTemplateColumns: '200px 1fr',
-      gridTemplateRows: 'repeat(3, 1fr)',
-      border: 'solid red 20px',
-    }; // container_css
+
   } // else
 
   return (
     <>
-      <Box sx={ container_css }>
-        <Item sx={ box_css.A }>
-          <img src={avatar} alt="placeholder" style={{ borderRadius: '50%' }} />
+      {/* <Box sx={ container_css }> */}
+      <Box sx={{
+        display: 'grid',
+        gap: 2,
+        gridTemplateColumns: {
+          xs: '1fr',
+          md: '200px 1fr',
+        },
+        gridTemplateRows: {
+          xs: 'repeat(4, auto)',
+          md: 'repeat(3, 1fr)',
+        },
+        border: {
+          xs: 'solid white 20px',
+          md: 'solid red 20px',
+        },
+      }}>
+        {/* <Item sx={ box_css.A }> */}
+        <Item sx={{
+          background: 'deepskyblue',
+          gridRow: { xs: '1 / 2', md: '1 / -1',}, 
+          gridColumn: { xs: '1 / -1', md: '1 / 2' }, 
+          display: { xs: 'flex', md: 'block' },
+          gap: { xs: 2, md: 0 },
+        }}>
+          <img src={avatar} alt="placeholder" style={{ borderRadius: '50%', width: '50px' }} />
 
-          {/* NOTE: I'm getting into territory where I am essecially creating CSS name hairarchies to achieve these responsive styles */}
-          {/* RECALL: The goal is to not have any class names. */}
-          {/* CONSIDER: Do the responsive styles inline via SX prop */}
           <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
             <Typography>Admin</Typography>
             <Typography>Site Admin</Typography>
