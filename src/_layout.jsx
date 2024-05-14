@@ -49,7 +49,7 @@ const theme = createTheme({
     bg: {
       primary: '#151F28',
       secondary: '#202E3A',
-      tertiary: 'rgb(29, 42, 54)'
+      tertiary: 'hsl(215, 30.12048192771084%, 16.274509803921568%)'
     },
     accent: {
       green: '#71B121',

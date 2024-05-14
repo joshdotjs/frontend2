@@ -16,6 +16,17 @@ import avatar from './avatar.png';
 // lib:
 import { styled } from '@mui/material/styles';
 
+// dates:
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+
+// Extend dayjs with necessary plugins
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(localizedFormat);
+
 // ==============================================
 
 const Item = styled(Box)(({ theme }) => ({
@@ -133,7 +144,9 @@ export default ({ post, idx }) => {
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: theme.spacing(1), }}>
               <AccessTimeIcon sx={{ fontSize: theme.typography.h6.fontSize }} />
-              <Typography variant="h6">24 February 2024, 3:16pm</Typography>
+              {/* <Typography variant="h6">24 February 2024, 3:16pm</Typography> */}
+              {/* <Typography variant="h6">{dayjs(post.created_at).utc().format('DD MMMM YYYY, h:mma')}</Typography> */}
+              <Typography variant="h6">{dayjs(post.created_at).tz('America/Chicago').format('DD MMMM YYYY, h:mma')}</Typography>
             </Box>
           </Item>
         </Box>
