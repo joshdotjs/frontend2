@@ -82,7 +82,7 @@ export default ({ post, idx }) => {
             {!md && <Typography variant="h6">By joshDotJS</Typography>}
             {md && <Typography variant="h6">{post.is_admin ? 'Admin' : 'User'}</Typography>}
           </Box>
-          {!md && <Typography variant="h5" sx={{ marginLeft: 'auto' }}>#1</Typography>}
+          {!md && idx!==0 && <Typography variant="h5" sx={{ marginLeft: 'auto' }}>#{idx}</Typography>}
         </Item>
         
         <Box sx={{
@@ -107,7 +107,7 @@ export default ({ post, idx }) => {
               // background: 'darkred'
             }}>
               {md && <Typography variant="h5">{idx !== 0 ? `Re: ${post.title}` : post.title}</Typography>}
-              {md && <Typography variant="h5">#1</Typography>}
+              {md && idx!==0 && <Typography variant="h5">#{idx}</Typography>}
             </Box>
           </Item>
           <Item sx={{
