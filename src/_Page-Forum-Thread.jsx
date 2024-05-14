@@ -172,11 +172,11 @@ export default function ForumThreadPage () {
           padding: 0,
         }}
       >
-        {posts.map((post) => {
+        {posts.map((post, idx) => {
           return (
-            <React.Fragment key={`post-${post.id}`}>
-              <ThreadGrid {...{ post }} />
-            </React.Fragment>
+            <Box key={`post-${post.id}`} sx={(theme) => ({ mb: theme.spacing(2) })}>
+              <ThreadGrid {...{ post, idx }} />
+            </Box>
           );
         })}
       </ul>

@@ -48,7 +48,8 @@ const theme = createTheme({
   j: {
     bg: {
       primary: '#151F28',
-      secondary: '#202E3A'
+      secondary: '#202E3A',
+      tertiary: 'rgb(29, 42, 54)'
     },
     accent: {
       green: '#71B121',

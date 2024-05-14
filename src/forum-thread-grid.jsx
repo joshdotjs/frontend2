@@ -31,7 +31,7 @@ const Item = styled(Box)(({ theme }) => ({
 // ==============================================
 // ==============================================
 
-export default ({ post }) => {
+export default ({ post, idx }) => {
 
   const theme = useTheme();
 
@@ -61,7 +61,6 @@ export default ({ post }) => {
         border: { xs: `solid 1px ${theme.palette.text.tertiary}`, md: 'none' },
         borderRadius: '3px',
       }}>
-        {/* <Item sx={ box_css.A }> */}
         <Item sx={{
           // background: 'deepskyblue',
           gridRow: { xs: '1 / 2', md: '1 / -1',}, 
@@ -72,7 +71,8 @@ export default ({ post }) => {
           <img src={avatar} alt="placeholder" style={{ borderRadius: '50%', width: '50px' }} />
 
           <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: { xs: 'flex-start', md: 'center' } }}>
-            {!md && <Typography variant="h5">Welcome to phpBB31</Typography>}
+            {!md && <Typography variant="h5">{idx !== 0 ? `Re: ${post.title}` : post.title}</Typography>}
+            <div>IDX: {idx}</div>
             {md && 
               <Link to={`/user-profile/${post.user_id}`}>
                 <Typography variant="h5">{post.first_name}</Typography>
@@ -106,7 +106,7 @@ export default ({ post }) => {
               paddingBottom: { xs: 0, md: theme.spacing(2) },
               // background: 'darkred'
             }}>
-              {md && <Typography variant="h5">Welcome to phpBB31</Typography>}
+              {md && <Typography variant="h5">{idx !== 0 ? `Re: ${post.title}` : post.title}</Typography>}
               {md && <Typography variant="h5">#1</Typography>}
             </Box>
           </Item>
@@ -117,13 +117,12 @@ export default ({ post }) => {
             textAlign: 'left',
           }}>
             <Typography variant="body2">
-              {/* This is an example post in your phpBB3 installation. Everything seems to be working. You may delete this post if you like and continue to set up your board. During the installation process your first category and your first forum are assigned an appropriate set of permissions for the predefined usergroups administrators, bots, global moderators, guests, registered users and registered COPPA users. If you also choose to delete your first category and your first forum, do not forget to assign permissions for all these usergroups for all new categories and forums you create. It is recommended to rename your first category and your first forum and copy permissions from these while creating new categories and forums. Have fun! */}
               <span dangerouslySetInnerHTML={{ __html: post?.content}}></span>
             </Typography>
           </Item>
           <Item sx={{
             // background: 'darkorchid',
-            background: theme.j.bg.primary,
+            background: theme.j.bg.tertiary,
             gridRow: { xs: '4 / 5', md: '3 / 4',},
             gridColumn: { xs: '1 / -1', md: '2 / 3'},
             display: 'flex',
