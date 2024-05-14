@@ -80,7 +80,7 @@ export default ({ post, idx }) => {
           gap: { xs: 2, md: 0 },
         }}>
           <Link to={`/user-profile/${post.user_id}`}>
-          <img src={avatar} alt="placeholder" style={{ borderRadius: '50%', width: '50px', height: '50px' }} />
+            <img src={avatar} alt="placeholder" style={{ borderRadius: '50%', width: '50px', height: '50px' }} />
           </Link>
 
           

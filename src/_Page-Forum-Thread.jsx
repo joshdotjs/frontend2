@@ -23,6 +23,7 @@ import { AuthContext } from './context/auth-context';
 // hooks:
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from './hooks/use-notification';
+import { useTheme } from '@mui/material/styles';
 
 // utils:
 import { http } from './util/http';
@@ -47,6 +48,8 @@ export default function ForumThreadPage () {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [ notify ] = useNotification();
+
+  const theme = useTheme();
 
   // ============================================
 
@@ -149,11 +152,12 @@ export default function ForumThreadPage () {
     <Container>
       <div role="presentation" >
         <Breadcrumbs aria-label="breadcrumb" color="text.primary">
-          <Link to="/forum">
+          <Link to="/forum" style={{ color: theme.palette.text.primary }}>
             Forum
           </Link>
           <Link 
             to={`/forum/section/${posts?.[0]?.section_id}`}
+            style={{ color: theme.palette.text.primary }}
           >
             Section Home
           </Link>
