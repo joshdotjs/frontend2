@@ -79,19 +79,31 @@ export default ({ post, idx }) => {
           display: { xs: 'flex', md: 'block' },
           gap: { xs: 2, md: 0 },
         }}>
-          <img src={avatar} alt="placeholder" style={{ borderRadius: '50%', width: '50px' }} />
+          <Link to={`/user-profile/${post.user_id}`}>
+          <img src={avatar} alt="placeholder" style={{ borderRadius: '50%', width: '50px', height: '50px' }} />
+          </Link>
 
+          
           <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: { xs: 'flex-start', md: 'center' } }}>
             {!md && <Typography variant="h5">{idx !== 0 ? `Re: ${post.title}` : post.title}</Typography>}
-            <div>IDX: {idx}</div>
-            {md && 
-              <Link to={`/user-profile/${post.user_id}`}>
-                <Typography variant="h5">{post.first_name}</Typography>
-              </Link>
-            }
 
-            {!md && <Typography variant="h6">By joshDotJS</Typography>}
+            
+              <Link to={`/user-profile/${post.user_id}`} style={{ color: theme.palette.text.primary }}>
+                {md && <Typography variant="h5">{post.first_name}</Typography>}
+                {!md && <Typography variant="h6" sx={{mb: 1}}>By {post.first_name}</Typography>}
+              </Link>
+
+            
             {md && <Typography variant="h6">{post.is_admin ? 'Admin' : 'User'}</Typography>}
+
+            {!md && 
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: theme.spacing(1), }}>
+                <AccessTimeIcon sx={{ fontSize: theme.typography.h6.fontSize }} />
+                {/* <Typography variant="h6">24 February 2024, 3:16pm</Typography> */}
+                {/* <Typography variant="h6">{dayjs(post.created_at).utc().format('DD MMMM YYYY, h:mma')}</Typography> */}
+                <Typography variant="h6">{dayjs(post.created_at).tz('America/Chicago').format('DD MMMM YYYY, h:mma')}</Typography>
+              </Box>
+            }
           </Box>
           {!md && idx!==0 && <Typography variant="h5" sx={{ marginLeft: 'auto' }}>#{idx}</Typography>}
         </Item>
@@ -137,17 +149,20 @@ export default ({ post, idx }) => {
             gridRow: { xs: '4 / 5', md: '3 / 4',},
             gridColumn: { xs: '1 / -1', md: '2 / 3'},
             display: 'flex',
+            alignItems: 'flex-start',
             justifyContent: 'space-between',
             borderTop: `solid 1px ${theme.palette.text.tertiary}`,
           }}>
-            <Typography variant="h6">Quote</Typography>
+            <Typography variant="h6" sx={{ maxWidth: '75%', textAlign: 'left' }}>{ post?.quote || 'Quote' }</Typography>
 
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: theme.spacing(1), }}>
-              <AccessTimeIcon sx={{ fontSize: theme.typography.h6.fontSize }} />
-              {/* <Typography variant="h6">24 February 2024, 3:16pm</Typography> */}
-              {/* <Typography variant="h6">{dayjs(post.created_at).utc().format('DD MMMM YYYY, h:mma')}</Typography> */}
-              <Typography variant="h6">{dayjs(post.created_at).tz('America/Chicago').format('DD MMMM YYYY, h:mma')}</Typography>
-            </Box>
+            {md && 
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: theme.spacing(1), }}>
+                <AccessTimeIcon sx={{ fontSize: theme.typography.h6.fontSize }} />
+                {/* <Typography variant="h6">24 February 2024, 3:16pm</Typography> */}
+                {/* <Typography variant="h6">{dayjs(post.created_at).utc().format('DD MMMM YYYY, h:mma')}</Typography> */}
+                <Typography variant="h6">{dayjs(post.created_at).tz('America/Chicago').format('DD MMMM YYYY, h:mma')}</Typography>
+              </Box>
+            }
           </Item>
         </Box>
       </Box>
