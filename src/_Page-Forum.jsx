@@ -14,6 +14,7 @@ import Hidden from '@mui/material/Hidden';
 
 // comps:
 import Transition from './_layout-transition';
+import Loading from './loading';
 
 // hooks:
 import { useTheme } from '@mui/material/styles';
@@ -187,7 +188,7 @@ export default function ForumPage () {
             );
           })}
 
-          {is_loading && <Typography>Loading...</Typography>}
+          {is_loading && <Loading />}
 
           {is_error && <Typography>Error: {error}</Typography>}
         </Box>
