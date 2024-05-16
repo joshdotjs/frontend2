@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Container, 
-  Box
+  Box,
+  Typography
 } from '@mui/material';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
@@ -23,7 +24,6 @@ import { useTheme } from '@mui/material/styles';
 import { http } from './util/http';
 import { apiUrl } from './util/url';
 import { asynch } from './util/async';
-import { Typography } from '@mui/material';
 import { FETCH_STATUS } from './util/fetch-status';
 
 // ==============================================
