@@ -24,7 +24,7 @@ html {
   /* background-color: #151F28; */
 }         
 body {
-  margin: 0;
+  /* margin: 0; - DONE INLINE */
   min-width: 320px;
   min-height: 100dvh;
   color: black;
