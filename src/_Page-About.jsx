@@ -1,6 +1,8 @@
 import { Container, Typography, Paper, Box, Button  } from '@mui/material';
 
-import Layout from './_layout';
+// comps:
+import Transition from './_layout-transition';
+
 import level_up from './assets/level-up.gif';
 
 // ==============================================
@@ -11,7 +13,7 @@ import level_up from './assets/level-up.gif';
 export default function AboutPage () {
 
   return (
-    <>
+    <Transition>
       <Container sx={{ border: 'solid white 1px', borderTop: 'none' }}>
         
         <Typography variant="h1"
@@ -25,6 +27,6 @@ export default function AboutPage () {
         </Box>
 
       </Container>
-    </>
+    </Transition>
   );
 };

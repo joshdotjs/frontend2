@@ -14,28 +14,6 @@ import { useTheme } from '@mui/material/styles';
 
 // ==============================================
 // ==============================================
-
-const container_variants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      delay: 0,
-      duration: 0.5,
-    },
-  },
-  exit: {
-    x: '-100vw',
-    transition: {
-      ease: 'easeInOut',
-    },
-  },
-};
-
-// ==============================================
-// ==============================================
 // ==============================================
 // ==============================================
 
@@ -146,20 +124,7 @@ const LayoutInnards = ({ children, navbar, footer }) => {
           exit={{ opacity: 0 }}
         />
       }
-
-      <motion.main
-        variants={ container_variants }
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        style={{ 
-          flexGrow: 1,
-          padding: '1rem',
-        }}
-      >
         { children }
-      </motion.main>
-
       {
         // location.pathname !== '/' && <StickyFooter
         footer && <StickyFooter
@@ -177,8 +142,7 @@ const LayoutInnards = ({ children, navbar, footer }) => {
 
 export default function Layout({ children, navbar, footer }) {
 
-  const location = useLocation();
-
+  // const location = useLocation();
 
   return (
     <ThemeProvider theme={ theme }>

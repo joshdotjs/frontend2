@@ -1,3 +1,6 @@
+// comps:
+import Transition from './_layout-transition';
+
 // libs:
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
@@ -47,7 +50,7 @@ export default function UserProfilePage () {
   // ============================================
   
   return (
-    <Layout navbar={true} footer={true}>
+    <Transition>
 
       <div>
         <a href="/forum">Forum Home</a>
@@ -61,6 +64,6 @@ export default function UserProfilePage () {
       <h5>{user.email}</h5>
       <h5>{user.id}</h5>
 
-    </Layout>
+    </Transition>
   );
 };

@@ -11,6 +11,9 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import CableIcon from '@mui/icons-material/Cable';
 import Hidden from '@mui/material/Hidden';
 
+// comps:
+import Transition from './_layout-transition';
+
 // context:
 import { AuthContext } from './context/auth-context';
 
@@ -159,187 +162,189 @@ export default () => {
   // ============================================
   
   return (
-    <Container>
-      <Typography 
-        variant="h2"
-        sx={{ mb: 2 }}
-      >
-        {section.title} Threads
-      </Typography>
+    <Transition>
+      <Container>
+        <Typography 
+          variant="h2"
+          sx={{ mb: 2 }}
+        >
+          {section.title} Threads
+        </Typography>
 
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          p: 0,
-          mb: 2,
-        }}
-      >
-        {threads.map(({ thread, num_replies}, idx) => {
-          return (
-            <Link key={`post-${thread.id}`} to={`/forum/thread/${thread.id}`}>
-
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  // gap: '1rem',
-                  bgcolor: theme.j.bg.secondary,
-                  color: theme.palette.text.primary,
-                  borderRadius: 2,
-                  p: 2,
-                  '&:hover': {
-                    // background: '#f0f0f0',
-                    opacity: 0.8,
-                  },
-                  transition: 'all 0.15s',
-                }}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 2,
-                  }}
-                >
-                  {/* <Box
-                    sx={{ 
-                      background: Icons[idx].color,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: 'fit-content',
-                      padding: '0.5rem',
-                      borderRadius: 2,
-                    }}
-                  >
-                    { Icons[idx].comp }
-                  </Box> */}
-
-                  <Ellipsis 
-                    variant='h4' 
-                    color="text.primary" 
-                    widths={{ xs: '175px', sm: '425px', md: '725px', lg: '1025px', xl: '1025px' }}
-                  >
-                    {thread.title}
-                  </Ellipsis>
-                  {/* <Typography variant='h4' color="text.primary" width="100px">{thread.title}</Typography> */}
-                </Box>
-
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    // gap: 2,
-                  }}
-                >
-                  {/* <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography variant='h5' color="text.primary">
-                      { num_threads }
-                    </Typography>
-                    <Typography variant='h6' color="text.tertiary">Threads</Typography>
-                  </Box> */}
-                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography variant='h5' color="text.primary">
-                      { num_replies }
-                    </Typography>
-                    <Typography variant='h6' color="text.tertiary">Replies</Typography>
-                  </Box>
-                  {/* <Hidden smDown>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <Typography variant='h5' color="text.primary">302.5k</Typography>
-                      <Typography variant='h6' color="text.tertiary">Views</Typography>
-                    </Box>
-                  </Hidden> */}
-                </Box>
-              </Box>
-            </Link>
-          );
-        })}
-      </Box>
-
-      <>
-        <Button 
-          variant="contained"
-          onClick={() => {
-            if (!user?.logged_in) {
-              notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
-              return navigate('/login');
-            }
-
-            handleOpen();
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+            p: 0,
+            mb: 2,
           }}
         >
-          Create Thread
-        </Button>
-        
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-title"
-          aria-describedby="modal-description"
-        >
-          <Box 
-            component="form"
-            noValidate
-            autoComplete="off"
-            // sx={{
-            //   '& .MuiTextField-root': { m: 1, width: '25ch' },
-            // }}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 350,
-              bgcolor: 'background.paper',
-              border: '2px solid #000',
-              borderRadius: 2,
-              boxShadow: 24,
-              p: 4,
+          {threads.map(({ thread, num_replies}, idx) => {
+            return (
+              <Link key={`post-${thread.id}`} to={`/forum/thread/${thread.id}`}>
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    // gap: '1rem',
+                    bgcolor: theme.j.bg.secondary,
+                    color: theme.palette.text.primary,
+                    borderRadius: 2,
+                    p: 2,
+                    '&:hover': {
+                      // background: '#f0f0f0',
+                      opacity: 0.8,
+                    },
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2,
+                    }}
+                  >
+                    {/* <Box
+                      sx={{ 
+                        background: Icons[idx].color,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: 'fit-content',
+                        padding: '0.5rem',
+                        borderRadius: 2,
+                      }}
+                    >
+                      { Icons[idx].comp }
+                    </Box> */}
+
+                    <Ellipsis 
+                      variant='h4' 
+                      color="text.primary" 
+                      widths={{ xs: '175px', sm: '425px', md: '725px', lg: '1025px', xl: '1025px' }}
+                    >
+                      {thread.title}
+                    </Ellipsis>
+                    {/* <Typography variant='h4' color="text.primary" width="100px">{thread.title}</Typography> */}
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      // gap: 2,
+                    }}
+                  >
+                    {/* <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <Typography variant='h5' color="text.primary">
+                        { num_threads }
+                      </Typography>
+                      <Typography variant='h6' color="text.tertiary">Threads</Typography>
+                    </Box> */}
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <Typography variant='h5' color="text.primary">
+                        { num_replies }
+                      </Typography>
+                      <Typography variant='h6' color="text.tertiary">Replies</Typography>
+                    </Box>
+                    {/* <Hidden smDown>
+                      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Typography variant='h5' color="text.primary">302.5k</Typography>
+                        <Typography variant='h6' color="text.tertiary">Views</Typography>
+                      </Box>
+                    </Hidden> */}
+                  </Box>
+                </Box>
+              </Link>
+            );
+          })}
+        </Box>
+
+        <>
+          <Button 
+            variant="contained"
+            onClick={() => {
+              if (!user?.logged_in) {
+                notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
+                return navigate('/login');
+              }
+
+              handleOpen();
             }}
           >
-
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Title"
-              multiline
-              maxRows={4}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-
-
-            <TextField
-              id="outlined-multiline-static"
-              label="Content"
-              // defaultValue="Default Value"
-              placeholder="Enter thread content here..."
-              multiline
-              rows={4}
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />           
-
-            <Button
-              variant="contained"
-              onClick={(e) => {
-                e.preventDefault();
-                setOpen(false);
-                createThread();
+            Create Thread
+          </Button>
+          
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-title"
+            aria-describedby="modal-description"
+          >
+            <Box 
+              component="form"
+              noValidate
+              autoComplete="off"
+              // sx={{
+              //   '& .MuiTextField-root': { m: 1, width: '25ch' },
+              // }}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 350,
+                bgcolor: 'background.paper',
+                border: '2px solid #000',
+                borderRadius: 2,
+                boxShadow: 24,
+                p: 4,
               }}
             >
-              Create Thread
-            </Button>
-          </Box>
 
-        </Modal>
-      </>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Title"
+                multiline
+                maxRows={4}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
 
-    </Container>
+
+              <TextField
+                id="outlined-multiline-static"
+                label="Content"
+                // defaultValue="Default Value"
+                placeholder="Enter thread content here..."
+                multiline
+                rows={4}
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />           
+
+              <Button
+                variant="contained"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(false);
+                  createThread();
+                }}
+              >
+                Create Thread
+              </Button>
+            </Box>
+
+          </Modal>
+        </>
+
+      </Container>
+    </Transition>
   );
 };

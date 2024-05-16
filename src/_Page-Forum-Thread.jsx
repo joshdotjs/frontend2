@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 
 // comps:
-import Layout from './_layout';
+import Transition from './_layout-transition';
 import IconGrouping from './mui-icon-grouping'
 import SnackbarElevateAppBar from './mui-snackbar-elevate-app-bar';
 import TextInputMultiLine from './mui-text-field-multiline';
@@ -149,127 +149,129 @@ export default function ForumThreadPage () {
   // ============================================
   
   return (
-    <Container>
-      <div role="presentation" >
-        <Breadcrumbs aria-label="breadcrumb" color="text.primary">
-          <Link to="/forum" style={{ color: theme.palette.text.primary }}>
-            Forum
-          </Link>
-          <Link 
-            to={`/forum/section/${posts?.[0]?.section_id}`}
-            style={{ color: theme.palette.text.primary }}
-          >
-            Section Home
-          </Link>
-        </Breadcrumbs>
-      </div>
+    <Transition>
+      <Container>
+        <div role="presentation" >
+          <Breadcrumbs aria-label="breadcrumb" color="text.primary">
+            <Link to="/forum" style={{ color: theme.palette.text.primary }}>
+              Forum
+            </Link>
+            <Link 
+              to={`/forum/section/${posts?.[0]?.section_id}`}
+              style={{ color: theme.palette.text.primary }}
+            >
+              Section Home
+            </Link>
+          </Breadcrumbs>
+        </div>
 
-      <h2>{posts?.[0]?.title}</h2>
+        <h2>{posts?.[0]?.title}</h2>
 
-      {/* <MUIResponsiveUseTheme /> */}
-      {/* <MUIResponsiveSX /> */}
-      {/* <ThreadGrid /> */}
+        {/* <MUIResponsiveUseTheme /> */}
+        {/* <MUIResponsiveSX /> */}
+        {/* <ThreadGrid /> */}
 
-      <ul
-        style={{
-          listStyle: 'none',
-          padding: 0,
-        }}
-      >
-        {posts.map((post, idx) => {
-          return (
-            <Box key={`post-${post.id}`} sx={(theme) => ({ mb: theme.spacing(2) })}>
-              <ThreadGrid {...{ post, idx }} />
-            </Box>
-          );
-        })}
-      </ul>
-
-
-
+        <ul
+          style={{
+            listStyle: 'none',
+            padding: 0,
+          }}
+        >
+          {posts.map((post, idx) => {
+            return (
+              <Box key={`post-${post.id}`} sx={(theme) => ({ mb: theme.spacing(2) })}>
+                <ThreadGrid {...{ post, idx }} />
+              </Box>
+            );
+          })}
+        </ul>
 
 
 
 
 
 
-            {/* { user.id === post.user_id &&
-              <>
-                <Button onClick={() => {
-                  setUpdatedPost(post.content);
-                  handleOpenEditModal();
-                }}>
-                  Edit
-                </Button>
-                <Modal
-                  open={open_edit_modal}
-                  onClose={handleCloseEditModal}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box sx={style_edit_modal}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                      Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                      Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
 
-                    
-                    <Box
-                      component="form"
-                      sx={{
-                        '& .MuiTextField-root': { m: 1, width: '100%' },
-                      }}
-                      noValidate
-                      autoComplete="off"
-                    >
-                      <TextField
-                        id="filled-multiline-static"
-                        label="Reply"
-                        multiline
-                        rows={4}
-                        // defaultValue="Default Value"
-                        variant="filled"
-                        value={updated_post}
-                        onChange={(e) => setUpdatedPost(e.target.value)}
-                      />
+
+
+              {/* { user.id === post.user_id &&
+                <>
+                  <Button onClick={() => {
+                    setUpdatedPost(post.content);
+                    handleOpenEditModal();
+                  }}>
+                    Edit
+                  </Button>
+                  <Modal
+                    open={open_edit_modal}
+                    onClose={handleCloseEditModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style_edit_modal}>
+                      <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Text in a modal
+                      </Typography>
+                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                      </Typography>
+
+                      
+                      <Box
+                        component="form"
+                        sx={{
+                          '& .MuiTextField-root': { m: 1, width: '100%' },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                      >
+                        <TextField
+                          id="filled-multiline-static"
+                          label="Reply"
+                          multiline
+                          rows={4}
+                          // defaultValue="Default Value"
+                          variant="filled"
+                          value={updated_post}
+                          onChange={(e) => setUpdatedPost(e.target.value)}
+                        />
+                      </Box>
+
+                      <Button 
+                        onClick={() => {
+                          updatePost(post.id);
+                          handleCloseEditModal();
+                        }}
+                      >
+                        Update</Button>
                     </Box>
-
-                    <Button 
-                      onClick={() => {
-                        updatePost(post.id);
-                        handleCloseEditModal();
-                      }}
-                    >
-                      Update</Button>
-                  </Box>
-                </Modal>
-              </>
-            } */}
+                  </Modal>
+                </>
+              } */}
 
 
-      {/* <SnackbarElevateAppBar /> */}
-      <Box
-        sx={{ mb: 2 }}
-      >
-        { user.logged_in && <RichText {...{ quill, setQuill }} /> }
-      </Box>
-        
-      <Button 
-        variant='contained'
-        // disabled
-        onClick={() => {
-          if (!user.logged_in) {
-            notify({message: 'Please log in to post a reply...', variant: 'warning', duration: 3000})();
-            return navigate('/login');
-          }
+        {/* <SnackbarElevateAppBar /> */}
+        <Box
+          sx={{ mb: 2 }}
+        >
+          { user.logged_in && <RichText {...{ quill, setQuill }} /> }
+        </Box>
           
-          createPost();
-        }}
-      >
-        Reply
-      </Button>        
-    </Container>
+        <Button 
+          variant='contained'
+          // disabled
+          onClick={() => {
+            if (!user.logged_in) {
+              notify({message: 'Please log in to post a reply...', variant: 'warning', duration: 3000})();
+              return navigate('/login');
+            }
+            
+            createPost();
+          }}
+        >
+          Reply
+        </Button>        
+      </Container>
+    </Transition>
   );
 };
