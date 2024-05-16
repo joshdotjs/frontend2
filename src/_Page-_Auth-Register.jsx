@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // comps:
-import Layout from './_layout';
+import Transition from './_layout-transition';
 
 // utils:
 import { http } from './util/http';
@@ -123,7 +123,7 @@ export default function SignInSide() {
   // ============================================
 
   return (
-    <>
+    <Transition>
       <Grid 
         container
         sx={{ height: '100%' }}
@@ -250,6 +250,6 @@ export default function SignInSide() {
           </Box>
         </Grid>
       </Grid>
-    </>
+    </Transition>
   );
 }

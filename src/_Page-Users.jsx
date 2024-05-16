@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Container, Typography, Paper, Box, Button } from '@mui/material';
 
-import Layout from './_layout';
+// comps:
+import Transition from './_layout-transition';
 import UsersTable from './table-users';
 import Navbar from './navbar';
 import CreateUserForm from './form-create-user';
@@ -115,7 +116,7 @@ export default function HomePage () {
   // ============================================
 
   return (
-    <Layout navbar={true} footer={true}>
+    <Transition>
       <Container sx={{ border: 'solid white 1px', borderTop: 'none' }}>
         
         <Typography variant="h2"
@@ -139,6 +140,6 @@ export default function HomePage () {
         <UsersTable { ...{ users, editUser, deleteUser } } sx={{ mb: 4 }}/>
 
       </Container>
-    </Layout>
+    </Transition>
   );
 };
