@@ -52,17 +52,20 @@ export default function UserProfilePage () {
   return (
     <Transition>
 
-      <div>
-        <a href="/forum">Forum Home</a>
-      </div>
-
       <h2>User Profile</h2>
 
-      <h5>{JSON.stringify(user)}</h5>
-      <h5>{user.first_name}</h5>
-      <h5>{user.last_name}</h5>
-      <h5>{user.email}</h5>
-      <h5>{user.id}</h5>
+      {/* <h5>{JSON.stringify(user)}</h5> */}
+      <h5>First Name: {user.first_name}</h5>
+      <h5>Last Name: {user.last_name}</h5>
+      <h5>Email: {user.email}</h5>
+      <h5>User Number: {user.id}</h5>
+
+      <hr />
+      
+      <h5>Avatar: COMING SOON...</h5>
+      <h5>Quote: COMING SOON...</h5>
+      <h5>Stats: COMING SOON...</h5>
+      <h5>Badges: COMING SOON...</h5>
 
     </Transition>
   );
