@@ -14,6 +14,7 @@ import Hidden from '@mui/material/Hidden';
 
 // comps:
 import Transition from './_layout-transition';
+import Loading from './loading';
 
 // hooks:
 import { useTheme } from '@mui/material/styles';
@@ -23,6 +24,7 @@ import { http } from './util/http';
 import { apiUrl } from './util/url';
 import { asynch } from './util/async';
 import { Typography } from '@mui/material';
+import { FETCH_STATUS } from './util/fetch-status';
 
 // ==============================================
 // ==============================================
@@ -33,20 +35,36 @@ export default function ForumPage () {
 
   // ============================================
 
+  // TODO: put in hook:
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState(FETCH_STATUS.IDLE);
+  const errorFn = ({err, msg}) => {
+    console.error(err);
+    notify({message: msg, variant: 'error', duration: 3000})();
+    setStatus(FETCH_STATUS.ERROR);
+    setError(err);
+  };
+  const is_loading = status === FETCH_STATUS.LOADING;
+  const is_success = status === FETCH_STATUS.SUCCESS;
+  const is_error = status === FETCH_STATUS.ERROR;
+
+  // ============================================
+
   const [sections, setSections] = useState([]);
   const theme = useTheme();
 
   // ============================================
 
   const getSections = async () => {
+    setStatus(FETCH_STATUS.LOADING);
+
     const url = apiUrl('sections');
     const promise = http({ url });
-    const [data, error] = await asynch( promise );
-    if (error) {
-      console.error(error);
-      // notify({message: 'Error getting threads...', variant: 'error', duration: 2000})();
-      return;
-    }
+    const [data, err] = await asynch( promise );
+    
+    if (err) return errorFn({ err, msg: 'Error getting thread sections...' });
+    
+    setStatus(FETCH_STATUS.SUCCESS);
     console.log('data: ', data);
     setSections(data);
   };
@@ -100,7 +118,7 @@ export default function ForumPage () {
             gap: 2,
           }}
         >
-          {sections.map(({ section, num_threads, num_replies }, idx) => {
+          {is_success && sections.map(({ section, num_threads, num_replies }, idx) => {
             return (
               <Link key={`post-${section.id}`} to={`/forum/section/${section.id}`}>
                 <Box
@@ -169,6 +187,10 @@ export default function ForumPage () {
               </Link>
             );
           })}
+
+          {is_loading && <Loading />}
+
+          {is_error && <Typography>Error: {error}</Typography>}
         </Box>
 
       </Container>
