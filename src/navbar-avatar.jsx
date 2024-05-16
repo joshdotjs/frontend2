@@ -11,6 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import Typography from '@mui/material/Typography';
 
 // context:
 import { AuthContext } from './context/auth-context';
@@ -66,7 +67,7 @@ export default function UserAvatar() {
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
-        // onClose={handleClose}
+        onClose={handleClose}
         // onClick={handleClose}
         PaperProps={{
           elevation: 0,
@@ -102,9 +103,11 @@ export default function UserAvatar() {
         </MenuItem> */}
         <MenuItem onClick={() => {
           const path = `/user-profile/${user.id}`;
+          handleClose();
           return navigate(path);
         }}>
-          <Avatar />Account
+          <Avatar />
+          <Typography sx={{ color: 'black'}}>Account</Typography>
         </MenuItem>
         <Divider />
         {/* <MenuItem onClick={handleClose}>
@@ -114,17 +117,19 @@ export default function UserAvatar() {
           Add another account
         </MenuItem> */}
         <MenuItem onClick={() => {
-          alert('coming soon!')
+          alert('coming soon!');
+          handleClose();
         }}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          <Typography sx={{ color: 'black'}}>Settings</Typography>
         </MenuItem>
         <MenuItem 
           onClick={() => {
             logOut();
             notify({ message: 'successfully logged user out! 🙂', variant: 'success', duration: 3000 })();
+            handleClose();
             return navigate('/');
           }}
           data-cy="navbar-logout-button"
@@ -132,7 +137,7 @@ export default function UserAvatar() {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Log Out
+          <Typography sx={{ color: 'black'}}>Log Out</Typography>
         </MenuItem>
       </Menu>
     </>
