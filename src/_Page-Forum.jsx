@@ -140,11 +140,10 @@ export default function ForumPage () {
             display: 'grid',
             gridTemplateColumns: '1fr',
             gridTemplateRows: '1fr',
-            position: 'relative',
+            // position: 'relative'
             // width: '300px',
             // height: '300px',
             // border: '10px solid white',
-            position: 'relative'
         }}>
           <section className="loading" style={{ gridColumn: '1 / -1', gridRow: '1 / -1', opacity: 1 }}>
             <Loading />
