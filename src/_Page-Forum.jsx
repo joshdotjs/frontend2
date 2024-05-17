@@ -18,7 +18,7 @@ import Hidden from '@mui/material/Hidden';
 // comps:
 import Transition from './_layout-transition';
 import Loading from './loading';
-import GSAPLoading from './gsap-loading';
+import GSAPLOading from './gsap-loading';
 
 // hooks:
 import { useTheme } from '@mui/material/styles';
@@ -60,8 +60,8 @@ export default function ForumPage () {
     () => {
       // gsap code here...
       if (is_success) {
-        gsap.to('.loading', { opacity: 0 });
-        gsap.to('.success', { opacity: 1 });
+        gsap.to('.loading', { opacity: 0, delay: 1 });
+        gsap.to('.success', { opacity: 1, delay: 1 });
       }
     },
     { 
@@ -132,9 +132,108 @@ export default function ForumPage () {
           Forum Sections
         </Typography>
 
-        <GSAPLoading />
+        <GSAPLOading />
 
-        {is_loading && <Loading />}
+        <main 
+          ref={container}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr',
+            gridTemplateRows: '1fr',
+            position: 'relative',
+            // width: '300px',
+            // height: '300px',
+            // border: '10px solid white',
+            position: 'relative'
+        }}>
+          <section className="loading" style={{ gridColumn: '1 / -1', gridRow: '1 / -1', opacity: 1 }}>
+            <Loading />
+          </section>
+          <section className="success" style={{ gridColumn: '1 / -1', gridRow: '1 / -1', opacity: 0 }}>
+            <Box
+              sx={{
+                p: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+              }}
+            >
+              {sections.map(({ section, num_threads, num_replies }, idx) => {
+                return (
+                  <Link key={`post-${section.id}`} to={`/forum/section/${section.id}`}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        // gap: '1rem',
+                        bgcolor: theme.j.bg.secondary,
+                        color: theme.palette.text.primary,
+                        borderRadius: 2,
+                        p: 2,
+                        '&:hover': {
+                          // background: '#f0f0f0',
+                          opacity: 0.8,
+                        },
+                        transition: 'all 0.15s',
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 2,
+                        }}
+                      >
+                        <Box
+                          sx={{ 
+                            background: Icons[idx].color,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: 'fit-content',
+                            padding: '0.5rem',
+                            borderRadius: 2,
+                          }}
+                        >
+                          { Icons[idx].comp }
+                        </Box>
+
+                        <Typography variant='h4' color="text.primary">{section.title}</Typography>
+                      </Box>
+
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 2,
+                        }}
+                      >
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                          <Typography variant='h5' color="text.primary">{ num_threads }</Typography>
+                          <Typography variant='h6' color="text.tertiary">Threads</Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                          <Typography variant='h5' color="text.primary">{ num_replies }</Typography>
+                          <Typography variant='h6' color="text.tertiary">Replies</Typography>
+                        </Box>
+                        {/* <Hidden smDown>
+                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Typography variant='h5' color="text.primary">302.5k</Typography>
+                            <Typography variant='h6' color="text.tertiary">Views</Typography>
+                          </Box>
+                        </Hidden> */}
+                      </Box>
+                    </Box>
+                  </Link>
+                );
+              })}
+            </Box>
+
+          </section>
+
+
+        </main>
+
 
         {is_error && <Typography>Error: {error}</Typography>}
 

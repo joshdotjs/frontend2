@@ -48,7 +48,6 @@ export default () => {
 
     setTimeout(() => {
       setStatus(FETCH_STATUS.SUCCESS);
-      console.log('data: ', data);
     }, 250);    
   };
 
@@ -64,13 +63,16 @@ export default () => {
     <main 
       ref={container}
       style={{
-      position: 'relative',
-      height: '100px',
-      width: '100px',
-      border: 'solid red 10px',
+        display: 'grid',
+        gridTemplateColumns: '1fr',
+        gridTemplateRows: '1fr',
+        position: 'relative',
+        width: '300px',
+        height: '300px',
+        border: '10px solid white',
     }}>
-      <section className="loading" style={{ position: 'absolute', background: 'blue',  height: '100%', width: '100%', display: 'grid', placeItems: 'center', opacity: 1 }}>Loading...</section>
-      <section className="success" style={{ position: 'absolute', background: 'green', height: '100%', width: '100%', display: 'grid', placeItems: 'center', opacity: 0 }}>Success!!</section>
+      <section className="loading" style={{ gridColumn: '1 / -1', gridRow: '1 / -1', zIndex: '', background: 'blue',  height: '100%', width: '100%', display: 'grid', placeItems: 'center', opacity: 1 }}>Loading...</section>
+      <section className="success" style={{ gridColumn: '1 / -1', gridRow: '1 / -1', zIndex: '', background: 'green', height: '100%', width: '100%', display: 'grid', placeItems: 'center', opacity: 0 }}>Success!!</section>
     </main>
   );
 };
