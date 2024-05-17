@@ -18,6 +18,7 @@ import Hidden from '@mui/material/Hidden';
 // comps:
 import Transition from './_layout-transition';
 import Loading from './loading';
+import GSAPLoading from './gsap-loading';
 
 // hooks:
 import { useTheme } from '@mui/material/styles';
@@ -131,100 +132,11 @@ export default function ForumPage () {
           Forum Sections
         </Typography>
 
-        <main 
-          ref={container}
-          style={{
-          position: 'relative',
-          height: '100px',
-          width: '100px',
-          border: 'solid red 10px',
-        }}>
-          <section className="loading" style={{ position: 'absolute', background: 'blue',  height: '100%', width: '100%', display: 'grid', placeItems: 'center', opacity: 1 }}>Loading...</section>
-          <section className="success" style={{ position: 'absolute', background: 'green', height: '100%', width: '100%', display: 'grid', placeItems: 'center', opacity: 0 }}>Success!!</section>
-        </main>
+        <GSAPLoading />
 
-        <Box
-          sx={{
-            p: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}
-        >
-          {is_success && sections.map(({ section, num_threads, num_replies }, idx) => {
-            return (
-              <Link key={`post-${section.id}`} to={`/forum/section/${section.id}`}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    // gap: '1rem',
-                    bgcolor: theme.j.bg.secondary,
-                    color: theme.palette.text.primary,
-                    borderRadius: 2,
-                    p: 2,
-                    '&:hover': {
-                      // background: '#f0f0f0',
-                      opacity: 0.8,
-                    },
-                    transition: 'all 0.15s',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 2,
-                    }}
-                  >
-                    <Box
-                      sx={{ 
-                        background: Icons[idx].color,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: 'fit-content',
-                        padding: '0.5rem',
-                        borderRadius: 2,
-                      }}
-                    >
-                      { Icons[idx].comp }
-                    </Box>
+        {is_loading && <Loading />}
 
-                    <Typography variant='h4' color="text.primary">{section.title}</Typography>
-                  </Box>
-
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 2,
-                    }}
-                  >
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <Typography variant='h5' color="text.primary">{ num_threads }</Typography>
-                      <Typography variant='h6' color="text.tertiary">Threads</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <Typography variant='h5' color="text.primary">{ num_replies }</Typography>
-                      <Typography variant='h6' color="text.tertiary">Replies</Typography>
-                    </Box>
-                    {/* <Hidden smDown>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <Typography variant='h5' color="text.primary">302.5k</Typography>
-                        <Typography variant='h6' color="text.tertiary">Views</Typography>
-                      </Box>
-                    </Hidden> */}
-                  </Box>
-                </Box>
-              </Link>
-            );
-          })}
-
-          {is_loading && <Loading />}
-
-          {is_error && <Typography>Error: {error}</Typography>}
-        </Box>
+        {is_error && <Typography>Error: {error}</Typography>}
 
       </Container>
     </Transition>
