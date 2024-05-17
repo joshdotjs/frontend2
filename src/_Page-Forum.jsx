@@ -145,9 +145,6 @@ export default function ForumPage () {
             // height: '300px',
             // border: '10px solid white',
         }}>
-          <section className="loading" style={{ gridColumn: '1 / -1', gridRow: '1 / -1', opacity: 1 }}>
-            <Loading />
-          </section>
           <section className="success" style={{ gridColumn: '1 / -1', gridRow: '1 / -1', opacity: 0 }}>
             <Box
               sx={{
@@ -230,7 +227,9 @@ export default function ForumPage () {
 
           </section>
 
-
+          <section className="loading" style={{ gridColumn: '1 / -1', gridRow: '1 / -1', opacity: 1, pointerEvents: 'none' }}>
+            <Loading />
+          </section>
         </main>
 
 
