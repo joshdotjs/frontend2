@@ -132,7 +132,7 @@ export default function ForumPage () {
           Forum Sections
         </Typography>
 
-        <GSAPLOading />
+        {/* <GSAPLOading /> */}
 
         <main 
           ref={container}
