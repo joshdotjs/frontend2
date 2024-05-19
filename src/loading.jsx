@@ -10,7 +10,7 @@ export default () => {
   return (
     <Player
       autoplay
-      // loop
+      loop
       src={img}
       style={{
         height: '300px',
