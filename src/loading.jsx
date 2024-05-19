@@ -13,10 +13,10 @@ export default () => {
       loop
       src={img}
       style={{
-        height: '300px',
-        width: '300px',
+        height: '15vw',
+        width: '15vw',
         position: 'absolute',
-        top: '50%',
+        top: '35%',
         left: '50%',
         transform: 'translate(-50%, -50%)'
       }}
