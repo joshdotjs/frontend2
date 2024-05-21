@@ -1,7 +1,5 @@
 // libs:
-import { useState, useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Container, 
@@ -18,19 +16,15 @@ import Hidden from '@mui/material/Hidden';
 // comps:
 import Transition from './_layout-transition';
 import Loading from './loading';
-import GSAPLOading from './gsap-loading';
 
 // hooks:
 import { useTheme } from '@mui/material/styles';
+import { useLoading } from './hooks/use-loading';
 
 // utils:
 import { http } from './util/http';
 import { apiUrl } from './util/url';
 import { asynch } from './util/async';
-import { FETCH_STATUS } from './util/fetch-status';
-
-// register:
-gsap.registerPlugin(useGSAP);
 
 // ==============================================
 // ==============================================
@@ -41,39 +35,17 @@ export default function ForumPage () {
 
   // ============================================
 
-  // TODO: put in hook:
-  const [error, setError] = useState(null);
-  const [status, setStatus] = useState(FETCH_STATUS.IDLE);
-  const errorFn = ({err, msg}) => {
-    console.error(err);
-    notify({message: msg, variant: 'error', duration: 3000})();
-    setStatus(FETCH_STATUS.ERROR);
-    setError(err);
-  };
-  const is_loading = status === FETCH_STATUS.LOADING;
-  const is_success = status === FETCH_STATUS.SUCCESS;
-  const is_error = status === FETCH_STATUS.ERROR;
-
-  const container = useRef();
-
-  useGSAP(
-    () => {
-      // gsap code here...
-      if (is_success) {
-        gsap.to('.loading', { opacity: 0, delay: 1 });
-        gsap.to('.success', { opacity: 1, delay: 1 });
-      }
-    },
-    { 
-      scope: container, 
-      dependencies: [is_loading, is_success],
-    }
-  ); // <-- scope is for selector text (optional)
-
-  // ============================================
-
   const [sections, setSections] = useState([]);
   const theme = useTheme();
+  const { 
+    error, 
+    setStatus, 
+    errorFn, 
+    is_error, 
+    container_ref, 
+    notify, 
+    FETCH_STATUS 
+  } = useLoading();
 
   // ============================================
 
@@ -132,10 +104,8 @@ export default function ForumPage () {
           Forum Sections
         </Typography>
 
-        {/* <GSAPLOading /> */}
-
         <main 
-          ref={container}
+          ref={container_ref}
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr',
