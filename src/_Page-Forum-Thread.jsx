@@ -1,5 +1,7 @@
 // libs:
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { 
@@ -9,6 +11,7 @@ import {
 
 // comps:
 import Transition from './_layout-transition';
+import Loading from './loading';
 import IconGrouping from './mui-icon-grouping'
 import SnackbarElevateAppBar from './mui-snackbar-elevate-app-bar';
 import TextInputMultiLine from './mui-text-field-multiline';
@@ -29,6 +32,10 @@ import { useTheme } from '@mui/material/styles';
 import { http } from './util/http';
 import { apiUrl } from './util/url';
 import { asynch } from './util/async';
+import { FETCH_STATUS } from './util/fetch-status';
+
+// register:
+gsap.registerPlugin(useGSAP);
 
 // ==============================================
 // ==============================================
@@ -36,6 +43,37 @@ import { asynch } from './util/async';
 // ==============================================
 
 export default function ForumThreadPage () {
+
+  // ============================================
+
+  // TODO: put in hook:
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState(FETCH_STATUS.IDLE);
+  const errorFn = ({err, msg}) => {
+    console.error(err);
+    notify({message: msg, variant: 'error', duration: 3000})();
+    setStatus(FETCH_STATUS.ERROR);
+    setError(err);
+  };
+  const is_loading = status === FETCH_STATUS.LOADING;
+  const is_success = status === FETCH_STATUS.SUCCESS;
+  const is_error = status === FETCH_STATUS.ERROR;
+
+  const container = useRef();
+
+  useGSAP(
+    () => {
+      // gsap code here...
+      if (is_success) {
+        gsap.to('.loading', { opacity: 0, delay: 1 });
+        gsap.to('.success', { opacity: 1, delay: 1 });
+      }
+    },
+    { 
+      scope: container, 
+      dependencies: [is_loading, is_success],
+    }
+  ); // <-- scope is for selector text (optional)
 
   // ============================================
 
@@ -72,14 +110,15 @@ export default function ForumThreadPage () {
   // ============================================
 
   const getPosts = async () => {
+    setStatus(FETCH_STATUS.LOADING);
+
     const route = `posts/thread/${thread_id}`;
     const promise = http({ url: apiUrl(route) });
-    const [data, error] = await asynch( promise );
-    if (error) {
-      console.error(error);
-      // notify({message: 'Error getting posts...', variant: 'error', duration: 2000})();
-      return;
-    }
+    const [data, err] = await asynch( promise );
+
+    if (err) return errorFn({ err, msg: 'Error getting thread...' });
+
+    setStatus(FETCH_STATUS.SUCCESS);
     console.log('data: ', data);
     setPosts(data);
   };
@@ -106,8 +145,8 @@ export default function ForumThreadPage () {
       body: post
     });
 
-    const [data, error] = await asynch( promise );
-    if (error) {
+    const [data, err] = await asynch( promise );
+    if (err) {
       // notify({message: 'Error creating post...', variant: 'error', duration: 4000})();
       console.log('if(error) in createPost()');
       console.log(error);
@@ -171,20 +210,73 @@ export default function ForumThreadPage () {
         {/* <MUIResponsiveSX /> */}
         {/* <ThreadGrid /> */}
 
-        <ul
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <main 
+          ref={container}
           style={{
-            listStyle: 'none',
-            padding: 0,
-          }}
-        >
-          {posts.map((post, idx) => {
-            return (
-              <Box key={`post-${post.id}`} sx={(theme) => ({ mb: theme.spacing(2) })}>
-                <ThreadGrid {...{ post, idx }} />
-              </Box>
-            );
-          })}
-        </ul>
+            display: 'grid',
+            gridTemplateColumns: '1fr',
+            gridTemplateRows: '1fr',
+        }}>
+          <section className="success" style={{ gridColumn: '1 / -1', gridRow: '1 / -1', opacity: 0 }}>
+            <Box
+              sx={{
+                p: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+              }}
+            >
+              {posts.map((post, idx) => {
+                return (
+                  <Box key={`post-${post.id}`} sx={(theme) => ({ mb: theme.spacing(2) })}>
+                    <ThreadGrid {...{ post, idx }} />
+                  </Box>
+                );
+              })} 
+            </Box>
+
+            <Box
+              sx={{ mb: 2 }}
+            >
+              { user.logged_in && <RichText {...{ quill, setQuill }} /> }
+            </Box>
+              
+            <Button 
+              variant='contained'
+              // disabled
+              onClick={() => {
+                if (!user.logged_in) {
+                  notify({message: 'Please log in to post a reply...', variant: 'warning', duration: 3000})();
+                  return navigate('/login');
+                }
+                
+                createPost();
+              }}
+            >
+              Reply
+            </Button>    
+          </section>
+
+          <section className="loading" style={{ gridColumn: '1 / -1', gridRow: '1 / -1', opacity: 1, pointerEvents: 'none' }}>
+            <Loading />
+          </section>
+        </main>
+
+        {is_error && <Typography>Error: {error}</Typography>}
 
 
 
@@ -194,83 +286,21 @@ export default function ForumThreadPage () {
 
 
 
-              {/* { user.id === post.user_id &&
-                <>
-                  <Button onClick={() => {
-                    setUpdatedPost(post.content);
-                    handleOpenEditModal();
-                  }}>
-                    Edit
-                  </Button>
-                  <Modal
-                    open={open_edit_modal}
-                    onClose={handleCloseEditModal}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style_edit_modal}>
-                      <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                      </Typography>
-                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                      </Typography>
-
-                      
-                      <Box
-                        component="form"
-                        sx={{
-                          '& .MuiTextField-root': { m: 1, width: '100%' },
-                        }}
-                        noValidate
-                        autoComplete="off"
-                      >
-                        <TextField
-                          id="filled-multiline-static"
-                          label="Reply"
-                          multiline
-                          rows={4}
-                          // defaultValue="Default Value"
-                          variant="filled"
-                          value={updated_post}
-                          onChange={(e) => setUpdatedPost(e.target.value)}
-                        />
-                      </Box>
-
-                      <Button 
-                        onClick={() => {
-                          updatePost(post.id);
-                          handleCloseEditModal();
-                        }}
-                      >
-                        Update</Button>
-                    </Box>
-                  </Modal>
-                </>
-              } */}
 
 
-        {/* <SnackbarElevateAppBar /> */}
-        <Box
-          sx={{ mb: 2 }}
-        >
-          { user.logged_in && <RichText {...{ quill, setQuill }} /> }
-        </Box>
-          
-        <Button 
-          variant='contained'
-          // disabled
-          onClick={() => {
-            if (!user.logged_in) {
-              notify({message: 'Please log in to post a reply...', variant: 'warning', duration: 3000})();
-              return navigate('/login');
-            }
-            
-            createPost();
-          }}
-        >
-          Reply
-        </Button>        
+
+
+
+
+
+
+
+
+
+
+
+
+    
       </Container>
     </Transition>
   );

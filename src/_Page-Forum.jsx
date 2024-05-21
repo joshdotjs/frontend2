@@ -140,10 +140,6 @@ export default function ForumPage () {
             display: 'grid',
             gridTemplateColumns: '1fr',
             gridTemplateRows: '1fr',
-            // position: 'relative'
-            // width: '300px',
-            // height: '300px',
-            // border: '10px solid white',
         }}>
           <section className="success" style={{ gridColumn: '1 / -1', gridRow: '1 / -1', opacity: 0 }}>
             <Box
@@ -231,7 +227,6 @@ export default function ForumPage () {
             <Loading />
           </section>
         </main>
-
 
         {is_error && <Typography>Error: {error}</Typography>}
 
