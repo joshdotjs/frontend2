@@ -149,7 +149,7 @@ export default function ForumThreadPage () {
     if (err) {
       // notify({message: 'Error creating post...', variant: 'error', duration: 4000})();
       console.log('if(error) in createPost()');
-      console.log(error);
+      console.log(err);
       return;
     }
 
