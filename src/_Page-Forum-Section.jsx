@@ -1,15 +1,9 @@
 // libs:
-import { useState, useEffect, useContext, useRef } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   Box, Container, Modal, Button, Typography, TextField
 } from '@mui/material';
-import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import HeadsetIcon from '@mui/icons-material/Headset';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import CableIcon from '@mui/icons-material/Cable';
-import Hidden from '@mui/material/Hidden';
 
 // comps:
 import Transition from './_layout-transition';
@@ -145,24 +139,24 @@ export default () => {
 
   // ============================================
 
-  const Icons = [
-    {
-      comp: <NewspaperIcon />,
-      color: theme.j.accent.green,
-    },
-    {
-      comp: <LocalFireDepartmentIcon />,
-      color: theme.j.accent.orange,
-    },
-    {
-      comp: <CableIcon />,
-      color: theme.j.accent.purple,
-    },
-    {
-      comp: <HeadsetIcon />,
-      color: theme.j.accent.blue,
-    },
-  ];
+  // const Icons = [
+  //   {
+  //     comp: <NewspaperIcon />,
+  //     color: theme.j.accent.green,
+  //   },
+  //   {
+  //     comp: <LocalFireDepartmentIcon />,
+  //     color: theme.j.accent.orange,
+  //   },
+  //   {
+  //     comp: <CableIcon />,
+  //     color: theme.j.accent.purple,
+  //   },
+  //   {
+  //     comp: <HeadsetIcon />,
+  //     color: theme.j.accent.blue,
+  //   },
+  // ];
   
   // ============================================
   
