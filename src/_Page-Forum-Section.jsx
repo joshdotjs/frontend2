@@ -1,17 +1,9 @@
 // libs:
-import { useState, useEffect, useContext, useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   Box, Container, Modal, Button, Typography, TextField
 } from '@mui/material';
-import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import HeadsetIcon from '@mui/icons-material/Headset';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import CableIcon from '@mui/icons-material/Cable';
-import Hidden from '@mui/material/Hidden';
 
 // comps:
 import Transition from './_layout-transition';
@@ -22,17 +14,13 @@ import { AuthContext } from './context/auth-context';
 
 // hooks:
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from './hooks/use-notification';
 import { useTheme } from '@mui/material/styles';
+import { useLoading } from './hooks/use-loading';
 
 // utils:
 import { http } from './util/http';
 import { apiUrl } from './util/url';
 import { asynch } from './util/async';
-import { FETCH_STATUS } from './util/fetch-status';
-
-// register:
-gsap.registerPlugin(useGSAP);
 
 // ==============================================
 // ==============================================
@@ -76,38 +64,16 @@ export default () => {
 
   // ============================================
 
-  // TODO: put in hook:
-  const [error, setError] = useState(null);
-  const [status, setStatus] = useState(FETCH_STATUS.IDLE);
-  const errorFn = ({err, msg}) => {
-    console.error(err);
-    notify({message: msg, variant: 'error', duration: 3000})();
-    setStatus(FETCH_STATUS.ERROR);
-    setError(err);
-  };
-  const is_loading = status === FETCH_STATUS.LOADING;
-  const is_success = status === FETCH_STATUS.SUCCESS;
-  const is_error = status === FETCH_STATUS.ERROR;
-
-  const container = useRef();
-
-  useGSAP(
-    () => {
-      // gsap code here...
-      if (is_success) {
-        gsap.to('.loading', { opacity: 0, delay: 1 });
-        gsap.to('.success', { opacity: 1, delay: 1 });
-      }
-    },
-    { 
-      scope: container, 
-      dependencies: [is_loading, is_success],
-    }
-  ); // <-- scope is for selector text (optional)
-
-  // ============================================
-
   const theme = useTheme();
+  const { 
+    error, 
+    setStatus, 
+    errorFn, 
+    is_error, 
+    container_ref, 
+    notify, 
+    FETCH_STATUS 
+  } = useLoading();
 
   const [threads, setThreads] = useState([]);
   const [section, setSection] = useState({});
@@ -115,7 +81,6 @@ export default () => {
   const { section_id } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [ notify ] = useNotification();
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -165,12 +130,7 @@ export default () => {
     });
 
     const [data, err] = await asynch( promise );
-    if (err) {
-      // notify({message: 'Error creating post...', variant: 'error', duration: 4000})();
-      console.log('if(error) in createPost()');
-      console.log(err);
-      return;
-    }
+    if (err) return errorFn({ err, msg: 'Error creating thread section...' });
 
     setTitle('');
     setContent('');
@@ -179,24 +139,24 @@ export default () => {
 
   // ============================================
 
-  const Icons = [
-    {
-      comp: <NewspaperIcon />,
-      color: theme.j.accent.green,
-    },
-    {
-      comp: <LocalFireDepartmentIcon />,
-      color: theme.j.accent.orange,
-    },
-    {
-      comp: <CableIcon />,
-      color: theme.j.accent.purple,
-    },
-    {
-      comp: <HeadsetIcon />,
-      color: theme.j.accent.blue,
-    },
-  ];
+  // const Icons = [
+  //   {
+  //     comp: <NewspaperIcon />,
+  //     color: theme.j.accent.green,
+  //   },
+  //   {
+  //     comp: <LocalFireDepartmentIcon />,
+  //     color: theme.j.accent.orange,
+  //   },
+  //   {
+  //     comp: <CableIcon />,
+  //     color: theme.j.accent.purple,
+  //   },
+  //   {
+  //     comp: <HeadsetIcon />,
+  //     color: theme.j.accent.blue,
+  //   },
+  // ];
   
   // ============================================
   
@@ -214,7 +174,7 @@ export default () => {
 
 
         <main 
-          ref={container}
+          ref={container_ref}
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr',
@@ -318,7 +278,7 @@ export default () => {
                 variant="contained"
                 onClick={() => {
                   if (!user?.logged_in) {
-                    notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000})();
+                    notify({message: 'Please log in to create a thread...', variant: 'warning', duration: 3000});
                     return navigate('/login');
                   }
 

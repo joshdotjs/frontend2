@@ -1,7 +1,5 @@
 // libs:
-import React, { useState, useEffect, useContext, useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { 
@@ -12,30 +10,26 @@ import {
 // comps:
 import Transition from './_layout-transition';
 import Loading from './loading';
-import IconGrouping from './mui-icon-grouping'
-import SnackbarElevateAppBar from './mui-snackbar-elevate-app-bar';
-import TextInputMultiLine from './mui-text-field-multiline';
+// import IconGrouping from './mui-icon-grouping'
+// import SnackbarElevateAppBar from './mui-snackbar-elevate-app-bar';
+// import TextInputMultiLine from './mui-text-field-multiline';
 import RichText from './rich-text';
 import ThreadGrid from './forum-thread-grid';
-import MUIResponsiveSX from './mui-responsive-sx'
-import MUIResponsiveUseTheme from './mui-responsive-useTheme';
+// import MUIResponsiveSX from './mui-responsive-sx'
+// import MUIResponsiveUseTheme from './mui-responsive-useTheme';
 
 // context:
 import { AuthContext } from './context/auth-context';
 
 // hooks:
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from './hooks/use-notification';
 import { useTheme } from '@mui/material/styles';
+import { useLoading } from './hooks/use-loading';
 
 // utils:
 import { http } from './util/http';
 import { apiUrl } from './util/url';
 import { asynch } from './util/async';
-import { FETCH_STATUS } from './util/fetch-status';
-
-// register:
-gsap.registerPlugin(useGSAP);
 
 // ==============================================
 // ==============================================
@@ -43,37 +37,6 @@ gsap.registerPlugin(useGSAP);
 // ==============================================
 
 export default function ForumThreadPage () {
-
-  // ============================================
-
-  // TODO: put in hook:
-  const [error, setError] = useState(null);
-  const [status, setStatus] = useState(FETCH_STATUS.IDLE);
-  const errorFn = ({err, msg}) => {
-    console.error(err);
-    notify({message: msg, variant: 'error', duration: 3000})();
-    setStatus(FETCH_STATUS.ERROR);
-    setError(err);
-  };
-  const is_loading = status === FETCH_STATUS.LOADING;
-  const is_success = status === FETCH_STATUS.SUCCESS;
-  const is_error = status === FETCH_STATUS.ERROR;
-
-  const container = useRef();
-
-  useGSAP(
-    () => {
-      // gsap code here...
-      if (is_success) {
-        gsap.to('.loading', { opacity: 0, delay: 1 });
-        gsap.to('.success', { opacity: 1, delay: 1 });
-      }
-    },
-    { 
-      scope: container, 
-      dependencies: [is_loading, is_success],
-    }
-  ); // <-- scope is for selector text (optional)
 
   // ============================================
 
@@ -85,9 +48,17 @@ export default function ForumThreadPage () {
   const { thread_id } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [ notify ] = useNotification();
 
   const theme = useTheme();
+  const { 
+    error, 
+    setStatus, 
+    errorFn, 
+    is_error, 
+    container_ref, 
+    notify, 
+    FETCH_STATUS 
+  } = useLoading();
 
   // ============================================
 
@@ -146,12 +117,7 @@ export default function ForumThreadPage () {
     });
 
     const [data, err] = await asynch( promise );
-    if (err) {
-      // notify({message: 'Error creating post...', variant: 'error', duration: 4000})();
-      console.log('if(error) in createPost()');
-      console.log(err);
-      return;
-    }
+    if (err) return errorFn({ err, msg: 'Error creating reply...' });
 
     getPosts();
   };
@@ -173,13 +139,8 @@ export default function ForumThreadPage () {
       body: post
     });
 
-    const [data, error] = await asynch( promise );
-    if (error) {
-      // notify({message: 'Error updating post...', variant: 'error', duration: 4000})();
-      console.log('if(error) in updatePost()');
-      console.log(error);
-      return;
-    }
+    const [data, err] = await asynch( promise );
+    if (err) return errorFn({ err, msg: 'Error updating reply...' });
 
     setUpdatedPost('');
     getPosts();
@@ -206,26 +167,8 @@ export default function ForumThreadPage () {
 
         <h2>{posts?.[0]?.title}</h2>
 
-        {/* <MUIResponsiveUseTheme /> */}
-        {/* <MUIResponsiveSX /> */}
-        {/* <ThreadGrid /> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <main 
-          ref={container}
+          ref={container_ref}
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr',
